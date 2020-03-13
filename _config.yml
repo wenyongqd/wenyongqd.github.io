@@ -3,25 +3,25 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Kaijun's Blog
+title: Wenyong's Blog
 subtitle: To Be A Lean Developer!
-author: Kaijun Chen
-language:
+author: Wenyong He
+language: English
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://kaijun.rocks/hexo-theme-huxblog
-root: /hexo-theme-huxblog/
+url: https://wenyongqd.github.io/
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
 #Custom Setting Start
 
 # Site settings
-SEOTitle: Kaijun的博客 | Kaijun's Blog
+SEOTitle: Wenyong的博客 | Wenyong's Blog
 header-img: img/home-bg.jpg
-email: Kaijun.cn@gmail.com
+email: wenyongqd@gmail.com
 description: ""
 keyword: ""
 
@@ -59,7 +59,7 @@ ga_domain: huangxuan.me
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "我要成为魔法师!"
-sidebar-avatar: /img/avatar.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: img/wenyong.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 # Featured Tags
@@ -147,5 +147,5 @@ theme: huxblog
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/Kaijun/hexo-theme-huxblog
-  branch: gh-pages
+  repo: https://github.com/wenyongqd/wenyongqd.github.io
+  branch: master
