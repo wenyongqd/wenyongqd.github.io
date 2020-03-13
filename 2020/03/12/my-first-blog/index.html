@@ -191,19 +191,65 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="第一章节"><a href="#第一章节" class="headerlink" title="第一章节"></a>第一章节</h2><ul>
-<li>无序列表 1</li>
-</ul>
-<ul>
-<li>无序列表 2</li>
-</ul>
-<ul>
-<li>无序列表 3</li>
-</ul>
+                <h2 id="LeetCode-841"><a href="#LeetCode-841" class="headerlink" title="LeetCode 841"></a>LeetCode 841</h2><h2 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h2><ol>
+<li><a href="#tips">Tips</a></li>
+<li><a href="#hints">Hints</a></li>
+</ol>
 <blockquote>
 <p>“Yeah It’s on. ”</p>
 </blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hux 的 Blog 就这么开通了。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
+<li>ArrayList and HashSet </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>Key</th>
+<th>ArrayList</th>
+<th>HashSet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Implimentation</td>
+<td>ArrayList is the implementation of the list interface.</td>
+<td>HashSet on the other hand is the implementation of a set interface.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Internal implimentation</td>
+<td>ArrayList internally implements array for its implementation.</td>
+<td>HashSet internally uses Hashmap for its implementation.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Order of elements</td>
+<td>ArrayList maintains the insertion order i.e order of the object in which they are inserted.</td>
+<td>HashSet is an unordered collection and doesn’t maintain any order.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Duplicates</td>
+<td>ArrayList <code>allows duplicate</code> values in its collection.</td>
+<td>On other hand Hashset allows only one null value in its collection,after which no null value is allowed to be added.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Index performance</td>
+<td>ArrayList uses index for its performance i.e its index based one can retrieve object by calling get(index) or remove objects by calling remove(index)</td>
+<td>HashSet is completely based on object also it doesn’t provide get() method.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Null Allowed</td>
+<td>Any number of null value can be inserted in arraylist without any restriction.</td>
+<td>On other hand Hashset allows only one null value in its collection,after which no null value is allowed to be added.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Hints"><a href="#Hints" class="headerlink" title="Hints"></a>Hints</h2><p>Hux 的 Blog 就这么开通了。</p>
 <p><a href="#build">跳过废话，直接看技术实现 </a></p>
 <p>2015 年，Hux 总算有个地方可以好好写点东西了。</p>
 <p>作为一个程序员， Blog 这种轮子要是挂在大众博客程序上就太没意思了。一是觉得大部分 Blog 服务都太丑，二是觉得不能随便定制不好玩。之前因为太懒没有折腾，结果就一直连个写 Blog 的地儿都没有。</p>
