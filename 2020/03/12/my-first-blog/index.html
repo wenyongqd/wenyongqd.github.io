@@ -13,7 +13,7 @@
 
     <title>
         
-          my first blog - Wenyong的博客 | Wenyong&#39;s Blog
+          LeetCode 841 - Wenyong的博客 | Wenyong&#39;s Blog
         
     </title>
 
@@ -167,8 +167,12 @@
                         
                           <a class="tag" href="/tags/#Java" title="Java">Java</a>
                         
+                          <a class="tag" href="/tags/#LeetCode" title="LeetCode">LeetCode</a>
+                        
+                          <a class="tag" href="/tags/#DFS" title="DFS">DFS</a>
+                        
                     </div>
-                    <h1>my first blog</h1>
+                    <h1>LeetCode 841</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Wenyong He on
@@ -191,15 +195,16 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="LeetCode-841"><a href="#LeetCode-841" class="headerlink" title="LeetCode 841"></a>LeetCode 841</h2><h2 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h2><ol>
-<li><a href="#tips">Tips</a></li>
-<li><a href="#hints">Hints</a></li>
+                <h2 id="LeetCode-841"><a href="#LeetCode-841" class="headerlink" title="LeetCode 841"></a>LeetCode <em>841</em></h2><h3 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h3><ol>
+<li><a href="#Tips">Tips</a></li>
+<li><a href="#Hints">Hints</a></li>
+<li><a href="#Code">Code</a></li>
 </ol>
 <blockquote>
 <p>“Yeah It’s on. ”</p>
 </blockquote>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
-<li>ArrayList and HashSet </li>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><h4 id="ArrayList-and-HashSet"><a href="#ArrayList-and-HashSet" class="headerlink" title="ArrayList and HashSet"></a>ArrayList and HashSet</h4><ul>
+<li>ArrayList allows duplicate values in its collection, HashSet doesn’t allow to do that.</li>
 </ul>
 <table>
 <thead>
@@ -249,36 +254,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="Hints"><a href="#Hints" class="headerlink" title="Hints"></a>Hints</h2><p>Hux 的 Blog 就这么开通了。</p>
-<p><a href="#build">跳过废话，直接看技术实现 </a></p>
-<p>2015 年，Hux 总算有个地方可以好好写点东西了。</p>
-<p>作为一个程序员， Blog 这种轮子要是挂在大众博客程序上就太没意思了。一是觉得大部分 Blog 服务都太丑，二是觉得不能随便定制不好玩。之前因为太懒没有折腾，结果就一直连个写 Blog 的地儿都没有。</p>
-<p>在玩了一段时间知乎之后，答题的快感又激起了我开博客的冲动。之前的<a href="http://huangxuan.me/portfolio" target="_blank" rel="noopener">个人网站</a>是作品集形式的（现在集成进来了），并不适合用来写博文，一不做二不休，花一天搞一个吧！</p>
-<h2 id><a href="#" class="headerlink" title></a><p id="build"></p></h2><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>接下来说说搭建这个博客的技术细节。  </p>
-<p>正好之前就有关注过 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> + <a href="http://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a> 快速 Building Blog 的技术方案，非常轻松时尚。</p>
-<p>其优点非常明显：</p>
-<ul>
-<li><strong>Markdown</strong> 带来的优雅写作体验</li>
-<li>非常熟悉的 Git workflow ，<strong>Git Commit 即 Blog Post</strong></li>
-<li>利用 GitHub Pages 的域名和免费无限空间，不用自己折腾主机<ul>
-<li>如果需要自定义域名，也只需要简单改改 DNS 加个 CNAME 就好了</li>
+<h3 id="Hints"><a href="#Hints" class="headerlink" title="Hints"></a>Hints</h3><h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canVisitAllRooms</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//At the begining, we have a list "res" to store the keys we get..</span></span><br><span class="line">        <span class="comment">//that means at some point we have entered this room.</span></span><br><span class="line">        Set&lt;Integer&gt; res = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        helper(rooms, <span class="number">0</span>, res);</span><br><span class="line">        res.add(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//if any room that hasn't been visited, return false.</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rooms.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!res.contains(i)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//When visiting a room for the first time, look at all the keys in the room.</span></span><br><span class="line">    <span class="comment">//For any key in the room that hasn't been used yet, add it to the list "res"</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">helper</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; rooms, <span class="keyword">int</span> n, Set&lt;Integer&gt; res)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( rooms.get(n).size() == <span class="number">0</span> ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rooms.get(n).size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (res.contains(rooms.get(n).get(i))) <span class="keyword">continue</span>;</span><br><span class="line">            res.add(rooms.get(n).get(i));</span><br><span class="line">            helper(rooms, rooms.get(n).get(i), res);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li>Time Complexity: O(N + E)O(N+E), where NN is the number of rooms, and EE is the total number of keys.</li>
+<li>Space Complexity: O(N)O(N) in additional space complexity, to store stack and seen.</li>
 </ul>
-</li>
-<li>Jekyll 的自定制非常容易，基本就是个模版引擎</li>
-</ul>
-<p>本来觉得最大的缺点可能是 GitHub 在国内访问起来太慢，所以第二天一起床就到 GitCafe(Chinese GitHub Copy) 迁移了一个<a href="http://huxpro.gitcafe.io" target="_blank" rel="noopener">镜像</a>出来，结果还是巨慢。</p>
-<p>哥哥可是个前端好嘛！ 果断开 Chrome DevTool 查了下网络请求，原来是 <strong>pending 在了 Google Fonts</strong> 上，页面渲染一直被阻塞到请求超时为止，难怪这么慢。<br>忍痛割爱，只好把 Web Fonts 去了（反正超时看到的也只能是 fallback ），果然一下就正常了，而且 GitHub 和 GitCafe 对比并没有感受到明显的速度差异，虽然 github 的 ping 值明显要高一些，达到了 300ms，于是用 DNSPOD 优化了一下速度。</p>
-<hr>
-<p>配置的过程中也没遇到什么坑，基本就是 Git 的流程，相当顺手</p>
-<p>大的 Jekyll 主题上直接 fork 了 Clean Blog（这个主题也相当有名，就不多赘述了。唯一的缺点大概就是没有标签支持，于是我给它补上了。）</p>
-<p>本地调试环境需要 <code>gem install jekyll</code>，结果 rubygem 的源居然被墙了……后来手动改成了我大淘宝的镜像源才成功</p>
-<p>Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Less 里改就好了（平时更习惯 SCSS 些），<strong>不过其实我一直觉得 Bootstrap 在移动端的体验做得相当一般，比我在淘宝参与的团队 CSS 框架差多了……</strong>所以为了体验，也补了不少 CSS 进去</p>
-<p>最后就进入了耗时反而最长的<strong>做图、写字</strong>阶段，也算是进入了<strong>写博客</strong>的正轨，因为是类似 Hack Day 的方式去搭这个站的，所以折腾折腾着大半夜就过去了。</p>
-<p>第二天考虑中文字体的渲染，fork 了 <a href="http://www.typeisbeautiful.com/" target="_blank" rel="noopener">Type is Beautiful</a> 的 <code>font</code> CSS，调整了字号，适配了 Win 的渣渲染，中英文混排效果好多了。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>回顾这个博客的诞生，纯粹是出于个人兴趣。在知乎相关问题上回答并获得一定的 star 后，我决定把这个博客主题当作一个小小的开源项目来维护。</p>
-<p>在经历 v1.0 - v1.5 的蜕变后，这个博客主题愈发完整，不但增加了诸多 UI 层的优化（opinionated）；在代码层面，更加丰富的配置项也使得这个主题拥有了更好的灵活性与可拓展性。而作为一个开源项目，我也积极的为其完善文档与解决 issue。</p>
-<p>如果你恰好逛到了这里，希望你也能喜欢这个博客主题。</p>
-<p>—— Hux 后记于 2015.10</p>
+<blockquote>
+<p>很多时候，人们误以为自己需要的是具体的方法。但其实，真正需要切有用的是：一场顿悟，一场觉醒。那等价于一次基因突变。</p>
+</blockquote>
 
 
                 <hr>
@@ -323,6 +306,10 @@
                     <div class="tags">
                        
                           <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                          <a class="tag" href="/tags/#LeetCode" title="LeetCode">LeetCode</a>
+                        
+                          <a class="tag" href="/tags/#DFS" title="DFS">DFS</a>
                         
                     </div>
                 </section>
