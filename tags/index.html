@@ -90,6 +90,13 @@
 
                         
                         <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -98,13 +105,6 @@
                         
                         <li>
                             <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -170,19 +170,15 @@
             <!-- 标签云 -->
             <div id='tag_cloud' class="tags">
                 
-                    <a href="#生活" title="生活" rel="1">生活</a>
+                    <a href="#Interview" title="Interview" rel="1">Interview</a>
                 
                     <a href="#前端开发" title="前端开发" rel="3">前端开发</a>
                 
                     <a href="#JavaScript" title="JavaScript" rel="3">JavaScript</a>
                 
+                    <a href="#生活" title="生活" rel="1">生活</a>
+                
                     <a href="#翻译" title="翻译" rel="1">翻译</a>
-                
-                    <a href="#Java" title="Java" rel="1">Java</a>
-                
-                    <a href="#LeetCode" title="LeetCode" rel="1">LeetCode</a>
-                
-                    <a href="#DFS" title="DFS" rel="1">DFS</a>
                 
                     <a href="#OS" title="OS" rel="1">OS</a>
                 
@@ -190,14 +186,20 @@
                 
                     <a href="#Linux" title="Linux" rel="1">Linux</a>
                 
+                    <a href="#Java" title="Java" rel="1">Java</a>
+                
+                    <a href="#LeetCode" title="LeetCode" rel="1">LeetCode</a>
+                
+                    <a href="#DFS" title="DFS" rel="1">DFS</a>
+                
             </div>
 
             <!-- 标签列表 -->
 
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="生活">
-                    <span class="tag-text">生活</span>
+                <span class="fa fa-tag listing-seperator" id="Interview">
+                    <span class="tag-text">Interview</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -205,13 +207,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2014/01/29/hello-2015/">
+                     <a href="/2020/03/13/OOP-Java-Interview-Questions/">
                         <h2 class="post-title">
-                            Welcome to Hux Blog
+                            OOP Java Interview Questions
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                 "Hello World, Hello Blog"
+                                "Anyone can be cool, but awesome take practice."
                             </h3>
                         
                     </a>
@@ -342,6 +344,32 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="生活">
+                    <span class="tag-text">生活</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2014/01/29/hello-2015/">
+                        <h2 class="post-title">
+                            Welcome to Hux Blog
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "Hello World, Hello Blog"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="翻译">
                     <span class="tag-text">翻译</span>
                 </span>
@@ -354,72 +382,6 @@
                      <a href="/2014/09/22/js-version/">
                         <h2 class="post-title">
                             Example Post
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Java">
-                    <span class="tag-text">Java</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2020/03/12/my-first-blog/">
-                        <h2 class="post-title">
-                            LeetCode 841
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="LeetCode">
-                    <span class="tag-text">LeetCode</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2020/03/12/my-first-blog/">
-                        <h2 class="post-title">
-                            LeetCode 841
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="DFS">
-                    <span class="tag-text">DFS</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2020/03/12/my-first-blog/">
-                        <h2 class="post-title">
-                            LeetCode 841
                         </h2>
                         
                     </a>
@@ -499,6 +461,72 @@
                             <h3 class="post-subtitle">
                                 不适合人类阅读，非常水的自我笔记
                             </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Java">
+                    <span class="tag-text">Java</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/12/my-first-blog/">
+                        <h2 class="post-title">
+                            LeetCode 841
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="LeetCode">
+                    <span class="tag-text">LeetCode</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/12/my-first-blog/">
+                        <h2 class="post-title">
+                            LeetCode 841
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="DFS">
+                    <span class="tag-text">DFS</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/12/my-first-blog/">
+                        <h2 class="post-title">
+                            LeetCode 841
+                        </h2>
                         
                     </a>
                     <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
