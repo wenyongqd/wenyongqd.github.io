@@ -3,7 +3,7 @@
 
 <!-- Head tag -->
 <head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,14 +49,14 @@
     <![endif]-->
 
     <!-- ga & ba script hoook -->
-    <script></script>
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
-    <!-- Navigation -->
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -170,21 +170,23 @@
             <!-- 标签云 -->
             <div id='tag_cloud' class="tags">
                 
+                    <a href="#Java" title="Java" rel="3">Java</a>
+                
+                    <a href="#LeetCode" title="LeetCode" rel="2">LeetCode</a>
+                
+                    <a href="#Dynamic Programming" title="Dynamic Programming" rel="1">Dynamic Programming</a>
+                
                     <a href="#Interview" title="Interview" rel="1">Interview</a>
                 
-                    <a href="#Refactor" title="Refactor" rel="1">Refactor</a>
-                
-                    <a href="#Java" title="Java" rel="2">Java</a>
-                
                     <a href="#生活" title="生活" rel="1">生活</a>
+                
+                    <a href="#Refactor" title="Refactor" rel="1">Refactor</a>
                 
                     <a href="#前端开发" title="前端开发" rel="3">前端开发</a>
                 
                     <a href="#JavaScript" title="JavaScript" rel="3">JavaScript</a>
                 
                     <a href="#翻译" title="翻译" rel="1">翻译</a>
-                
-                    <a href="#LeetCode" title="LeetCode" rel="1">LeetCode</a>
                 
                     <a href="#DFS" title="DFS" rel="1">DFS</a>
                 
@@ -200,61 +202,28 @@
 
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Interview">
-                    <span class="tag-text">Interview</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2020/03/13/OOP-Java-Interview-Questions/">
-                        <h2 class="post-title">
-                            OOP Java Interview Questions
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                "Anyone can be cool, but awesome take practice."
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Refactor">
-                    <span class="tag-text">Refactor</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2020/03/14/Refactoring-in-Action/">
-                        <h2 class="post-title">
-                            Refactoring in Action
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                "Anyone can be cool, but awesome take practice."
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Java">
                     <span class="tag-text">Java</span>
                 </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/15/LeetCode-42/">
+                        <h2 class="post-title">
+                            LeetCode 42
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                "Anyone can be cool, but awesome take practice."
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -293,6 +262,99 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="LeetCode">
+                    <span class="tag-text">LeetCode</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/15/LeetCode-42/">
+                        <h2 class="post-title">
+                            LeetCode 42
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                "Anyone can be cool, but awesome take practice."
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/12/my-first-blog/">
+                        <h2 class="post-title">
+                            LeetCode 841
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Dynamic Programming">
+                    <span class="tag-text">Dynamic Programming</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/15/LeetCode-42/">
+                        <h2 class="post-title">
+                            LeetCode 42
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                "Anyone can be cool, but awesome take practice."
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Interview">
+                    <span class="tag-text">Interview</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/13/OOP-Java-Interview-Questions/">
+                        <h2 class="post-title">
+                            OOP Java Interview Questions
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                "Anyone can be cool, but awesome take practice."
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="生活">
                     <span class="tag-text">生活</span>
                 </span>
@@ -309,6 +371,32 @@
                         
                             <h3 class="post-subtitle">
                                  "Hello World, Hello Blog"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Refactor">
+                    <span class="tag-text">Refactor</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2020/03/14/Refactoring-in-Action/">
+                        <h2 class="post-title">
+                            Refactoring in Action
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                "Anyone can be cool, but awesome take practice."
                             </h3>
                         
                     </a>
@@ -451,28 +539,6 @@
                      <a href="/2014/09/22/js-version/">
                         <h2 class="post-title">
                             Example Post
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="LeetCode">
-                    <span class="tag-text">LeetCode</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2020/03/12/my-first-blog/">
-                        <h2 class="post-title">
-                            LeetCode 841
                         </h2>
                         
                     </a>
@@ -792,7 +858,24 @@
 
 <!-- Image to hack wechat -->
 <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
+<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 </body>
 
