@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Servlet - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/03/19/Servlet/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Servlet" title="Servlet">Servlet</a>
+                        
+                    </div>
+                    <h1>Servlet</h1>
+                    <h2 class="subheading">&quot;“A successful man is one who can lay a firm foundation with the bricks others have thrown at him.”— David Brinkley &quot;</h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-03-19
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><img src="https://miro.medium.com/max/9792/1*c6Lw3mIePawaWKRV7c7K_Q.jpeg" alt="image"></p>
+<blockquote>
+<p>“Five years from now you will arrive, the question is where?” — Jim Rohn</p>
+</blockquote>
+<blockquote>
+<p>‘Spend each day trying to be a little wiser than you were when you woke up. Discharge your duties faithfully and well. Step by step you get ahead, but not necessarily in fast spurts. But you build discipline by preparing for fast spurts… Slug it out one inch at a time, day by day, at the end of the day — if you live long enough — most people get what they deserve.’</p>
+</blockquote>
+<h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><ul>
+<li><p><strong>Concept</strong>：Servlets are Java programs that runs inside a Java-capable HTTP server.</p>
+<ul>
+<li>Java servlets typically run on the HTTP protocol. HTTP is an asymmetrical request-response protocol.</li>
+</ul>
+</li>
+<li><strong>Quick Start</strong>：<ol>
+<li>Create a JavaEE program</li>
+<li>Write a Java Servlet which extends Servlet Interface.</li>
+<li>Implement the abstract methods in Servlet Interface</li>
+<li>Configure the Application Deployment Descriptor - “web.xml”</li>
+</ol>
+</li>
+</ul>
+<h2 id="First-“Hello-world”-Servlet"><a href="#First-“Hello-world”-Servlet" class="headerlink" title="First “Hello-world” Servlet"></a>First “Hello-world” Servlet</h2><hr>
+<h4 id="Write-a-Hello-world-Java-Servlet-“HelloServlet-java”"><a href="#Write-a-Hello-world-Java-Servlet-“HelloServlet-java”" class="headerlink" title="Write a Hello-world Java Servlet - “HelloServlet.java”"></a>Write a Hello-world Java Servlet - “HelloServlet.java”</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        <span class="comment">// Set the response message's MIME type</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">        <span class="comment">// Allocate a output writer to write the response message into the network socket</span></span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Write the response message, in an HTML page</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            out.println(<span class="string">"&lt;!DOCTYPE html&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;html&gt;&lt;head&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;meta http-equiv='Content-Type' content='text/html; charset=UTF-8'&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;title&gt;Hello, World&lt;/title&gt;&lt;/head&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;body&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;h1&gt;Hello, world!&lt;/h1&gt;"</span>);  <span class="comment">// says Hello</span></span><br><span class="line">            <span class="comment">// Echo client's request information</span></span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;Request URI: "</span> + request.getRequestURI() + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;Protocol: "</span> + request.getProtocol() + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;PathInfo: "</span> + request.getPathInfo() + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;Remote Address: "</span> + request.getRemoteAddr() + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            <span class="comment">// Generate a random number upon each request</span></span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;A Random Number: &lt;strong&gt;"</span> + Math.random() + <span class="string">"&lt;/strong&gt;&lt;/p&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;/body&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;/html&gt;"</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            out.close();  <span class="comment">// Always close the output writer</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>As mentioned, a servlet is invoked in response to a request URL issued by a client. Specifically, a client issues an HTTP request, the server routes the request message to the servlet for processing. The servlet returns a response message to the client.</li>
+<li>An HTTP request could use either <code>GET</code> or <code>POST</code> request methods, which will be processed by the servlet’s <code>doGet()</code> or <code>doPost()</code> method, respectively.</li>
+<li>In the HelloServlet, we override the <code>doGet()</code> method (as denoted by the annotation @Override). The doGet() runs in response to an HTTP GET request issued by a user via an URL. doGet() takes two arguments, an <code>HttpServletRequest</code> object and an <code>HttpServletResponse</code> object, corresponding to the request and response messages.</li>
+<li>The <code>HttpServletRequest</code> object can be used to retrieve incoming <strong>HTTP request headers</strong> and <strong>form data</strong>. <code>The HttpServletResponse</code> object can be used to set the <strong>HTTP response headers</strong> (e.g., content-type) and the <strong>response message body</strong>.</li>
+<li>In Line 12, we set the “MIME” type of the response message to “text/html”. The client need to know the message type in order to correctly display the data received. (Other MIME types include text/plain, image/jpeg, video/mpeg, application/xml, and many others.) In Line 14, we retrieve a Writer object called out for writing the response message to the client over the network. We then use the out.println() to print out a proper HTML page containing the message “Hello, world!”. This servlet also echoes some of the clients’s request information, and prints a random number for each request.</li>
+</ul>
+<h4 id="Configure-the-Application-Deployment-Descriptor-“web-xml”"><a href="#Configure-the-Application-Deployment-Descriptor-“web-xml”" class="headerlink" title="Configure the Application Deployment Descriptor - “web.xml”"></a>Configure the Application Deployment Descriptor - “web.xml”</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  配置Servlet  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloWorldServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.itcast.web.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloWorldServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/sayhello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>The “web.xml” is called web application deployment descriptor. It provides the configuration options for that particular web application, such as defining the the mapping between URL and servlet class.</li>
+<li>The above configuration defines a servlet named “<em>HelloWroldServlet</em>“, implemented in “<em>cn.itcast.web.servlet.HelloServlet.class</em>“ (written earlier), and maps to URL “<em>/sayhello</em>“, where “/“ denotes the context root of this webapp “<em>helloservlet</em>“. In other words, the absolute URL for this servlet is <em><a href="http://localhost:8080/sayhello" target="_blank" rel="noopener">http://localhost:8080/sayhello</a></em>.</li>
+</ul>
+<p><img class="shadow" width="620" src="https://www3.ntu.edu.sg/home/ehchua/programming/java/images/Servlet_HelloServletURL.png"></p>
+<h4 id="Run-the-Hello-world-Servlet"><a href="#Run-the-Hello-world-Servlet" class="headerlink" title="Run the Hello-world Servlet"></a>Run the Hello-world Servlet</h4><p>We shall see the output “Hello, world!”.<br><img class="shadow" width="320" src="/2020/03/19/Servlet/servlet.png"></p>
+<h2 id="Processing-HTML-Form-Data"><a href="#Processing-HTML-Form-Data" class="headerlink" title="Processing HTML Form Data"></a>Processing HTML Form Data</h2><hr>
+<h4 id="Write-an-HTML-Form"><a href="#Write-an-HTML-Form" class="headerlink" title="Write an HTML Form"></a>Write an HTML Form</h4><p>Create the following HTML script, and save as “form_input.html”.<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">'Content-Type'</span> <span class="attr">content</span>=<span class="string">'text/html; charset=UTF-8'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>User Input Form<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>User Input Form<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"get"</span> <span class="attr">action</span>=<span class="string">"echo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Personal Particular<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        Name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">        Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">        Gender: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"m"</span> <span class="attr">checked</span> /&gt;</span>Male</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"gender"</span> <span class="attr">value</span>=<span class="string">"f"</span> /&gt;</span>Female<span class="tag">&lt;<span class="name">br</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">        Age: <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span> = <span class="string">"age"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span><span class="symbol">&amp;lt;</span> 1 year old<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"99"</span>&gt;</span>1 to 99 years old<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"100"</span>&gt;</span><span class="symbol">&amp;gt;</span> 99 years old<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Languages<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"language"</span> <span class="attr">value</span>=<span class="string">"java"</span> <span class="attr">checked</span> /&gt;</span>Java</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"language"</span> <span class="attr">value</span>=<span class="string">"c"</span> /&gt;</span>C/C++</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"language"</span> <span class="attr">value</span>=<span class="string">"cs"</span> /&gt;</span>C#</span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Instruction<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">"5"</span> <span class="attr">cols</span>=<span class="string">"30"</span> <span class="attr">name</span>=<span class="string">"instruction"</span>&gt;</span>Enter your instruction here...<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"secret"</span> <span class="attr">value</span>=<span class="string">"888"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"SEND"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"reset"</span> <span class="attr">value</span>=<span class="string">"CLEAR"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Start the tomcat server. Issue the following URL to request for the HTML page:<br><a href="http://localhost:8080/form_input.html" target="_blank" rel="noopener">http://localhost:8080/form_input.html</a><br><img class="shadow" width="450" src="/2020/03/19/Servlet/form.png"></p>
+<h5 id="Explanation"><a href="#Explanation" class="headerlink" title="Explanation"></a>Explanation</h5><ul>
+<li>The <code>&lt;fieldset&gt;...&lt;/fieldset&gt;</code> tag groups related elements and displays them in a box. The <code>&lt;legend&gt;...&lt;/legend&gt;</code> tag provides the legend for the box.</li>
+<li><p>This HTML form (enclosed within <code>&lt;form&gt;...&lt;/form&gt;</code>) contains the following types of input elements:</p>
+<ul>
+<li>Text field (<code>&lt;input type=&quot;text&quot;&gt;</code>): for web users to enter text.</li>
+<li>Radio buttons (<code>&lt;input type=&quot;radio&quot;&gt;</code>): choose any one (and possibly none).</li>
+<li>Pull-down menu (<code>&lt;select&gt;</code> and <code>&lt;option&gt;</code>): pull-down menu of options.</li>
+<li>Checkboxes (<code>&lt;input type=&quot;checkbox&quot;&gt;</code>): chose none or more.</li>
+<li>Text area (<code>&lt;textarea&gt;...&lt;textarea&gt;</code>): for web users to enter multi-line text. (Text field for single line only.)</li>
+<li>Hidden field (<code>&lt;input type=&quot;hidden&quot;&gt;</code>): for submitting hidden name=value pair.</li>
+<li>Submit button (<code>&lt;input type=submit&gt;</code>): user clicks this button to submit the form data to the server.</li>
+<li>Reset button (<code>&lt;input type=&quot;reset&quot;&gt;</code>): resets all the input field to their default value.</li>
+</ul>
+</li>
+<li><p>Each of the input elements has an attribute “<code>name</code>“, and an optional attribute “<code>value</code>“. If an element is selected, its “<code>name=value</code>“ pair will be submitted to the server for processing.</p>
+</li>
+<li>The <code>&lt;form&gt;</code> start-tag also specifies the URL for submission in the <code>action=&quot;url&quot;</code> attribute, and the request method in the <code>method=&quot;get|post&quot;</code> attribute.</li>
+</ul>
+<p>For example, suppose that we enter “Alan Smith” in the text field, select “male”, and click the “SEND” button, we will get a “404 page not found” error (because we have yet to write the processing script). BUT observe the destination URL:</p>
+<pre><code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/echo?username=Alan+Smit&amp;password=&amp;gender=m&amp;age=1&amp;language=java&amp;instruction=Enter+your+instruction+here...&amp;secret=888</span><br></pre></td></tr></table></figure>
+</code></pre><p>Observe that:</p>
+<ul>
+<li>The URL <code>http://localhost:8080/echo</code> is retrieved from the attribute <code>action=&quot;echo&quot;</code> of the <form> start-tag. Relative URL is used in this example. The base URL for the current page “<code>form_input.html</code>“ is <code>http://localhost:8080/</code>. Hence, the relative URL “<code>echo</code>“ resolves into <code>http://localhost:8080/echo</code>.</form></li>
+<li>A ‘<code>?</code>‘ follows the URL, which separates the URL and the so-called query string (or query parameters, request parameters) followed.</li>
+<li>The query string comprises the “<code>name=value</code>“ pairs of the selected input elements (i.e., “<code>username=Alan+Smith</code>“ and “<code>gender=m</code>“). The “<code>name=value</code>“ pairs are separated by an ‘<code>&amp;</code>‘. Also take note that the blank (in “<code>Alan Smith</code>“) is replace by a ‘<code>+</code>‘. This is because special characters are not permitted in the URL and have to be encoded (known as URL-encoding). Blank is encoded as ‘<code>+</code>‘ (or <code>%20</code>). Other characters are encoded as %xx, where xx is the ASCII code in hex. For example, ‘<code>&amp;</code>‘ as %26, ‘<code>?</code>‘ as %3F.</li>
+<li>Some input elements such as checkboxes may trigger multiple parameter values, e.g., “<code>language=java&amp;language=c&amp;language=cs</code>“ if all three boxes are checked.</li>
+<li>HTTP provides two request methods: <strong>GET</strong> and <strong>POST</strong>. For GET request, the query parameters are appended behind the URL. For POST request, the query string are sent in the request message’s body. POST request is often preferred, as users will not see the strange string in the URL and it can send an unlimited amount of data. The amount of data that can be sent via the GET request is limited by the length of the URL. The request method is specified in the <code>&lt;form method=&quot;get|post&quot;...&gt;</code> start-tag. In this tutorial, we use the GET request, so that you can inspect the query string.</li>
+</ul>
+<h4 id="Write-a-Servlet-to-Process-Form-Data-“EchoServlet-java”"><a href="#Write-a-Servlet-to-Process-Form-Data-“EchoServlet-java”" class="headerlink" title="Write a Servlet to Process Form Data - “EchoServlet.java”"></a>Write a Servlet to Process Form Data - “EchoServlet.java”</h4><p>The form that we have written send its data to a server-side program having relative URL of “<code>echo</code>“ (as specified in the <code>action=&quot;url&quot;</code> attribute of the <code>&lt;form&gt;</code> start-tag). Let us write a servlet called <strong>EchoServlet</strong>, which shall be mapped to the URL “<code>echo</code>“, to process the incoming form data. The servlet simply echoes the data back to the client.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.itcast.web.servlet;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EchoServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        <span class="comment">// Set the response message's MIME type</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html; charset=UTF-8"</span>);</span><br><span class="line">        <span class="comment">// Allocate a output writer to write the response message into the network socket</span></span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Write the response message, in an HTML page</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            out.println(<span class="string">"&lt;!DOCTYPE html&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;html&gt;&lt;head&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;meta http-equiv='Content-Type' content='text/html; charset=UTF-8'&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;title&gt;Echo Servlet&lt;/title&gt;&lt;/head&gt;"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;body&gt;&lt;h2&gt;You have enter&lt;/h2&gt;"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "username" (from text field)</span></span><br><span class="line">            String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">            <span class="comment">// Get null if the parameter is missing from query string.</span></span><br><span class="line">            <span class="comment">// Get empty string or string of white spaces if user did not fill in</span></span><br><span class="line">            <span class="keyword">if</span> (username == <span class="keyword">null</span></span><br><span class="line">                    || (username = htmlFilter(username.trim())).length() == <span class="number">0</span>) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Name: MISSING&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Name: "</span> + username + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "password" (from password field)</span></span><br><span class="line">            String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">            <span class="keyword">if</span> (password == <span class="keyword">null</span></span><br><span class="line">                    || (password = htmlFilter(password.trim())).length() == <span class="number">0</span>) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Password: MISSING&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Password: "</span> + password + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "gender" (from radio button)</span></span><br><span class="line">            String gender = request.getParameter(<span class="string">"gender"</span>);</span><br><span class="line">            <span class="comment">// Get null if the parameter is missing from query string.</span></span><br><span class="line">            <span class="keyword">if</span> (gender == <span class="keyword">null</span>) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Gender: MISSING&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (gender.equals(<span class="string">"m"</span>)) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Gender: male&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Gender: female&lt;/p&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "age" (from pull-down menu)</span></span><br><span class="line">            String age = request.getParameter(<span class="string">"age"</span>);</span><br><span class="line">            <span class="keyword">if</span> (age == <span class="keyword">null</span>) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Age: MISSING&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (age.equals(<span class="string">"1"</span>)) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Age: &amp;lt; 1 year old&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (age.equals(<span class="string">"99"</span>)) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Age: 1 to 99 years old&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Age: &amp;gt; 99 years old&lt;/p&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "language" (from checkboxes).</span></span><br><span class="line">            <span class="comment">// Multiple entries possible.</span></span><br><span class="line">            <span class="comment">// Use getParameterValues() which returns an array of String.</span></span><br><span class="line">            String[] languages = request.getParameterValues(<span class="string">"language"</span>);</span><br><span class="line">            <span class="comment">// Get null if the parameter is missing from query string.</span></span><br><span class="line">            <span class="keyword">if</span> (languages == <span class="keyword">null</span> || languages.length == <span class="number">0</span>) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Languages: NONE&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Languages: "</span>);</span><br><span class="line">                <span class="keyword">for</span> (String language : languages) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (language.equals(<span class="string">"c"</span>)) &#123;</span><br><span class="line">                        out.println(<span class="string">"C/C++ "</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (language.equals(<span class="string">"cs"</span>)) &#123;</span><br><span class="line">                        out.println(<span class="string">"C# "</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (language.equals(<span class="string">"java"</span>)) &#123;</span><br><span class="line">                        out.println(<span class="string">"Java "</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                out.println(<span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "instruction" (from text area)</span></span><br><span class="line">            String instruction = request.getParameter(<span class="string">"instruction"</span>);</span><br><span class="line">            <span class="comment">// Get null if the parameter is missing from query string.</span></span><br><span class="line">            <span class="keyword">if</span> (instruction == <span class="keyword">null</span></span><br><span class="line">                    || (instruction = htmlFilter(instruction.trim())).length() == <span class="number">0</span></span><br><span class="line">                    || instruction.equals(<span class="string">"Enter your instruction here..."</span>)) &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Instruction: NONE&lt;/p&gt;"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                out.println(<span class="string">"&lt;p&gt;Instruction: "</span> + instruction + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Retrieve the value of the query parameter "secret" (from hidden field)</span></span><br><span class="line">            String secret = request.getParameter(<span class="string">"secret"</span>);</span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;Secret: "</span> + secret + <span class="string">"&lt;/p&gt;"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Get all the names of request parameters</span></span><br><span class="line">            Enumeration names = request.getParameterNames();</span><br><span class="line">            out.println(<span class="string">"&lt;p&gt;Request Parameter Names are: "</span>);</span><br><span class="line">            <span class="keyword">if</span> (names.hasMoreElements()) &#123;</span><br><span class="line">                out.print(htmlFilter(names.nextElement().toString()));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                out.print(<span class="string">", "</span> + htmlFilter(names.nextElement().toString()));</span><br><span class="line">            &#125; <span class="keyword">while</span> (names.hasMoreElements());</span><br><span class="line">            out.println(<span class="string">".&lt;/p&gt;"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Hyperlink "BACK" to input page</span></span><br><span class="line">            out.println(<span class="string">"&lt;a href='form_input.html'&gt;BACK&lt;/a&gt;"</span>);</span><br><span class="line"></span><br><span class="line">            out.println(<span class="string">"&lt;/body&gt;&lt;/html&gt;"</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            out.close();  <span class="comment">// Always close the output writer</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Redirect POST request to GET request.</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        doGet(request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Filter the string for special HTML characters to prevent</span></span><br><span class="line">    <span class="comment">// command injection attack</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">htmlFilter</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (message == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> len = message.length();</span><br><span class="line">        StringBuffer result = <span class="keyword">new</span> StringBuffer(len + <span class="number">20</span>);</span><br><span class="line">        <span class="keyword">char</span> aChar;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i) &#123;</span><br><span class="line">            aChar = message.charAt(i);</span><br><span class="line">            <span class="keyword">switch</span> (aChar) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'&lt;'</span>: result.append(<span class="string">"&amp;lt;"</span>); <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'&gt;'</span>: result.append(<span class="string">"&amp;gt;"</span>); <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'&amp;'</span>: result.append(<span class="string">"&amp;amp;"</span>); <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">'"'</span>: result.append(<span class="string">"&amp;quot;"</span>); <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>: result.append(aChar);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (result.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Dissecting the Program</strong></p>
+<ul>
+<li><p>The query string comprises <code>name=value</code> pairs. We can retrieve the query parameters from the request message (captured in <code>doGet()</code>‘s argument <code>HttpServletRequest request</code>) via one of the following methods:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">request.getParameter(<span class="string">"paramName"</span>)</span><br><span class="line">  <span class="comment">// Returns the parameter value in a String.</span></span><br><span class="line">  <span class="comment">// Returns null if parameter name does not exist.</span></span><br><span class="line">  <span class="comment">// Returns the first parameter value for a multi-value parameter.</span></span><br><span class="line"> </span><br><span class="line">request.getParameterValues(<span class="string">"paramName"</span>)</span><br><span class="line">  <span class="comment">// Return all the parameter values in a String[].</span></span><br><span class="line">  <span class="comment">// Return null if the parameter name does not exist.</span></span><br><span class="line"> </span><br><span class="line">request.getParameterNames()</span><br><span class="line">  <span class="comment">// Return all the parameter names in a java.util.Enumeration, possibly empty.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Take note that the parameter name is case sensitive.</p>
+</li>
+<li>We also replace the special HTML characters (<code>&gt;</code>, <code>&lt;</code>, <code>&amp;</code>, <code>&quot;</code>) with the HTML escape sequences in the input strings, before we echo them back to the client via <code>out.println()</code>. This step is necessary to prevent the so-called <code>command-injection attack</code>, where user enters a script into the text field. The replacement is done via a static helper method <code>htmlFilter()</code>.</li>
+<li>If the parameter could possess multiple values (e.g., checkboxes), we use <code>request.getParameterValues()</code>, which returns an array of <code>String</code> or <code>null</code> if the parameter does not exist.</li>
+<li>One of the nice features of Java servlet is that all the form data decoding (i.e., URL-decoding) is handled automatically. That is, ‘+’ will be decoded to blank, %xx decoded into the corresponding character.</li>
+</ul>
+<h4 id="Configure-the-Servlet-URL-mapping-in-“web-xml”"><a href="#Configure-the-Servlet-URL-mapping-in-“web-xml”" class="headerlink" title="Configure the Servlet URL mapping in “web.xml”"></a>Configure the Servlet URL mapping in “web.xml”</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  配置Servlet  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.itcast.web.servlet.ServletDemo1<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloWorldServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.itcast.web.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>EchoServletExample<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>cn.itcast.web.servlet.EchoServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/demo1<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloWorldServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/sayhello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>EchoServletExample<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/echo<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Run-the-EchoServlet"><a href="#Run-the-EchoServlet" class="headerlink" title="Run the EchoServlet"></a>Run the EchoServlet</h4><p>Start the Tomcat server. Issue URL <code>http://localhost:8080/form_input.html</code>.</p>
+<p><img class="shadow" width="450" src="/2020/03/19/Servlet/form2.png"><br>Fill up the form, click the submit button to trigger the servlet. Alternatively, you could issue a URL with query string.<br><img class="shadow" width="450" src="/2020/03/19/Servlet/form_2.png"></p>
+<h4 id="Form-Data-Submission-Methods-GET-POST"><a href="#Form-Data-Submission-Methods-GET-POST" class="headerlink" title="Form-Data Submission Methods: GET|POST"></a>Form-Data Submission Methods: GET|POST</h4><p>Two request methods, GET and POST, are available for submitting form data, to be specified in the <code>&lt;form&gt;</code>‘s attribute “<code>method=GET|POST</code>“. GET and POST performs the same basic function. That is, gather the name-value pairs of the selected input elements, URL-encode, and pack them into a query string. However, in a GET request, the query string is appended behind the URL, separated by a ‘?’. Whereas in a POST request, the query string is kept in the request body (and not shown in the URL). The length of query string in a GET request is limited by the maximum length of URL permitted, whereas it is unlimited in a POST request. I recommend POST request for production, as it does not show the strange looking query string in the URL, even if the amount of data is limited. In this tutorial, I use GET method, so that you can inspect the query string on the URL.</p>
+<p>To try out the POST request, modify the “<code>form_input.html</code>“:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"echo"</span>&gt;</span></span><br><span class="line">  ......</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Inside the servlet, GET request is processed by the method <code>doGet()</code>, while POST request is processed by the method <code>doPost()</code>. Since they often perform identical operations, we re-direct <code>doPost()</code> to <code>doGet()</code> (or vice versa), as follows:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">   <span class="comment">// doGet() handles GET request</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">               <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">      ......</span><br><span class="line">      ......</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// doPost() handles POST request</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">               <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">      doGet(request, response);  <span class="comment">// call doGet()</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Request-Header-and-Response-Header"><a href="#Request-Header-and-Response-Header" class="headerlink" title="Request Header and Response Header"></a>Request Header and Response Header</h2><p>HTTP is a request-response protocol. The client sends a request message to the server. The server, in turn, returns a response message. The request and response messages consists of two parts: header (information about the message) and body (contents). Header provides information about the messages. The data in header is organized in name-value pairs. Read “<code>HTTP Request and Response Messages</code>“ for the format, syntax of request and response messages.</p>
+<h4 id="HttpServletRequest"><a href="#HttpServletRequest" class="headerlink" title="HttpServletRequest"></a>HttpServletRequest</h4><p>The request message is encapsulated in an <code>HttpServletRequest</code> object, which is passed into the <code>doGet()</code> methods. <code>HttpServletRequest</code> provides many methods for you to retrieve the headers:</p>
+<ul>
+<li>General methods: <code>getHeader(name)</code>, <code>getHeaders(name)</code>, <code>getHeaderNames()</code>.</li>
+<li>Specific methods: <code>getContentLength()</code>, <code>getContentType()</code>, <code>getCookies()</code>, <code>getAuthType()</code>, etc.</li>
+<li>URL related: <code>getRequestURI()</code>, <code>getQueryString()</code>, <code>getProtocol()</code>, <code>getMethod()</code>.</li>
+</ul>
+<h4 id="HttpServletResponse"><a href="#HttpServletResponse" class="headerlink" title="HttpServletResponse"></a>HttpServletResponse</h4><p>The response message is encapsulated in the <code>HttpServletResponse</code>, which is passed into <code>doGet()</code> by reference for receiving the servlet output.</p>
+<ul>
+<li><code>setStatusCode(int statuscode)</code>, <code>sendError(int code, String message)</code>, <code>sendRedirect(url)</code>.</li>
+<li><code>response.setHeader(String headerName, String headerValue)</code>.</li>
+<li><code>setContentType(String mimeType)</code>, <code>setContentLength(int length)</code>, etc.</li>
+</ul>
+<h2 id="Session-Tracking"><a href="#Session-Tracking" class="headerlink" title="Session Tracking"></a>Session Tracking</h2><p>HTTP is a stateless protocol. In other words, the current request does not know what has been done in the previous requests. This creates a problem for applications that runs over many requests, such as online shopping (or shopping cart). You need to maintain a so-called <strong>session</strong> to pass data among the multiple requests.</p>
+<p>You can maintain a session via one of these three approaches:</p>
+<ol>
+<li><strong>Cookie</strong>: A cookie is a small text file that is stored in the client’s machine, which will be send to the server on each request. You can put your session data inside the cookie. The biggest problem in using cookie is clients may disable the cookie.</li>
+<li><strong>URL</strong> <strong>Rewriting</strong>: Passes data by appending a short text string at the end of every URL, e.g., <code>http://host/path/file.html;jsessionid=123456</code>. You need to rewrite all the URLs (e.g., the “<code>action</code>“ attribute of <code>&lt;form&gt;</code>) to include the session data.</li>
+<li><strong>Hidden field in an HTML form</strong>: pass data by using hidden field tag (<code>&lt;input type=&quot;hidden&quot; name=&quot;session&quot; value=&quot;....&quot; /&gt;</code>). Again, you need to include the hidden field in all the pages.</li>
+</ol>
+<h4 id="HttpSession"><a href="#HttpSession" class="headerlink" title="HttpSession"></a>HttpSession</h4><p>Programming your own session tracking (using the above approaches) is tedious and cumbersome. Fortunately, Java Servlet API provides a session tracking facility, via an interface called <code>javax.servlet.http.HttpSession</code>. It allows servlets to:</p>
+<ul>
+<li>View and manipulate information about a session, such as the session identifier, creation time, and last accessed time.</li>
+<li>Bind objects to sessions, allowing user information to persist across multiple user requests.</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/03/19/Spring-MVC/" data-toggle="tooltip" data-placement="top" title="Spring MVC">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Servlet" title="Servlet">Servlet</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/03/19/Servlet/";
+    var disqus_url = "https://wenyongqd.github.io/2020/03/19/Servlet/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/Demonbane_x">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/Demonbane">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Demonbane">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/demonbane.cn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Kaijun">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/kaijun-chen-42089354">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+
+</html>
