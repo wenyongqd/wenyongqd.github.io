@@ -13,11 +13,11 @@
 
     <title>
         
-          LeetCode 84 - Wenyong的博客 | Wenyong&#39;s Blog
+          LeetCode 69 - Wenyong的博客 | Wenyong&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://wenyongqd.github.io/2020/04/01/LeetCode-84/">
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/04/02/LeetCode-69/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,11 +166,11 @@
                     <div class="tags">
                         
                     </div>
-                    <h1>LeetCode 84</h1>
+                    <h1>LeetCode 69</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Wenyong He on
-                        2020-04-01
+                        2020-04-02
                     </span>
                 </div>
             </div>
@@ -189,8 +189,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] heights)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = heights.length;</span><br><span class="line">        <span class="keyword">int</span>[] l = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        Arrays.fill(l, -<span class="number">1</span>);</span><br><span class="line">        Arrays.fill(r, n);</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; heights[i] &lt;= heights[j]) </span><br><span class="line">                j = j - <span class="number">1</span>;</span><br><span class="line">            l[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; n &amp;&amp; heights[i] &lt;= heights[j])</span><br><span class="line">                j = j + <span class="number">1</span>;</span><br><span class="line">            r[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            ans = Math.max(ans, heights[i] * (r[i] - l[i] - <span class="number">1</span>));</span><br><span class="line">            System.out.println(ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] heights)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = heights.length;</span><br><span class="line">        <span class="keyword">int</span>[] l = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">int</span>[] r = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        Arrays.fill(l, -<span class="number">1</span>);</span><br><span class="line">        Arrays.fill(r, n);</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; heights[i] &lt;= heights[j]) </span><br><span class="line">                j = l[j];</span><br><span class="line">            l[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; n &amp;&amp; heights[i] &lt;= heights[j])</span><br><span class="line">                j = r[j];</span><br><span class="line">            r[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            ans = Math.max(ans, heights[i] * (r[i] - l[i] - <span class="number">1</span>));</span><br><span class="line">            System.out.println(ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;      <span class="comment">//二分法</span></span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> up = x;</span><br><span class="line">        <span class="keyword">while</span>(low &lt;= up)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = low + ((up - low) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(mid &gt; x / mid) up = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> low = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> up;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 <hr>
 
@@ -199,12 +198,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2020/04/02/LeetCode-35/" data-toggle="tooltip" data-placement="top" title="LeetCode 35">&larr; Previous Post</a>
+                            <a href="/2020/04/02/LeetCode-74/" data-toggle="tooltip" data-placement="top" title="LeetCode 74">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2020/03/31/LearningGitBranching/" data-toggle="tooltip" data-placement="top" title="LearningGitBranching">Next Post &rarr;</a>
+                            <a href="/2020/04/02/LeetCode-33/" data-toggle="tooltip" data-placement="top" title="LeetCode 33">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -275,8 +274,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://wenyongqd.github.io/2020/04/01/LeetCode-84/";
-    var disqus_url = "https://wenyongqd.github.io/2020/04/01/LeetCode-84/";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/04/02/LeetCode-69/";
+    var disqus_url = "https://wenyongqd.github.io/2020/04/02/LeetCode-69/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
