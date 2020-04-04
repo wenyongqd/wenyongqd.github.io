@@ -13,11 +13,11 @@
 
     <title>
         
-          LeetCode 74 - Wenyong的博客 | Wenyong&#39;s Blog
+          LeetCode 34 - Wenyong的博客 | Wenyong&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://wenyongqd.github.io/2020/04/02/LeetCode-74/">
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/04/03/LeetCode-34/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,11 +166,11 @@
                     <div class="tags">
                         
                     </div>
-                    <h1>LeetCode 74</h1>
+                    <h1>LeetCode 34</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Wenyong He on
-                        2020-04-02
+                        2020-04-03
                     </span>
                 </div>
             </div>
@@ -189,7 +189,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">searchMatrix</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rows = matrix.length;</span><br><span class="line">        <span class="keyword">if</span> (rows == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> r = rows * cols  - <span class="number">1</span>; </span><br><span class="line">        <span class="keyword">while</span> ( l &lt;= r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = l + ((r - l) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (matrix[mid/cols][mid%cols] == target) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (matrix[mid/cols][mid%cols] &lt; target) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        Arrays.fill(res, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = l + ((r - l) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; target) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> r = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">0</span> || nums[l] != target) <span class="keyword">return</span> res;</span><br><span class="line">        res[<span class="number">0</span>] = l;</span><br><span class="line">        r = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = l + ((r - l) &gt;&gt; <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt;= target) l = mid;</span><br><span class="line">            <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res[<span class="number">1</span>] = l;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 <hr>
 
@@ -197,13 +197,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2020/04/03/LeetCode-875/" data-toggle="tooltip" data-placement="top" title="LeetCode 875">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2020/04/02/LeetCode-69/" data-toggle="tooltip" data-placement="top" title="LeetCode 69">Next Post &rarr;</a>
+                            <a href="/2020/04/03/LeetCode-378/" data-toggle="tooltip" data-placement="top" title="LeetCode 378">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -274,8 +270,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://wenyongqd.github.io/2020/04/02/LeetCode-74/";
-    var disqus_url = "https://wenyongqd.github.io/2020/04/02/LeetCode-74/";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/04/03/LeetCode-34/";
+    var disqus_url = "https://wenyongqd.github.io/2020/04/03/LeetCode-34/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
