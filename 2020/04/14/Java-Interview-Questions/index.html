@@ -3,7 +3,7 @@
 
 <!-- Head tag -->
 <head><meta name="generator" content="Hexo 3.9.0">
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,14 +49,14 @@
     <![endif]-->
 
     <!-- ga & ba script hoook -->
-    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script></script>
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Navigation -->
+    <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -189,14 +189,33 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
+                <!-- TOC -->
+<ul>
+<li><a href="#q1-what-are-wrapper-classes-in-java">Q1. What are wrapper classes in Java?</a></li>
+<li><a href="#q2-what-are-constructors-in-java">Q2. What are constructors in Java?</a></li>
+<li><a href="#q3-what-is-singleton-class-in-java-and-how-can-we-make-a-class-singleton">Q3. What is singleton class in Java and how can we make a class singleton?</a></li>
+<li><a href="#q4-what-is-the-difference-between-array-list-and-vector-in-java">Q4. What is the difference between Array list and vector in Java?</a></li>
+<li><a href="#q5-what-is-the-difference-between-equals-and--in-java">Q5. What is the difference between equals() and == in Java?</a></li>
+<li><a href="#q6-what-are-the-differences-between-heap-and-stack-memory-in-java">Q6. What are the differences between Heap and Stack Memory in Java?</a><ul>
+<li><a href="#java-heap-space">Java Heap Space</a></li>
+<li><a href="#java-stack-memory">Java Stack Memory</a></li>
+<li><a href="#heap-and-stack-memory-in-java-program">Heap and Stack Memory in Java Program</a></li>
+<li><a href="#difference-between-java-heap-space-and-stack-memory">Difference between Java Heap Space and Stack Memory</a></li>
+</ul>
+</li>
+<li><a href="#q7-why-pointers-are-not-used-in-java">Q7. Why pointers are not used in Java?</a></li>
+<li><a href="#q8-what-are-access-modifiers-in-java">Q8. What are access modifiers in Java?</a></li>
+</ul>
+<!-- /TOC -->
+<h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
 <h3 id="Q2-What-are-constructors-in-Java"><a href="#Q2-What-are-constructors-in-Java" class="headerlink" title="Q2. What are constructors in Java?"></a>Q2. What are constructors in Java?</h3><p>In Java, constructor refers to a block of code which is used to initialize an object. It must have the same name as that of the class. Also, it has no return type and it is automatically called when an object is created.</p>
 <p>There are two types of constructors:</p>
 <ul>
-<li><strong>Default Constructor</strong>: In Java, a default constructor is the one which does not take any inputs. In other words, default constructors are the no argument constructors which will be created by default in case no other constructor is defined by the user. Its <strong>main purpose</strong> is to initialize the instance variables with the default values. Also, it is majorly used for object creation. </li>
+<li><strong>Default Constructor</strong>: In Java, a default constructor is the one which does not take any inputs. In other words, default constructors are the no argument constructors which will be created by default in case no other constructor is defined by the user. Its <strong>main purpose</strong> is to initialize the instance variables with the default values. Also, it is majorly used for object creation.</li>
 <li><strong>Parameterized Constructor</strong>: The parameterized constructor in Java, is the constructor which is capable of initializing the instance variables with the provided values. In other words, the constructors which take the arguments are called parameterized constructors.</li>
 </ul>
-<h3 id="Q3-What-is-singleton-class-in-Java-and-how-can-we-make-a-class-singleton"><a href="#Q3-What-is-singleton-class-in-Java-and-how-can-we-make-a-class-singleton" class="headerlink" title="Q3. What is singleton class in Java and how can we make a class singleton?"></a>Q3. What is singleton class in Java and how can we make a class singleton?</h3><p>Singleton class means you can create only one object for the given class. You can create a singleton class by making its constructor as private, so that you can restrict the creation of the object. Provide a static method to get instance of the object, wherein you can handle the object creation inside the class only. In this example we are creating object by using static block.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ublic <span class="class"><span class="keyword">class</span> <span class="title">MySingleton</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MySingleton myObj;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        myObj = <span class="keyword">new</span> MySingleton();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MySingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> myObj;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMe</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hey.... it is working!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String a[])</span></span>&#123;</span><br><span class="line">        MySingleton ms = getInstance();</span><br><span class="line">        ms.testMe();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Q3-What-is-singleton-class-in-Java-and-how-can-we-make-a-class-singleton"><a href="#Q3-What-is-singleton-class-in-Java-and-how-can-we-make-a-class-singleton" class="headerlink" title="Q3. What is singleton class in Java and how can we make a class singleton?"></a>Q3. What is singleton class in Java and how can we make a class singleton?</h3><p>Singleton class means you can create only one object for the given class. You can create a singleton class by making its constructor as private, so that you can restrict the creation of the object. Provide a static method to get instance of the object, wherein you can handle the object creation inside the class only. In this example we are creating object by using static block.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ublic <span class="class"><span class="keyword">class</span> <span class="title">MySingleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MySingleton myObj;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        myObj = <span class="keyword">new</span> MySingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MySingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> myObj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMe</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hey.... it is working!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String a[])</span></span>&#123;</span><br><span class="line">        MySingleton ms = getInstance();</span><br><span class="line">        ms.testMe();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Q4-What-is-the-difference-between-Array-list-and-vector-in-Java"><a href="#Q4-What-is-the-difference-between-Array-list-and-vector-in-Java" class="headerlink" title="Q4. What is the difference between Array list and vector in Java?"></a>Q4. What is the difference between Array list and vector in Java?</h3><p><img src="/2020/04/14/Java-Interview-Questions/d2.png" alt="d2"></p>
 <h3 id="Q5-What-is-the-difference-between-equals-and-in-Java"><a href="#Q5-What-is-the-difference-between-equals-and-in-Java" class="headerlink" title="Q5. What is the difference between equals() and == in Java?"></a>Q5. What is the difference between equals() and == in Java?</h3><p>In general both equals() and “==” operator in Java are used to compare objects to check equality but here are some of the differences between the two:</p>
 <ol>
@@ -204,7 +223,66 @@
 <li>We can use == operators for reference comparison (address comparison) and .equals() method for content comparison. In simple words, == checks if both objects point to the same memory location whereas .equals() evaluates to the comparison of values in the objects.</li>
 <li>If a class does not override the equals method, then by default it uses equals(Object o) method of the closest parent class that has overridden this method. See this for detail<br>Coding Example:</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java program to understand  </span></span><br><span class="line"><span class="comment">// the concept of == operator </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">    </span>&#123; </span><br><span class="line">        String s1 = <span class="keyword">new</span> String(<span class="string">"HELLO"</span>); </span><br><span class="line">        String s2 = <span class="keyword">new</span> String(<span class="string">"HELLO"</span>); </span><br><span class="line">        System.out.println(s1 == s2); </span><br><span class="line">        System.out.println(s1.equals(s2)); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java program to understand</span></span><br><span class="line"><span class="comment">// the concept of == operator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(<span class="string">"HELLO"</span>);</span><br><span class="line">        String s2 = <span class="keyword">new</span> String(<span class="string">"HELLO"</span>);</span><br><span class="line">        System.out.println(s1 == s2);</span><br><span class="line">        System.out.println(s1.equals(s2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<h3 id="Q6-What-are-the-differences-between-Heap-and-Stack-Memory-in-Java"><a href="#Q6-What-are-the-differences-between-Heap-and-Stack-Memory-in-Java" class="headerlink" title="Q6. What are the differences between Heap and Stack Memory in Java?"></a>Q6. What are the differences between Heap and Stack Memory in Java?</h3><h4 id="Java-Heap-Space"><a href="#Java-Heap-Space" class="headerlink" title="Java Heap Space"></a>Java Heap Space</h4><p>Java Heap space is used by java runtime to allocate memory to Objects and JRE classes. Whenever we create an object, it’s always created in the Heap space.</p>
+<p>Garbage Collection runs on the heap memory to free the memory used by objects that don’t have any reference. Any object created in the heap space has global access and can be referenced from anywhere of the application.<br><a href="https://www.journaldev.com/4098/java-heap-space-vs-stack-memory" target="_blank" rel="noopener">https://www.journaldev.com/4098/java-heap-space-vs-stack-memory</a></p>
+<h4 id="Java-Stack-Memory"><a href="#Java-Stack-Memory" class="headerlink" title="Java Stack Memory"></a>Java Stack Memory</h4><p>Java Stack memory is used for the execution of a thread. They contain method-specific values that are short-lived and references to other objects in the heap that is getting referred from the method.</p>
+<p>Stack memory is always referenced in LIFO (Last-In-First-Out) order. Whenever a method is invoked, a new block is created in the stack memory for the method to hold local primitive values and reference to other objects in the method.</p>
+<p>As soon as the method ends, the block becomes unused and becomes available for the next method.<br>Stack memory size is very less compared to Heap memory.</p>
+<h4 id="Heap-and-Stack-Memory-in-Java-Program"><a href="#Heap-and-Stack-Memory-in-Java-Program" class="headerlink" title="Heap and Stack Memory in Java Program"></a>Heap and Stack Memory in Java Program</h4><p>Let’s understand the Heap and Stack memory usage with a simple program.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.journaldev.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Memory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; <span class="comment">// Line 1</span></span><br><span class="line">		<span class="keyword">int</span> i=<span class="number">1</span>; <span class="comment">// Line 2</span></span><br><span class="line">		Object obj = <span class="keyword">new</span> Object(); <span class="comment">// Line 3</span></span><br><span class="line">		Memory mem = <span class="keyword">new</span> Memory(); <span class="comment">// Line 4</span></span><br><span class="line">		mem.foo(obj); <span class="comment">// Line 5</span></span><br><span class="line">	&#125; <span class="comment">// Line 9</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">(Object param)</span> </span>&#123; <span class="comment">// Line 6</span></span><br><span class="line">		String str = param.toString(); <span class="comment">//// Line 7</span></span><br><span class="line">		System.out.println(str);</span><br><span class="line">	&#125; <span class="comment">// Line 8</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Let’s go through the steps of the execution of the program.</p>
+<ul>
+<li>As soon as we run the program, it loads all the Runtime classes into the Heap space. When the main() method is found at line 1, Java Runtime creates stack memory to be used by main() method thread.</li>
+<li>We are creating primitive local variable at line 2, so it’s created and stored in the stack memory of main() method.</li>
+<li>Since we are creating an Object in the 3rd line, it’s created in heap memory and stack memory contains the reference for it. A similar process occurs when we create Memory object in the 4th line.</li>
+<li>Now when we call the foo() method in the 5th line, a block in the top of the stack is created to be used by the foo() method. Since Java is pass-by-value, a new reference to Object is created in the foo() stack block in the 6th line.</li>
+<li>A string is created in the 7th line, it goes in the String Pool in the heap space and a reference is created in the foo() stack space for it.</li>
+<li>foo() method is terminated in the 8th line, at this time memory block allocated for foo() in stack becomes free.</li>
+<li>In line 9, main() method terminates and the stack memory created for main() method is destroyed. Also, the program ends at this line, hence Java Runtime frees all the memory and ends the execution of the program.<br><img src="https://cdn.journaldev.com/wp-content/uploads/2014/08/Java-Heap-Stack-Memory.png" alt="image"></li>
+</ul>
+<h4 id="Difference-between-Java-Heap-Space-and-Stack-Memory"><a href="#Difference-between-Java-Heap-Space-and-Stack-Memory" class="headerlink" title="Difference between Java Heap Space and Stack Memory"></a>Difference between Java Heap Space and Stack Memory</h4><p>Based on the above explanations, we can easily conclude the following differences between Heap and Stack memory.</p>
+<ol>
+<li>Heap memory is used by all the parts of the application whereas stack memory is used only by one thread of execution.</li>
+<li>Whenever an object is created, it’s always stored in the Heap space and stack memory contains the reference to it. Stack memory only contains local primitive variables and reference variables to objects in heap space.</li>
+<li>Objects stored in the heap are globally accessible whereas stack memory can’t be accessed by other threads.</li>
+<li>Memory management in stack is done in LIFO manner whereas it’s more complex in Heap memory because it’s used globally. Heap memory is divided into Young-Generation, Old-Generation etc, more details at Java <code>Garbage Collection</code>.</li>
+<li>Stack memory is short-lived whereas heap memory lives from the start till the end of application execution.</li>
+<li>We can use -Xms and -Xmx JVM option to define the startup size and maximum size of heap memory. We can use -Xss to define the stack memory size.</li>
+<li>When stack memory is full, Java runtime throws <code>java.lang.StackOverFlowError</code> whereas if heap memory is full, it throws <code>java.lang.OutOfMemoryError</code>: Java Heap Space error.</li>
+<li>Stack memory size is very less when compared to Heap memory. Because of simplicity in memory allocation (LIFO), stack memory is very fast when compared to heap memory.</li>
+</ol>
+<h3 id="Q7-Why-pointers-are-not-used-in-Java"><a href="#Q7-Why-pointers-are-not-used-in-Java" class="headerlink" title="Q7. Why pointers are not used in Java?"></a>Q7. Why pointers are not used in Java?</h3><p>Java doesn’t use pointers because they are unsafe and increases the complexity of the program. Since, Java is known for its simplicity of code, adding the concept of pointers will be contradicting. Moreover, since JVM is responsible for implicit memory allocation, thus in order to avoid direct access to memory by the user, pointers are discouraged in Java.<br>Q</p>
+<h3 id="Q8-What-are-access-modifiers-in-Java"><a href="#Q8-What-are-access-modifiers-in-Java" class="headerlink" title="Q8. What are access modifiers in Java?"></a>Q8. What are access modifiers in Java?</h3><p>As the name suggests access modifiers in Java helps to restrict the scope of a class, constructor , variable , method or data member. There are four types of access modifiers available in java:</p>
+<ol>
+<li>Default – No keyword required<br><strong>Default</strong>: When no access modifier is specified for a class , method or data member – It is said to be having the default access modifier by default.</li>
+<li><p>Private<br><strong>Private</strong>: The private access modifier is specified using the keyword private.</p>
+<ul>
+<li>The methods or data members declared as private are accessible only within the class in which they are declared.</li>
+<li>Any other class of same package will not be able to access these members.</li>
+<li>Top level Classes or interface can not be declared as private because<ol>
+<li>private means “only visible within the enclosing class”.</li>
+<li>protected means “only visible within the enclosing class and any subclasses”</li>
+</ol>
+</li>
+</ul>
+<p>Hence these modifiers in terms of application to classes, they apply only to nested classes and not on top level classes</p>
+</li>
+<li><p>Protected<br><strong>protected</strong>: The protected access modifier is specified using the keyword protected.</p>
+<ul>
+<li>The methods or data members declared as protected are accessible within same package or sub classes in different package.</li>
+</ul>
+</li>
+<li><p>Public<br><strong>public</strong>: The public access modifier is specified using the keyword public.</p>
+<ul>
+<li>The public access modifier has the widest scope among all other access modifiers.</li>
+<li>Classes, methods or data members which are declared as public are accessible from every where in the program. There is no restriction on the scope of a public data members.</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/Access-Modifiers-in-Java.png" alt="image"></p>
+
 
                 <hr>
 
@@ -542,24 +620,7 @@
 
 <!-- Image to hack wechat -->
 <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="custom_mathjax_source">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
 
