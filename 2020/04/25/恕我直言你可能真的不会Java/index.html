@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          恕我直言你可能真的不会Java - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/04/25/恕我直言你可能真的不会Java/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>恕我直言你可能真的不会Java</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-04-25
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- TOC -->
+<ul>
+<li><a href="#1-lambda表达式会用了吗">1. Lambda 表达式会用了吗？</a><ul>
+<li><a href="#一接口定义">一、接口定义</a></li>
+<li><a href="#二传统的接口函数实现方式">二、传统的接口函数实现方式</a></li>
+<li><a href="#三lambda表示式实现方式">三、lambda 表示式实现方式</a></li>
+</ul>
+</li>
+<li><a href="#2-初识stream-api">2. 初识 Stream-API</a><ul>
+<li><a href="#一什么是java-stream-api">一、什么是 Java Stream API？</a></li>
+<li><a href="#二stream-api代替for循环">二、Stream API 代替 for 循环</a></li>
+<li><a href="#三将数组转换为管道流">三、将数组转换为管道流</a></li>
+<li><a href="#四将集合类对象转换为管道流">四、将集合类对象转换为管道流</a></li>
+<li><a href="#五将文本文件转换为管道流">五、将文本文件转换为管道流</a></li>
+</ul>
+</li>
+<li><a href="#3-stream的filter与谓语逻辑">3. Stream 的 filter 与谓语逻辑</a><ul>
+<li><a href="#一基础代码准备">一、基础代码准备</a></li>
+<li><a href="#二什么是谓词逻辑">二、什么是谓词逻辑？</a></li>
+<li><a href="#三谓词逻辑的复用">三、谓词逻辑的复用</a><ul>
+<li><a href="#and语法并集">and 语法（并集）</a></li>
+<li><a href="#or语法交集">or 语法（交集）</a></li>
+<li><a href="#negate语法取反">negate 语法（取反）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4-stream管道流的map操作">4. Stream 管道流的 map 操作</a><ul>
+<li><a href="#一回顾stream管道流map的基础用法">一、回顾 Stream 管道流 map 的基础用法</a></li>
+<li><a href="#二处理非字符串类型集合元素">二、处理非字符串类型集合元素</a></li>
+<li><a href="#三再复杂一点处理对象数据格式转换">三、再复杂一点：处理对象数据格式转换</a></li>
+<li><a href="#四flatmap">四、flatMap</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="1-Lambda-表达式会用了吗？"><a href="#1-Lambda-表达式会用了吗？" class="headerlink" title="1. Lambda 表达式会用了吗？"></a>1. Lambda 表达式会用了吗？</h2><h3 id="一、接口定义"><a href="#一、接口定义" class="headerlink" title="一、接口定义"></a>一、接口定义</h3><p>lambda 表达式表达接口函数的实现，在传统的开发方式下，我们不习惯将代码块传递给函数。我们所有的行为定义代码都封装在方法体内，并通过对象引用执行，就像使用下面的代码一样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaDemo</span> </span>&#123;</span><br><span class="line">    <span class="comment">//函数定义</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printSomething</span><span class="params">(String something)</span> </span>&#123;</span><br><span class="line">        System.out.println(something);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//通过创建对象调用函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LambdaDemo demo = <span class="keyword">new</span> LambdaDemo();</span><br><span class="line">        String something = <span class="string">"I am learning Lambda"</span>;</span><br><span class="line">        demo.printSomething(something);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大家应该对上面的代码的开发方式不感到陌生，这是经典 OOP 的实现样式。下面我们对上面的代码做一个修改，创建一个功能接口，并对该接口定义抽象方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaDemo</span> </span>&#123;</span><br><span class="line">    <span class="comment">//抽象功能接口</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Printer</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String val)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//通过参数传递功能接口</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printSomething</span><span class="params">(String something, Printer printer)</span> </span>&#123;</span><br><span class="line">        printer.print(something);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二、传统的接口函数实现方式"><a href="#二、传统的接口函数实现方式" class="headerlink" title="二、传统的接口函数实现方式"></a>二、传统的接口函数实现方式</h3><p>在上述实现中，Printer 接口负责打印行为，可以是控制台打印，也可以是其他的打印行为。方法 printSomething 不再定义行为，而是执行 Printer 定义的行为，这样的设计更加灵活。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    LambdaDemo demo = <span class="keyword">new</span> LambdaDemo();</span><br><span class="line">    String something = <span class="string">"I am using a Functional interface"</span>;</span><br><span class="line">    <span class="comment">//实现Printer接口</span></span><br><span class="line">    Printer printer = <span class="keyword">new</span> Printer() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String val)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//控制台打印</span></span><br><span class="line">            System.out.println(val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    demo.printSomething(something, printer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此我们都尚未使用 lambda 表达式。我们仅创建了 Printer 接口的具体实现，并将其传递给 printSomething 方法。</p>
+<h3 id="三、lambda-表示式实现方式"><a href="#三、lambda-表示式实现方式" class="headerlink" title="三、lambda 表示式实现方式"></a>三、lambda 表示式实现方式</h3><p>我们先来学习一下 lambda 表达式的语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（param1，param2，param3 ...，paramN）-  &gt; &#123;   <span class="comment">//代码块；  &#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先我们知道 lambda 表达式，表达的是接口函数</li>
+<li>箭头左侧是函数的逗号分隔的形式参数列表</li>
+<li>箭头右侧是函数体代码</li>
+</ul>
+<p>现在，我们使用 lambda 表达式重构一下第一小节中的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    LambdaDemo demo = <span class="keyword">new</span> LambdaDemo();</span><br><span class="line">    String something = <span class="string">"I am learning Lambda"</span>;</span><br><span class="line">    <span class="comment">//实现Printer接口（请关注下面这行lambda表达式代码）</span></span><br><span class="line">    Printer printer = (String toPrint)-&gt;&#123;System.out.println(toPrint);&#125;;</span><br><span class="line">    <span class="comment">//调用接口打印</span></span><br><span class="line">    demo.printSomething(something, printer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>lambda 表达式使我们代码更简洁。对比传统 java 代码的实现方式，代码量是不是减少了很多？但这仍然不是最简的实现方式，我们一步一步来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Printer printer = (String toPrint)-&gt;&#123;System.out.println(toPrint);&#125;;</span><br><span class="line"><span class="comment">//简化：去掉参数类型</span></span><br><span class="line">Printer printer = (toPrint)-&gt;&#123;System.out.println(toPrint);&#125;;</span><br><span class="line"><span class="comment">//简化：去掉参数括号</span></span><br><span class="line">Printer printer = toPrint-&gt;&#123;System.out.println(toPrint);&#125;;</span><br><span class="line"><span class="comment">//简化：去掉函数体花括号</span></span><br><span class="line">Printer printer = toPrint-&gt;System.out.println(toPrint);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>即使没有在箭头的左侧指定参数的类型，编译器也会从接口方法的形式参数中推断出其类型</li>
+<li>当只有一个参数的时候，我们完全可以省略参数的括号</li>
+<li>当函数体只有一行的时候，我们完全可以省略函数体花括号</li>
+</ul>
+<p>如果我们的接口方法定义不带任何参数，则可以用空括号替换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（）-&gt;  System.out.println(<span class="string">"anything you wan to print"</span>)</span><br></pre></td></tr></table></figure>
+<p>那么，我们最终通过 lambda 表达式，简化完成的代码是什么样的呢？庐山真面目：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    LambdaDemo demo = <span class="keyword">new</span> LambdaDemo();</span><br><span class="line">    String something=<span class="string">"I am Lambda"</span>;</span><br><span class="line">    <span class="comment">//关注下面的这行代码</span></span><br><span class="line">    demo.printSomething(something, toPrint -&gt; System.out.println(toPrint));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>lambda 表达式表达的是接口函数，箭头左侧是函数参数，箭头右侧是函数体。函数的参数类型和返回值类型都可以省略，程序会根据接口定义的上下文自动确定数据类型。</p>
+<h2 id="2-初识-Stream-API"><a href="#2-初识-Stream-API" class="headerlink" title="2. 初识 Stream-API"></a>2. 初识 Stream-API</h2><h3 id="一、什么是-Java-Stream-API？"><a href="#一、什么是-Java-Stream-API？" class="headerlink" title="一、什么是 Java Stream API？"></a>一、什么是 Java Stream API？</h3><p>Java Stream 函数式编程接口最初是在 Java 8 中引入的，并且与 lambda 一起成为 Java 开发的里程碑式的功能特性，它极大的方便了开放人员处理集合类数据的效率。从笔者之前看过的调查文章显示，绝大部分的开发者使用的 JDK 版本是 java 8，其中 Java Stream 和 lambda 功不可没。</p>
+<p>Java Stream 就是一个数据流经的管道，并且在管道中对数据进行操作，然后流入下一个管道。有学过 linux 管道的同学应该会很容易就理解。在没有 Java Stram 之前，对于集合类的操作，更多的是通过 for 循环。大家从后文中就能看出 Java Stream 相对于 for 循环更加简洁、易用、快捷。</p>
+<p>管道的功能包括：Filter（过滤）、Map(映射)、sort(排序）等，集合数据通过 Java Stream 管道处理之后，转化为另一组集合或数据输出。<br><img src="http://cdn.zimug.com/javaStream1-2.jpg" alt="image"></p>
+<h3 id="二、Stream-API-代替-for-循环"><a href="#二、Stream-API-代替-for-循环" class="headerlink" title="二、Stream API 代替 for 循环"></a>二、Stream API 代替 for 循环</h3><p>我们先来看一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; nameStrs = Arrays.asList(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>,<span class="string">"Lemur"</span>);</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; list = nameStrs.stream()</span><br><span class="line">        .filter(s -&gt; s.startsWith(<span class="string">"L"</span>))</span><br><span class="line">        .map(String::toUpperCase)</span><br><span class="line">        .sorted()</span><br><span class="line">        .collect(toList());</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先，我们使用 Stream()函数，将一个 List 转换为管道流</li>
+<li>调用 filter 函数过滤数组元素，过滤方法使用 lambda 表达式，以 L 开头的元素返回 true 被保留，其他的 List 元素被过滤掉</li>
+<li>然后调用 Map 函数对管道流中每个元素进行处理，字母全部转换为大写</li>
+<li>然后调用 sort 函数，对管道流中数据进行排序</li>
+<li>最后调用 collect 函数 toList，将管道流转换为 List 返回</li>
+</ul>
+<h3 id="三、将数组转换为管道流"><a href="#三、将数组转换为管道流" class="headerlink" title="三、将数组转换为管道流"></a>三、将数组转换为管道流</h3><p>使用 Stream.of()方法，将数组转换为管道流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String[] array = &#123;<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>&#125;;</span><br><span class="line">Stream&lt;String&gt; nameStrs2 = Stream.of(array);</span><br><span class="line"></span><br><span class="line">Stream&lt;String&gt; nameStrs3 = Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="四、将集合类对象转换为管道流"><a href="#四、将集合类对象转换为管道流" class="headerlink" title="四、将集合类对象转换为管道流"></a>四、将集合类对象转换为管道流</h3><p>通过调用集合类的 stream()方法，将集合类对象转换为管道流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>);</span><br><span class="line">Stream&lt;String&gt; streamFromList = list.stream();</span><br><span class="line"></span><br><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;(list);</span><br><span class="line">Stream&lt;String&gt; streamFromSet = set.stream();</span><br></pre></td></tr></table></figure>
+<h3 id="五、将文本文件转换为管道流"><a href="#五、将文本文件转换为管道流" class="headerlink" title="五、将文本文件转换为管道流"></a>五、将文本文件转换为管道流</h3><p>通过 Files.lines 方法将文本文件转换为管道流，下图中的 Paths.get()方法作用就是获取文件，是 Java NIO 的 API！</p>
+<p>也就是说：我们可以很方便的使用 Java Stream 加载文本文件，然后逐行的对文件内容进行处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; lines = Files.lines(Paths.get(<span class="string">"file.txt"</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="3-Stream-的-filter-与谓语逻辑"><a href="#3-Stream-的-filter-与谓语逻辑" class="headerlink" title="3. Stream 的 filter 与谓语逻辑"></a>3. Stream 的 filter 与谓语逻辑</h2><h3 id="一、基础代码准备"><a href="#一、基础代码准备" class="headerlink" title="一、基础代码准备"></a>一、基础代码准备</h3><p>建立一个实体类，该实体类有五个属性。下面的代码使用了 lombok 的注解 Data、AllArgsConstructor，这样我们就不用写 get、set 方法和全参构造函数了。lombok 会帮助我们在编译期生成这些模式化的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> Integer id;</span><br><span class="line">   <span class="keyword">private</span> Integer age;   <span class="comment">//年龄</span></span><br><span class="line">   <span class="keyword">private</span> String gender;  <span class="comment">//性别</span></span><br><span class="line">   <span class="keyword">private</span> String firstName;</span><br><span class="line">   <span class="keyword">private</span> String lastName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写一个测试类，这个测试类的内容也很简单，新建十个 Employee 对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StreamFilterPredicate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Employee e1 = <span class="keyword">new</span> Employee(<span class="number">1</span>,<span class="number">23</span>,<span class="string">"M"</span>,<span class="string">"Rick"</span>,<span class="string">"Beethovan"</span>);</span><br><span class="line">        Employee e2 = <span class="keyword">new</span> Employee(<span class="number">2</span>,<span class="number">13</span>,<span class="string">"F"</span>,<span class="string">"Martina"</span>,<span class="string">"Hengis"</span>);</span><br><span class="line">        Employee e3 = <span class="keyword">new</span> Employee(<span class="number">3</span>,<span class="number">43</span>,<span class="string">"M"</span>,<span class="string">"Ricky"</span>,<span class="string">"Martin"</span>);</span><br><span class="line">        Employee e4 = <span class="keyword">new</span> Employee(<span class="number">4</span>,<span class="number">26</span>,<span class="string">"M"</span>,<span class="string">"Jon"</span>,<span class="string">"Lowman"</span>);</span><br><span class="line">        Employee e5 = <span class="keyword">new</span> Employee(<span class="number">5</span>,<span class="number">19</span>,<span class="string">"F"</span>,<span class="string">"Cristine"</span>,<span class="string">"Maria"</span>);</span><br><span class="line">        Employee e6 = <span class="keyword">new</span> Employee(<span class="number">6</span>,<span class="number">15</span>,<span class="string">"M"</span>,<span class="string">"David"</span>,<span class="string">"Feezor"</span>);</span><br><span class="line">        Employee e7 = <span class="keyword">new</span> Employee(<span class="number">7</span>,<span class="number">68</span>,<span class="string">"F"</span>,<span class="string">"Melissa"</span>,<span class="string">"Roy"</span>);</span><br><span class="line">        Employee e8 = <span class="keyword">new</span> Employee(<span class="number">8</span>,<span class="number">79</span>,<span class="string">"M"</span>,<span class="string">"Alex"</span>,<span class="string">"Gussin"</span>);</span><br><span class="line">        Employee e9 = <span class="keyword">new</span> Employee(<span class="number">9</span>,<span class="number">15</span>,<span class="string">"F"</span>,<span class="string">"Neetu"</span>,<span class="string">"Singh"</span>);</span><br><span class="line">        Employee e10 = <span class="keyword">new</span> Employee(<span class="number">10</span>,<span class="number">45</span>,<span class="string">"M"</span>,<span class="string">"Naveen"</span>,<span class="string">"Jain"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        List&lt;Employee&gt; employees = Arrays.asList(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);</span><br><span class="line"></span><br><span class="line">        List&lt;Employee&gt; filtered = employees.stream()</span><br><span class="line">                .filter(e -&gt; e.getAge() &gt; <span class="number">70</span> &amp;&amp; e.getGender().equals(<span class="string">"M"</span>))</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        System.out.println(filtered);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是上面的 filter 传入了 lambda 表达式(之前的章节我们已经讲过了)，表达过滤年龄大于 70 并且男性的 Employee 员工。输出如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Employee(id=<span class="number">8</span>, age=<span class="number">79</span>, gender=M, firstName=Alex, lastName=Gussin)]</span><br></pre></td></tr></table></figure>
+<h3 id="二、什么是谓词逻辑？"><a href="#二、什么是谓词逻辑？" class="headerlink" title="二、什么是谓词逻辑？"></a>二、什么是谓词逻辑？</h3><p>下面要说我们的重点了，通过之前的章节的讲解，我们已经知道 lambda 表达式表达的是一个匿名接口函数的实现。那具体到 Stream.filter()中，它表达的是什么呢？看下图：可以看出它表达的是一个 Predicate 接口，在英语中这个单词的意思是：谓词。<br><img src="https://img.kancloud.cn/94/f0/94f0643476bef3f7d204a41e91949597_810x116.png" alt="image"><br><strong>什么是谓词逻辑？</strong><br>WHERE 和 AND 限定了主语 employee 是什么，那么 WHERE 和 AND 语句所代表的逻辑就是谓词逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">FROM employee</span><br><span class="line">WHERE age &gt; <span class="number">70</span></span><br><span class="line">AND gender = <span class="string">'M'</span></span><br></pre></td></tr></table></figure>
+<h3 id="三、谓词逻辑的复用"><a href="#三、谓词逻辑的复用" class="headerlink" title="三、谓词逻辑的复用"></a>三、谓词逻辑的复用</h3><p>通常情况下，filter 函数中 lambda 表达式为一次性使用的谓词逻辑。如果我们的谓词逻辑需要被多处、多场景、多代码中使用，通常将它抽取出来单独定义到它所限定的主语实体中。<br>比如：将下面的谓词逻辑定义在 Employee 实体 class 中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Predicate&lt;Employee&gt; ageGreaterThan70 = x -&gt; x.getAge() &gt;<span class="number">70</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Predicate&lt;Employee&gt; genderM = x -&gt; x.getGender().equals(<span class="string">"M"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="and-语法（并集）"><a href="#and-语法（并集）" class="headerlink" title="and 语法（并集）"></a>and 语法（并集）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Employee&gt; filtered = employees.stream()</span><br><span class="line">        .filter(Employee.ageGreaterThan70.and(Employee.genderM))</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Employee(id=<span class="number">8</span>, age=<span class="number">79</span>, gender=M, firstName=Alex, lastName=Gussin)]</span><br></pre></td></tr></table></figure>
+<h4 id="or-语法（交集）"><a href="#or-语法（交集）" class="headerlink" title="or 语法（交集）"></a>or 语法（交集）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Employee&gt; filtered = employees.stream()</span><br><span class="line">        .filter(Employee.ageGreaterThan70.or(Employee.genderM))</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>输出如下：实际上就是年龄大于 70 的和所有的男性（由于 79 的那位也是男性，所以就是所有的男性）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Employee(id=<span class="number">1</span>, age=<span class="number">23</span>, gender=M, firstName=Rick, lastName=Beethovan), Employee(id=<span class="number">3</span>, age=<span class="number">43</span>, gender=M, firstName=Ricky, lastName=Martin), Employee(id=<span class="number">4</span>, age=<span class="number">26</span>, gender=M, firstName=Jon, lastName=Lowman), Employee(id=<span class="number">6</span>, age=<span class="number">15</span>, gender=M, firstName=David, lastName=Feezor), Employee(id=<span class="number">8</span>, age=<span class="number">79</span>, gender=M, firstName=Alex, lastName=Gussin), Employee(id=<span class="number">10</span>, age=<span class="number">45</span>, gender=M, firstName=Naveen, lastName=Jain)]</span><br></pre></td></tr></table></figure>
+<h4 id="negate-语法（取反）"><a href="#negate-语法（取反）" class="headerlink" title="negate 语法（取反）"></a>negate 语法（取反）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Employee&gt; filtered = employees.stream()</span><br><span class="line">        .filter(Employee.ageGreaterThan70.or(Employee.genderM).negate())</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>输出如下：把上一小节代码的结果取反，实际上就是所有的女性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Employee(id=<span class="number">2</span>, age=<span class="number">13</span>, gender=F, firstName=Martina, lastName=Hengis), Employee(id=<span class="number">5</span>, age=<span class="number">19</span>, gender=F, firstName=Cristine, lastName=Maria), Employee(id=<span class="number">7</span>, age=<span class="number">68</span>, gender=F, firstName=Melissa, lastName=Roy), Employee(id=<span class="number">9</span>, age=<span class="number">15</span>, gender=F, firstName=Neetu, lastName=Singh)]</span><br></pre></td></tr></table></figure>
+<h2 id="4-Stream-管道流的-map-操作"><a href="#4-Stream-管道流的-map-操作" class="headerlink" title="4. Stream 管道流的 map 操作"></a>4. Stream 管道流的 map 操作</h2><h3 id="一、回顾-Stream-管道流-map-的基础用法"><a href="#一、回顾-Stream-管道流-map-的基础用法" class="headerlink" title="一、回顾 Stream 管道流 map 的基础用法"></a>一、回顾 Stream 管道流 map 的基础用法</h3><p>最简单的需求：将集合中的每一个字符串，全部转换成大写！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; alpha = Arrays.asList(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//不使用Stream管道流</span></span><br><span class="line">List&lt;String&gt; alphaUpper = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (String s : alpha) &#123;</span><br><span class="line">    alphaUpper.add(s.toUpperCase());</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(alphaUpper); <span class="comment">//[MONKEY, LION, GIRAFFE, LEMUR]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Stream管道流</span></span><br><span class="line">List&lt;String&gt; collect = alpha.stream().map(String::toUpperCase).collect(Collectors.toList());</span><br><span class="line"><span class="comment">//上面使用了方法引用，和下面的lambda表达式语法效果是一样的</span></span><br><span class="line"><span class="comment">//List&lt;String&gt; collect = alpha.stream().map(s -&gt; s.toUpperCase()).collect(Collectors.toList());</span></span><br><span class="line"></span><br><span class="line">System.out.println(collect); <span class="comment">//[MONKEY, LION, GIRAFFE, LEMUR]</span></span><br></pre></td></tr></table></figure>
+<p>所以 map 函数的作用就是针对管道流中的每一个数据元素进行转换操作。<br><img src="https://img.kancloud.cn/e4/b3/e4b3980b21802fab8170d9b03422f3ae_1364x632.png" alt="image"></p>
+<h3 id="二、处理非字符串类型集合元素"><a href="#二、处理非字符串类型集合元素" class="headerlink" title="二、处理非字符串类型集合元素"></a>二、处理非字符串类型集合元素</h3><p>map()函数不仅可以处理数据，还可以转换数据的类型。如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; lengths = alpha.stream()</span><br><span class="line">        .map(String::length)</span><br><span class="line">        .collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">System.out.println(lengths); <span class="comment">//[6, 4, 7, 5]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>)</span><br><span class="line">        .mapToInt(String::length)</span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>除了 mapToInt。还有 maoToLong，mapToDouble 等等用法</p>
+<h3 id="三、再复杂一点：处理对象数据格式转换"><a href="#三、再复杂一点：处理对象数据格式转换" class="headerlink" title="三、再复杂一点：处理对象数据格式转换"></a>三、再复杂一点：处理对象数据格式转换</h3><p>还是使用上一节中的 Employee 类，创建 10 个对象。需求如下：</p>
+<ul>
+<li>将每一个 Employee 的年龄增加一岁</li>
+<li>将性别中的“M”换成“male”，F 换成 Female。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    Employee e1 = <span class="keyword">new</span> Employee(<span class="number">1</span>,<span class="number">23</span>,<span class="string">"M"</span>,<span class="string">"Rick"</span>,<span class="string">"Beethovan"</span>);</span><br><span class="line">    Employee e2 = <span class="keyword">new</span> Employee(<span class="number">2</span>,<span class="number">13</span>,<span class="string">"F"</span>,<span class="string">"Martina"</span>,<span class="string">"Hengis"</span>);</span><br><span class="line">    Employee e3 = <span class="keyword">new</span> Employee(<span class="number">3</span>,<span class="number">43</span>,<span class="string">"M"</span>,<span class="string">"Ricky"</span>,<span class="string">"Martin"</span>);</span><br><span class="line">    Employee e4 = <span class="keyword">new</span> Employee(<span class="number">4</span>,<span class="number">26</span>,<span class="string">"M"</span>,<span class="string">"Jon"</span>,<span class="string">"Lowman"</span>);</span><br><span class="line">    Employee e5 = <span class="keyword">new</span> Employee(<span class="number">5</span>,<span class="number">19</span>,<span class="string">"F"</span>,<span class="string">"Cristine"</span>,<span class="string">"Maria"</span>);</span><br><span class="line">    Employee e6 = <span class="keyword">new</span> Employee(<span class="number">6</span>,<span class="number">15</span>,<span class="string">"M"</span>,<span class="string">"David"</span>,<span class="string">"Feezor"</span>);</span><br><span class="line">    Employee e7 = <span class="keyword">new</span> Employee(<span class="number">7</span>,<span class="number">68</span>,<span class="string">"F"</span>,<span class="string">"Melissa"</span>,<span class="string">"Roy"</span>);</span><br><span class="line">    Employee e8 = <span class="keyword">new</span> Employee(<span class="number">8</span>,<span class="number">79</span>,<span class="string">"M"</span>,<span class="string">"Alex"</span>,<span class="string">"Gussin"</span>);</span><br><span class="line">    Employee e9 = <span class="keyword">new</span> Employee(<span class="number">9</span>,<span class="number">15</span>,<span class="string">"F"</span>,<span class="string">"Neetu"</span>,<span class="string">"Singh"</span>);</span><br><span class="line">    Employee e10 = <span class="keyword">new</span> Employee(<span class="number">10</span>,<span class="number">45</span>,<span class="string">"M"</span>,<span class="string">"Naveen"</span>,<span class="string">"Jain"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    List&lt;Employee&gt; employees = Arrays.asList(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*List&lt;Employee&gt; maped = employees.stream()</span></span><br><span class="line"><span class="comment">            .map(e -&gt; &#123;</span></span><br><span class="line"><span class="comment">                e.setAge(e.getAge() + 1);</span></span><br><span class="line"><span class="comment">                e.setGender(e.getGender().equals("M")?"male":"female");</span></span><br><span class="line"><span class="comment">                return e;</span></span><br><span class="line"><span class="comment">            &#125;).collect(Collectors.toList());*/</span></span><br><span class="line"></span><br><span class="line">    List&lt;Employee&gt; maped = employees.stream()</span><br><span class="line">            .peek(e -&gt; &#123;</span><br><span class="line">                e.setAge(e.getAge() + <span class="number">1</span>);</span><br><span class="line">                e.setGender(e.getGender().equals(<span class="string">"M"</span>)?<span class="string">"male"</span>:<span class="string">"female"</span>);</span><br><span class="line">            &#125;).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">    System.out.println(maped);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于 map 的参数 e 就是返回值，所以可以用 peek 函数。peek 函数是一种特殊的 map 函数，当函数没有返回值或者参数就是返回值的时候可以使用 peek 函数。</p>
+<h3 id="四、flatMap"><a href="#四、flatMap" class="headerlink" title="四、flatMap"></a>四、flatMap</h3><p>map 可以对管道流中的数据进行转换操作，但是如果管道中还有管道该如何处理？即：如何处理二维数组及二维集合类。实现一个简单的需求：将“hello”，“world”两个字符串组成的集合，元素的每一个字母打印出来。如果不用 Stream 我们怎么写？写 2 层 for 循环,第一层遍历字符串，并且将字符串拆分成 char 数组，第二层 for 循环遍历 char 数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; words = Arrays.asList(<span class="string">"hello"</span>, <span class="string">"word"</span>);</span><br><span class="line">words.stream()</span><br><span class="line">        .map(w -&gt; Arrays.stream(w.split(<span class="string">""</span>)))    <span class="comment">//[[h,e,l,l,o],[w,o,r,l,d]]</span></span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>输出打印结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.util.stream.ReferencePipeline$Head@<span class="number">3551</span>a94</span><br><span class="line">java.util.stream.ReferencePipeline$Head@<span class="number">531</span>be3c5</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用 map 方法是做不到的，这个需求用 map 方法无法实现。map 只能针对一维数组进行操作，数组里面还有数组，管道里面还有管道，它是处理不了每一个元素的。<br><img src="https://img.kancloud.cn/93/8a/938a9ceb8f8bd52a92111d1112e1b7e6_1256x524.png" alt="image"></li>
+<li>flatMap 可以理解为将若干个子管道中的数据全都，平面展开到父管道中进行处理。<br><img src="https://img.kancloud.cn/52/55/5255f59f26e472cd30314bbd1e243e73_1198x498.png" alt="image"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">words.stream()</span><br><span class="line">        .flatMap(w -&gt; Arrays.stream(w.split(<span class="string">""</span>))) <span class="comment">// [h,e,l,l,o,w,o,r,l,d]</span></span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>输出打印结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l</span><br><span class="line">o</span><br><span class="line">w</span><br><span class="line">o</span><br><span class="line">r</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/04/24/Modern-JavaScript/" data-toggle="tooltip" data-placement="top" title="Modern JavaScript">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/04/25/恕我直言你可能真的不会Java/";
+    var disqus_url = "https://wenyongqd.github.io/2020/04/25/恕我直言你可能真的不会Java/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/Demonbane_x">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/Demonbane">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/Demonbane">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/demonbane.cn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Kaijun">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/kaijun-chen-42089354">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
