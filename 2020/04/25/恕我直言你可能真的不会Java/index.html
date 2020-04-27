@@ -167,7 +167,7 @@
                         
                     </div>
                     <h1>恕我直言你可能真的不会Java</h1>
-                    <h2 class="subheading"></h2>
+                    <h2 class="subheading">“Make the choices today that pay you back tomorrow.”</h2>
                     <span class="meta">
                         Posted by Wenyong He on
                         2020-04-25
@@ -191,36 +191,45 @@
 
                 <!-- TOC -->
 <ul>
-<li><a href="#1-lambda表达式会用了吗">1. Lambda 表达式会用了吗？</a><ul>
+<li><a href="#1-lambda-表达式会用了吗">1. Lambda 表达式会用了吗？</a><ul>
 <li><a href="#一接口定义">一、接口定义</a></li>
 <li><a href="#二传统的接口函数实现方式">二、传统的接口函数实现方式</a></li>
-<li><a href="#三lambda表示式实现方式">三、lambda 表示式实现方式</a></li>
+<li><a href="#三lambda-表示式实现方式">三、lambda 表示式实现方式</a></li>
 </ul>
 </li>
-<li><a href="#2-初识stream-api">2. 初识 Stream-API</a><ul>
-<li><a href="#一什么是java-stream-api">一、什么是 Java Stream API？</a></li>
-<li><a href="#二stream-api代替for循环">二、Stream API 代替 for 循环</a></li>
+<li><a href="#2-初识-stream-api">2. 初识 Stream-API</a><ul>
+<li><a href="#一什么是-java-stream-api">一、什么是 Java Stream API？</a></li>
+<li><a href="#二stream-api-代替-for-循环">二、Stream API 代替 for 循环</a></li>
 <li><a href="#三将数组转换为管道流">三、将数组转换为管道流</a></li>
 <li><a href="#四将集合类对象转换为管道流">四、将集合类对象转换为管道流</a></li>
 <li><a href="#五将文本文件转换为管道流">五、将文本文件转换为管道流</a></li>
 </ul>
 </li>
-<li><a href="#3-stream的filter与谓语逻辑">3. Stream 的 filter 与谓语逻辑</a><ul>
+<li><a href="#3-stream-的-filter-与谓语逻辑">3. Stream 的 filter 与谓语逻辑</a><ul>
 <li><a href="#一基础代码准备">一、基础代码准备</a></li>
 <li><a href="#二什么是谓词逻辑">二、什么是谓词逻辑？</a></li>
 <li><a href="#三谓词逻辑的复用">三、谓词逻辑的复用</a><ul>
-<li><a href="#and语法并集">and 语法（并集）</a></li>
-<li><a href="#or语法交集">or 语法（交集）</a></li>
-<li><a href="#negate语法取反">negate 语法（取反）</a></li>
+<li><a href="#and-语法并集">and 语法（并集）</a></li>
+<li><a href="#or-语法交集">or 语法（交集）</a></li>
+<li><a href="#negate-语法取反">negate 语法（取反）</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#4-stream管道流的map操作">4. Stream 管道流的 map 操作</a><ul>
-<li><a href="#一回顾stream管道流map的基础用法">一、回顾 Stream 管道流 map 的基础用法</a></li>
+<li><a href="#4-stream-管道流的-map-操作">4. Stream 管道流的 map 操作</a><ul>
+<li><a href="#一回顾-stream-管道流-map-的基础用法">一、回顾 Stream 管道流 map 的基础用法</a></li>
 <li><a href="#二处理非字符串类型集合元素">二、处理非字符串类型集合元素</a></li>
 <li><a href="#三再复杂一点处理对象数据格式转换">三、再复杂一点：处理对象数据格式转换</a></li>
 <li><a href="#四flatmap">四、flatMap</a></li>
+</ul>
+</li>
+<li><a href="#5stream的状态与并行操作">5.Stream 的状态与并行操作</a><ul>
+<li><a href="#一回顾stream管道流操作">一、回顾 Stream 管道流操作</a></li>
+<li><a href="#二中间操作有状态与无状态">二、中间操作：有状态与无状态</a></li>
+<li><a href="#三limit与skip管道数据截取">三、Limit 与 Skip 管道数据截取</a></li>
+<li><a href="#四distinct元素去重">四、Distinct 元素去重</a></li>
+<li><a href="#五sorted排序">五、Sorted 排序</a></li>
+<li><a href="#六串行并行与顺序">六、串行、并行与顺序</a></li>
 </ul>
 </li>
 </ul>
@@ -318,6 +327,60 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">words.stream()</span><br><span class="line">        .flatMap(w -&gt; Arrays.stream(w.split(<span class="string">""</span>))) <span class="comment">// [h,e,l,l,o,w,o,r,l,d]</span></span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
 <p>输出打印结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l</span><br><span class="line">o</span><br><span class="line">w</span><br><span class="line">o</span><br><span class="line">r</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+<h2 id="5-Stream-的状态与并行操作"><a href="#5-Stream-的状态与并行操作" class="headerlink" title="5.Stream 的状态与并行操作"></a>5.Stream 的状态与并行操作</h2><h3 id="一、回顾-Stream-管道流操作"><a href="#一、回顾-Stream-管道流操作" class="headerlink" title="一、回顾 Stream 管道流操作"></a>一、回顾 Stream 管道流操作</h3><p><img src="https://img.kancloud.cn/87/80/8780fbf2c447fbf574591cab30cb743c_631x282.png" alt="image"><br>通过前面章节的学习，我们应该明白了 Stream 管道流的基本操作。我们来回顾一下：</p>
+<ul>
+<li>源操作：可以将数组、集合类、行文本文件转换成管道流 Stream 进行数据处理</li>
+<li>中间操作：对 Stream 流中的数据进行处理，比如：过滤、数据转换等等</li>
+<li>终端操作：作用就是将 Stream 管道流转换为其他的数据类型。这部分我们还没有讲，我们后面章节再介绍</li>
+</ul>
+<p>看下面的脑图，可以有更清晰的理解：<br><img src="https://img.kancloud.cn/78/f7/78f74991175f6ddc5c27fff109f0fc66_942x578.png" alt="image"></p>
+<h3 id="二、中间操作：有状态与无状态"><a href="#二、中间操作：有状态与无状态" class="headerlink" title="二、中间操作：有状态与无状态"></a>二、中间操作：有状态与无状态</h3><p>其实在程序员编程中，经常会接触到“有状态”，“无状态”，绝大部分的人都比较蒙。而且在不同的场景下，“状态”这个词的含义似乎有所不同。但是“万变不离其宗”，理解“状态”这个词在编程领域的含义，笔者教给大家几个关键点</p>
+<ul>
+<li>状态通常代表公用数据，有状态就是有“公用数据”</li>
+<li>因为有公用的数据，状态通常需要额外的存储。</li>
+<li>状态通常被多人、多用户、多线程、多次操作，这就涉及到状态的管理及变更操作。</li>
+</ul>
+<p>是不是更蒙了？举个例子，你就明白了</p>
+<ul>
+<li>web 开发 session 就是一种状态，访问者的多次请求关联同一个 session，这个 session 需要存储到内存或者 redis。多次请求使用同一个公用的 session，这个 session 就是状态数据。</li>
+<li>vue 的 vuex 的 store 就是一种状态，首先它是多组件公用的，其次是不同的组件都可以修改它，最后它需要独立于组件单独存储。所以 store 就是一种状态。</li>
+</ul>
+<p>回到我们的 Stream 管道流</p>
+<ul>
+<li>filter 与 map 操作，不需要管道流的前面后面元素相关，所以不需要额外的记录元素之间的关系。输入一个元素，获得一个结果。</li>
+<li>sorted 是排序操作、distinct 是去重操作。像这种操作都是和别的元素相关的操作，我自己无法完成整体操作。就像班级点名就是无状态的，喊到你你就答到就可以了。如果是班级同学按大小个排序，那就不是你自己的事了，你得和周围的同学比一下身高并记住，你记住的这个身高比较结果就是一种“状态”。所以这种操作就是有状态操作。</li>
+</ul>
+<h3 id="三、Limit-与-Skip-管道数据截取"><a href="#三、Limit-与-Skip-管道数据截取" class="headerlink" title="三、Limit 与 Skip 管道数据截取"></a>三、Limit 与 Skip 管道数据截取</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; limitN = Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>)</span><br><span class="line">        .limit(<span class="number">2</span>)</span><br><span class="line">        .collect(Collectors.toList());</span><br><span class="line">List&lt;String&gt; skipN = Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>)</span><br><span class="line">        .skip(<span class="number">2</span>)</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<ul>
+<li>limt 方法传入一个整数 n，用于截取管道中的前 n 个元素。经过管道处理之后的数据是：[Monkey, Lion]。</li>
+<li>skip 方法与 limit 方法的使用相反，用于跳过前 n 个元素，截取从 n 到末尾的元素。经过管道处理之后的数据是： [Giraffe, Lemur]</li>
+</ul>
+<h3 id="四、Distinct-元素去重"><a href="#四、Distinct-元素去重" class="headerlink" title="四、Distinct 元素去重"></a>四、Distinct 元素去重</h3><p>我们还可以使用 distinct 方法对管道中的元素去重，涉及到去重就一定涉及到元素之间的比较，distinct 方法时调用 Object 的 equals 方法进行对象的比较的，如果你有自己的比较规则，可以重写 equals 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; uniqueAnimals = Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>, <span class="string">"Lion"</span>)</span><br><span class="line">        .distinct()</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>上面代码去重之后的结果是： [“Monkey”, “Lion”, “Giraffe”, “Lemur”]</p>
+<h3 id="五、Sorted-排序"><a href="#五、Sorted-排序" class="headerlink" title="五、Sorted 排序"></a>五、Sorted 排序</h3><p>默认的情况下，sorted 是按照字母的自然顺序进行排序。如下代码的排序结果是：[Giraffe, Lemur, Lion, Monkey]，字数按顺序 G 在 L 前面，L 在 M 前面。第一位无法区分顺序，就比较第二位字母。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; alphabeticOrder = Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>)</span><br><span class="line">        .sorted()</span><br><span class="line">        .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>排序我们后面还会给大家详细的讲一讲，所以这里暂时只做一个了解。</p>
+<h3 id="六、串行、并行与顺序"><a href="#六、串行、并行与顺序" class="headerlink" title="六、串行、并行与顺序"></a>六、串行、并行与顺序</h3><p>通常情况下，有状态和无状态操作不需要我们去关心。除非？：你使用了并行操作。</p>
+<p>还是用班级按身高排队为例：班级有一个人负责排序，这个排序结果最后就会是正确的。那如果有 2 个、3 个人负责按大小个排队呢？最后可能就乱套了。一个人只能保证自己排序的人的顺序，他无法保证其他人的排队顺序。</p>
+<ul>
+<li>串行的好处是可以保证顺序，但是通常情况下处理速度慢一些</li>
+<li>并行的好处是对于元素的处理速度快一些（通常情况下），但是顺序无法保证。这可能会导致进行一些有状态操作的时候，最后得到的不是你想要的结果。<br><img src="https://img.kancloud.cn/92/39/92394040fe48efd292feca03fa9da193_662x356.png" alt="image"></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream.of(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>, <span class="string">"Lemur"</span>, <span class="string">"Lion"</span>)</span><br><span class="line">        .parallel()</span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>parallel()函数表示对管道中的元素进行并行处理，而不是串行处理。但是这样就有可能导致管道流中后面的元素先处理，前面的元素后处理，也就是元素的顺序无法保证。<blockquote>
+<p>如果数据量比较小的情况下，不太能观察到，数据量大的话，就能观察到数据顺序是无法保证的。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Monkey</span><br><span class="line">Lion</span><br><span class="line">Lemur</span><br><span class="line">Giraffe</span><br><span class="line">Lion</span><br></pre></td></tr></table></figure>
+<p>通常情况下，parallel()能够很好的利用 CPU 的多核处理器，达到更好的执行效率和性能，建议使用。但是有些特殊的情况下，parallel 并不适合：深入了解请看这篇文章：<br><a href="https://blog.oio.de/2016/01/22/parallel-stream-processing-in-java-8-performance-of-sequential-vs-parallel-stream-processing/" target="_blank" rel="noopener">https://blog.oio.de/2016/01/22/parallel-stream-processing-in-java-8-performance-of-sequential-vs-parallel-stream-processing/</a><br>该文章中几个观点，说明并行操作的适用场景：</p>
+<ul>
+<li>数据源易拆分：从处理性能的角度，parallel()更适合处理 ArrayList，而不是 LinkedList。因为 ArrayList 从数据结构上讲是基于数组的，可以根据索引很容易的拆分为多个。<br><img src="https://img.kancloud.cn/2d/85/2d85dbdaf34057b0fb5bf800f632b695_799x471.png" alt="image"></li>
+<li>适用于无状态操作：每个元素的计算都不得依赖或影响任何其他元素的计算，的运算场景。</li>
+<li>基础数据源无变化：从文本文件里面边读边处理的场景，不适合 parallel()并行处理。parallel()一开始就容量固定的集合，这样能够平均的拆分、同步处理。</li>
+</ul>
 
 
                 <hr>
@@ -325,6 +388,10 @@
                 
 
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/04/26/Redux-Tutorial/" data-toggle="tooltip" data-placement="top" title="Redux Tutorial">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
