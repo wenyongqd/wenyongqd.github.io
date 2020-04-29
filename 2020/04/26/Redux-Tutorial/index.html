@@ -213,9 +213,10 @@
 </li>
 <li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line"><span class="keyword">import</span> TodoList <span class="keyword">from</span> <span class="string">'./TodoList'</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">TodoList</span>/&gt;</span></span>,<span class="built_in">document</span>.getElementById(<span class="string">'root'</span>))</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>Structure:<br><img id="d01" src="/2020/04/26/Redux-Tutorial/d01.png" width="250" height="350"></p>
+</li>
 </ol>
-<p><img src="/2020/04/26/Redux-Tutorial/d01.png" width="250" height="350"></p>
-<ol start="4">
+<ol start="5">
 <li><p>Create TodoList.js</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TodoList</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123; </span><br><span class="line">        <span class="keyword">return</span> ( </span><br><span class="line">            &lt;div&gt;Hello World&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">         );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default TodoList;</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -223,7 +224,31 @@
 <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install antd --save</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="Create-UI-with-AntDisign"><a href="#Create-UI-with-AntDisign" class="headerlink" title="Create UI with AntDisign"></a>Create UI with AntDisign</h2>
+<h2 id="Create-UI-with-AntDisign"><a href="#Create-UI-with-AntDisign" class="headerlink" title="Create UI with AntDisign"></a>Create UI with AntDisign</h2><ol>
+<li><p>Import components(Input, Button, List) and css in TodoList.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'antd/dist/antd.css'</span></span><br><span class="line"><span class="keyword">import</span> &#123;Input, Button, List&#125; <span class="keyword">from</span> <span class="string">'antd'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> data=[</span><br><span class="line">    <span class="string">'早8点开晨会，分配今天的代码任务'</span>,</span><br><span class="line">    <span class="string">'早9点和项目经理开需求沟通会'</span>,</span><br><span class="line">    <span class="string">'中午12 点和客户吃饭'</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TodoList</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    render() &#123; </span><br><span class="line">        <span class="keyword">return</span> ( </span><br><span class="line">            &lt;div style=&#123;&#123;<span class="attr">margin</span>:<span class="string">'10px'</span>&#125;&#125;&gt;</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;Input</span><br><span class="line">                        placeholder=<span class="string">'Write Somethind'</span></span><br><span class="line">                        style=&#123;&#123;<span class="attr">width</span>:<span class="string">'250px'</span>, <span class="attr">marginRight</span>:<span class="string">'10px'</span>&#125;&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                    &lt;Button type=<span class="string">"primary"</span>&gt;增加&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>div&gt;</span><br><span class="line">                &lt;div style=&#123;&#123;<span class="attr">margin</span>:<span class="string">'10px'</span>, <span class="attr">width</span>:<span class="string">'300px'</span>&#125;&#125;&gt;</span><br><span class="line">                    &lt;List</span><br><span class="line">                        bordered</span><br><span class="line">                        dataSource=&#123;data&#125;</span><br><span class="line">                        renderItem=&#123;item=&gt;(<span class="xml"><span class="tag">&lt;<span class="name">List.Item</span>&gt;</span>&#123;item&#125;<span class="tag">&lt;/<span class="name">List.Item</span>&gt;</span></span>)&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">         );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> TodoList;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>result:<br><img id="d12" class="glyphicon-align-left" src="/2020/04/26/Redux-Tutorial/d12.png"></p>
+</li>
+</ol>
+<h2 id="Create-store-and-reducer-in-Redux"><a href="#Create-store-and-reducer-in-Redux" class="headerlink" title="Create store and reducer in Redux"></a>Create store and reducer in Redux</h2><ol>
+<li>install Redux<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save redux</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<style>
+#d12 {
+    width: 50%;
+    height: 50%;
+    border: 1px solid #ddd;
+    display: inline-block;
+}
+#d01 {
+    width: 40%;
+    height: 40%;
+    border: 1px solid #ddd;
+    display: inline-block;
+}
+</style>
 
                 <hr>
 
