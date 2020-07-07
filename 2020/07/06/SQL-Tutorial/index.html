@@ -13,11 +13,11 @@
 
     <title>
         
-          Wenyong的博客 | Wenyong&#39;s Blog
+          SQL Tutorial - Wenyong的博客 | Wenyong&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://wenyongqd.github.io/i_dont_wanna_use_default_archives/page/5/">
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/07/06/SQL-Tutorial/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,7 +147,295 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
+                        
+                    </div>
+                    <h1>SQL Tutorial</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-07-06
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="SQL-join"><a href="#SQL-join" class="headerlink" title="SQL join"></a>SQL join</h3><blockquote>
+<p>SQL join 用于根据两个或多个表中的列之间的关系，从这些表中查询数据。</p>
+</blockquote>
+<h5 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h5><table>
+<thead>
+<tr>
+<th>Id_P</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Order"><a href="#Order" class="headerlink" title="Order"></a>Order</h5><table>
+<thead>
+<tr>
+<th>Id_O</th>
+<th>OrderNo</th>
+<th>Id_P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>77895</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>44678</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22456</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>24562</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>34764</td>
+<td>65</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以通过引用两个表的方式，从两个表中获取数据：<br>谁订购了产品，并且他们订购了什么产品？</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons, Orders</span><br><span class="line">WHERE Persons.Id_P = Orders.Id_P</span><br></pre></td></tr></table></figure>
+<h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h5><table>
+<thead>
+<tr>
+<th>astName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+</tbody>
+</table>
+<h3 id="不同的-SQL-JOIN"><a href="#不同的-SQL-JOIN" class="headerlink" title="不同的 SQL JOIN"></a>不同的 SQL JOIN</h3><p>除了我们在上面的例子中使用的 INNER JOIN（内连接），我们还可以使用其他几种连接。<br>下面列出了您可以使用的 JOIN 类型，以及它们之间的差异。</p>
+<ul>
+<li>JOIN: 如果表中有至少一个匹配，则返回行</li>
+<li>LEFT JOIN: 即使右表中没有匹配，也从左表返回所有的行</li>
+<li>RIGHT JOIN: 即使左表中没有匹配，也从右表返回所有的行</li>
+<li>FULL JOIN: 只要其中一个表中存在匹配，就返回行</li>
+</ul>
+<h5 id="Reference-https-www-w3school-com-cn-sql-sql-join-inner-asp"><a href="#Reference-https-www-w3school-com-cn-sql-sql-join-inner-asp" class="headerlink" title="Reference: [https://www.w3school.com.cn/sql/sql_join_inner.asp]"></a>Reference: [<a href="https://www.w3school.com.cn/sql/sql_join_inner.asp]" target="_blank" rel="noopener">https://www.w3school.com.cn/sql/sql_join_inner.asp]</a></h5>
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/07/06/Collections-of-Binatry-Tree/" data-toggle="tooltip" data-placement="top" title="Collections of Binatry Tree">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#SQL" title="SQL">SQL</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/07/06/SQL-Tutorial/";
+    var disqus_url = "https://wenyongqd.github.io/2020/07/06/SQL-Tutorial/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
 
     <!-- Footer -->
     <!-- Footer -->
