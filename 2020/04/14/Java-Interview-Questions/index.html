@@ -90,7 +90,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -104,7 +104,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -165,7 +165,7 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#-Interview" title="-Interview">-Interview</a>
+                          <a class="tag" href="/tags/#Interview" title="Interview">Interview</a>
                         
                     </div>
                     <h1>Java Interview Questions</h1>
@@ -313,13 +313,45 @@
 <h3 id="Q18-Explain-Final-keyword-in-java"><a href="#Q18-Explain-Final-keyword-in-java" class="headerlink" title="Q18 Explain Final keyword in java?"></a>Q18 Explain Final keyword in java?</h3><blockquote>
 <p>Final keyword in java is used to restrict usage of variable, class and method.<br>  Variable: Value of Final variable is constant, you can not change it.<br>  Method: you can’t override a Final method.<br>  Class: you can’t inherit from Final class.</p>
 </blockquote>
-<h3 id="Q19-When-is-the-super-keyword-used"><a href="#Q19-When-is-the-super-keyword-used" class="headerlink" title="Q19 When is the super keyword used?"></a>Q19 When is the super keyword used?</h3><p>super keyword is used to refer:</p>
+<h3 id="Q19-When-is-the-super-keyword-used"><a href="#Q19-When-is-the-super-keyword-used" class="headerlink" title="Q19 When is the super keyword used?"></a>Q19 When is the super keyword used?</h3><blockquote>
+<p>super keyword is used to refer:</p>
 <ul>
 <li>immediate parent class constructor,</li>
 <li>immediate parent class variable,</li>
 <li>immediate parent class method.<br>refer <a href="https://www.geeksforgeeks.org/commonly-asked-java-programming-interview-questions-set-1/" target="_blank" rel="noopener">this</a> for details.</li>
 </ul>
-<h3 id="Q20-What-is-the-difference-between-StringBuffer-and-String"><a href="#Q20-What-is-the-difference-between-StringBuffer-and-String" class="headerlink" title="Q20 What is the difference between StringBuffer and String?"></a>Q20 What is the difference between StringBuffer and String?</h3><p>String is an Immutable class, i.e. you can not modify its content once created. While StringBuffer is a mutable class, means you can change its content later. Whenever we alter content of String object, it creates a new string and refer to that,it does not modify the existing one. This is the reason that the performance with StringBuffer is better than with String.<br>Refer <a href="https://www.geeksforgeeks.org/string-vs-stringbuilder-vs-stringbuffer-in-java/" target="_blank" rel="noopener">this</a> for details.</p>
+</blockquote>
+<h3 id="Q20-What-is-the-difference-between-StringBuffer-and-String"><a href="#Q20-What-is-the-difference-between-StringBuffer-and-String" class="headerlink" title="Q20 What is the difference between StringBuffer and String?"></a>Q20 What is the difference between StringBuffer and String?</h3><blockquote>
+<p>String is an Immutable class, i.e. you can not modify its content once created. While StringBuffer is a mutable class, means you can change its content later. Whenever we alter content of String object, it creates a new string and refer to that,it does not modify the existing one. This is the reason that the performance with StringBuffer is better than with String.<br>Refer <a href="https://www.geeksforgeeks.org/string-vs-stringbuilder-vs-stringbuffer-in-java/" target="_blank" rel="noopener">this</a> for details.<br><strong>When to use which one :</strong></p>
+<ul>
+<li>If a string is going to remain constant throughout the program, then use String class object because a String object is immutable.</li>
+<li>If a string can change (example: lots of logic and operations in the construction of the string) and will only be accessed from a single thread, using a StringBuilder is good enough.</li>
+<li>If a string can change, and will be accessed from multiple threads, use a StringBuffer because StringBuffer is synchronous so you have thread-safety.</li>
+</ul>
+</blockquote>
+<h3 id="Q21-Why-multiple-inheritance-is-not-supported-in-java"><a href="#Q21-Why-multiple-inheritance-is-not-supported-in-java" class="headerlink" title="Q21 Why multiple inheritance is not supported in java?"></a>Q21 Why multiple inheritance is not supported in java?</h3><blockquote>
+<p>Java supports multiple inheritance but not through classes, it supports only through its interfaces. The reason for not supporting multiple inheritance is to avoid the conflict and complexity arises due to it and keep Java a Simple Object Oriented Language. If we recall this in C++, there is a special case of multiple inheritance (diamond problem) where you have a multiple inheritance with two classes which have methods in conflicts. So, Java developers decided to avoid such conflicts and didn’t allow multiple inheritance through classes at all.</p>
+</blockquote>
+<h3 id="Q22-What-is-the-difference-between-‘throw’-and-‘throws’-in-Java-Exception-Handling"><a href="#Q22-What-is-the-difference-between-‘throw’-and-‘throws’-in-Java-Exception-Handling" class="headerlink" title="Q22 What is the difference between ‘throw’ and ‘throws’ in Java Exception Handling?"></a>Q22 What is the difference between ‘throw’ and ‘throws’ in Java Exception Handling?</h3><blockquote>
+<ul>
+<li>throw keyword is used to throw Exception from any method or static block whereas throws is used to indicate that which Exception can possibly be thrown by this method</li>
+<li>If any method throws checked Exception, then caller can either handle this exception(using try catch block )or can re throw it by declaring another ‘throws’ clause in method declaration.</li>
+<li>throw clause can be used in any part of code where you feel a specific exception needs to be thrown to the calling method<br><img src="https://iknow-pic.cdn.bcebos.com/94cad1c8a786c917168f224fc43d70cf3bc75733?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="image"><br><img src="https://iknow-pic.cdn.bcebos.com/bd315c6034a85edfc6478e5544540923dc5475f8?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="image"></li>
+</ul>
+</blockquote>
+<h3 id="Q23-What-is-finalize-method"><a href="#Q23-What-is-finalize-method" class="headerlink" title="Q23 What is finalize() method?"></a>Q23 What is finalize() method?</h3><blockquote>
+<p>Unlike c++ , we don’t need to destroy objects explicitly in Java. ‘Garbage Collector‘ does that automatically for us. Garbage Collector checks if no references to an object exist, that object is assumed to be no longer required, and the memory occupied by the object can be freed. Sometimes an object can hold non-java resources such as file handle or database connection, then you want to make sure these resources are also released before object is destroyed. To perform such operation Java provide protected void finalize() in object class. You can override this method in your class and do the required tasks. Right before an object is freed, the java run time calls the finalize() method on that object. Refer this for more details.</p>
+</blockquote>
+<h3 id="Q24-Difference-in-Set-and-List-interface"><a href="#Q24-Difference-in-Set-and-List-interface" class="headerlink" title="Q24 Difference in Set and List interface?"></a>Q24 Difference in Set and List interface?</h3><blockquote>
+<p>Set and List both are child interface of Collection interface. There are following two main differences between them </p>
+<ul>
+<li>List can hold duplicate values but Set doesn’t allow this.</li>
+<li>In List interface data is present in the order you inserted but in the case of Set insertion order is not preserved.</li>
+</ul>
+</blockquote>
+<h3 id="Q25-What-will-happen-if-you-put-System-exit-0-on-try-or-catch-block-Will-finally-block-execute"><a href="#Q25-What-will-happen-if-you-put-System-exit-0-on-try-or-catch-block-Will-finally-block-execute" class="headerlink" title="Q25 What will happen if you put System.exit(0) on try or catch block? Will finally block execute?"></a>Q25 What will happen if you put System.exit(0) on try or catch block? Will finally block execute?</h3><blockquote>
+<p>By Calling System.exit(0) in try or catch block, we can skip the finally block. System.exit(int) method can throw a SecurityException. If Sysytem.exit(0) exits the JVM without throwing that exception then finally block will not execute. But, if System.exit(0) does throw security exception then finally block will be executed.</p>
+</blockquote>
 
 
                 <hr>
@@ -367,7 +399,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#-Interview" title="-Interview">-Interview</a>
+                          <a class="tag" href="/tags/#Interview" title="Interview">Interview</a>
                         
                     </div>
                 </section>
