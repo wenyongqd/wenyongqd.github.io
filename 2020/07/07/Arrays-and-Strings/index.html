@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -202,6 +202,35 @@
 <p><strong>Input:</strong> “pwwkew”<br><strong>Output:</strong> 3<br><strong>Explanation:</strong> The answer is “wke”, with the length of 3.<br>             Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        Map&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(s.charAt(j))) &#123;</span><br><span class="line">                i = Math.max(map.get(s.charAt(j)), i);</span><br><span class="line">            &#125;</span><br><span class="line">            ans = Math.max(ans, j - i + <span class="number">1</span>);</span><br><span class="line">            map.put(s.charAt(j), j + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-String-to-Integer-atoi"><a href="#8-String-to-Integer-atoi" class="headerlink" title="8. String to Integer (atoi)"></a>8. String to Integer (atoi)</h3><ul>
+<li>Implement atoi which converts a string to an integer.</li>
+<li>The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible, and interprets them as a numerical value.</li>
+<li>The string can contain additional characters after those that form the integral number, which are ignored and have no effect on the behavior of this function.</li>
+<li>If the first sequence of non-whitespace characters in str is not a valid integral number, or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.</li>
+<li>If no valid conversion could be performed, a zero value is returned.</li>
+</ul>
+<p><strong>Note:</strong><br>Only the space character ‘ ‘ is considered as whitespace character.<br>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.</p>
+<p><strong>Example 1:</strong></p>
+<blockquote>
+<p><strong>Input:</strong> “42”<br><strong>Output:</strong> 42</p>
+</blockquote>
+<p><strong>Example 2:</strong></p>
+<blockquote>
+<p><strong>Input:</strong> “   -42”<br><strong>Output:</strong> -42<br>Explanation: The first non-whitespace character is ‘-‘, which is the minus sign.<br>             Then take as many numerical digits as possible, which gets 42.</p>
+</blockquote>
+<p><strong>Example 3:</strong></p>
+<blockquote>
+<p><strong>Input:</strong> “4193 with words”<br><strong>Output:</strong> 4193<br>Explanation: Conversion stops at digit ‘3’ as the next character is not a numerical digit.</p>
+</blockquote>
+<p><strong>Example 4:</strong></p>
+<blockquote>
+<p><strong>Input:</strong> “words and 987”<br><strong>Output:</strong> 0<br>Explanation: The first non-whitespace character is ‘w’, which is not a numerical<br>             digit or a +/- sign. Therefore no valid conversion could be performed.</p>
+</blockquote>
+<p><strong>Example 5:</strong></p>
+<blockquote>
+<p><strong>Input:</strong> “-91283472332”<br><strong>Output:</strong> -2147483648<br>Explanation: The number “-91283472332” is out of the range of a 32-bit signed integer.<br>             Thefore INT_MIN (−231) is returned.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">             <span class="keyword">if</span>(str == <span class="keyword">null</span>)&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="comment">// 去掉前后空格</span></span><br><span class="line">         <span class="comment">// then check if it is empty, corner case " "</span></span><br><span class="line">         str = str.trim();</span><br><span class="line">         <span class="keyword">if</span>(str.length() == <span class="number">0</span>)&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="comment">//首个char是符号</span></span><br><span class="line">         <span class="keyword">boolean</span> isNeg = <span class="keyword">false</span>;</span><br><span class="line">         <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">         <span class="keyword">if</span>(str.charAt(<span class="number">0</span>) == <span class="string">'+'</span>)&#123;</span><br><span class="line">             i++;</span><br><span class="line">         &#125;<span class="keyword">else</span> <span class="keyword">if</span>(str.charAt(<span class="number">0</span>) == <span class="string">'-'</span>)&#123;</span><br><span class="line">             isNeg = <span class="keyword">true</span>;</span><br><span class="line">             i++;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">         <span class="keyword">while</span>(i&lt;str.length() &amp;&amp; Character.isDigit(str.charAt(i)))&#123;</span><br><span class="line">             <span class="keyword">char</span> c = str.charAt(i);</span><br><span class="line">             <span class="comment">// Overflow</span></span><br><span class="line">             <span class="keyword">if</span>(res &gt; Integer.MAX_VALUE/<span class="number">10</span> || (res == Integer.MAX_VALUE/<span class="number">10</span> &amp;&amp; c&gt;=<span class="string">'8'</span>))&#123;</span><br><span class="line">                 <span class="keyword">return</span> isNeg ? Integer.MIN_VALUE : Integer.MAX_VALUE;</span><br><span class="line">             &#125;</span><br><span class="line">             </span><br><span class="line">             res = res*<span class="number">10</span> + (c-<span class="string">'0'</span>);</span><br><span class="line">             i++;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="keyword">return</span> isNeg ? -res : res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
                 <hr>
 
