@@ -13,11 +13,11 @@
 
     <title>
         
-          Seckill Project - Wenyong的博客 | Wenyong&#39;s Blog
+          Tree Questions - Wenyong的博客 | Wenyong&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://wenyongqd.github.io/2020/07/19/Seckill-Project/">
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/07/22/Tree-Questions/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,11 +166,11 @@
                     <div class="tags">
                         
                     </div>
-                    <h1>Seckill Project</h1>
+                    <h1>Tree Questions</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Wenyong He on
-                        2020-07-19
+                        2020-07-22
                     </span>
                 </div>
             </div>
@@ -189,144 +189,15 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p><img src="/2020/07/19/Seckill-Project/seckill.gif" alt="Image text"></p>
-<p>This project simulate the hign concurrency scenario, it includes the following technologies:</p>
-<ul>
-<li>Build a full stack project using <strong>Spring Boot</strong> in backend, <strong>Vue.js</strong> and Redux on the front end</li>
-<li>Implement rack-attack (based on <strong>Redis</strong>) to limit robots-access and different API requests</li>
-<li>Use two times <strong>MD5</strong> (password encryption) and distributed session to implement register and login function</li>
-<li>Use Redis and <strong>Kafka</strong> for asynchronous communication to optimize seckill system</li>
-</ul>
-<h2 id="Dependent-frameworks-and-packages"><a href="#Dependent-frameworks-and-packages" class="headerlink" title="Dependent frameworks and packages"></a>Dependent frameworks and packages</h2><ol>
-<li><a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener">Spring Boot</a> Web framework and server</li>
-<li><a href="https://spring.io/projects/spring-data-jpa" target="_blank" rel="noopener">Spring Data JPA</a> Access database</li>
-<li><a href="https://spring.io/projects/spring-data-redis" target="_blank" rel="noopener">Spring Data Redis</a> Cache data</li>
-<li><a href="https://spring.io/projects/spring-security" target="_blank" rel="noopener">Spring Security</a> Authenticate and authrorize</li>
-<li><a href="https://spring.io/projects/spring-session" target="_blank" rel="noopener">Spring Session</a> Manage session</li>
-<li><a href="https://github.com/graphql-java/graphql-java" target="_blank" rel="noopener">GraphQL Java</a> Graphql for java</li>
-<li><a href="https://github.com/graphql-java/graphql-java-extended-scalars" target="_blank" rel="noopener">Extended Scalars</a> Extended scalars for graphql java</li>
-<li><a href="https://flywaydb.org/" target="_blank" rel="noopener">Flyway</a> Database migration</li>
-<li><a href="https://swagger.io/" target="_blank" rel="noopener">Swagger</a> Api documentation</li>
-</ol>
-<h2 id="APIs"><a href="#APIs" class="headerlink" title="APIs"></a>APIs</h2><h3 id="Rest"><a href="#Rest" class="headerlink" title="Rest"></a>Rest</h3><table>
-<thead>
-<tr>
-<th>Path</th>
-<th>Method</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>/auth/login</td>
-<td>POST</td>
-<td>Login</td>
-</tr>
-<tr>
-<td>/auth/logout</td>
-<td>GET</td>
-<td>Logout</td>
-</tr>
-<tr>
-<td>/auth/logged</td>
-<td>GET</td>
-<td>Get logged user</td>
-</tr>
-<tr>
-<td>/user/register</td>
-<td>POST</td>
-<td>Register</td>
-</tr>
-<tr>
-<td>/user/modify</td>
-<td>POST</td>
-<td>Modify logged user</td>
-</tr>
-<tr>
-<td>/user/info</td>
-<td>GET</td>
-<td>Get user info</td>
-</tr>
-<tr>
-<td>/user/follow</td>
-<td>POST</td>
-<td>Follow user</td>
-</tr>
-<tr>
-<td>/user/unfollow</td>
-<td>POST</td>
-<td>Unfollow user</td>
-</tr>
-<tr>
-<td>/user/following</td>
-<td>GET</td>
-<td>Following users of someone</td>
-</tr>
-<tr>
-<td>/user/follower</td>
-<td>GET</td>
-<td>Fans of some user</td>
-</tr>
-<tr>
-<td>/user/sendMobileVerifyCode</td>
-<td>POST</td>
-<td>Send mobile verify code</td>
-</tr>
-<tr>
-<td>/post/publish</td>
-<td>POST</td>
-<td>Publish post</td>
-</tr>
-<tr>
-<td>/post/delete</td>
-<td>POST</td>
-<td>Delete post</td>
-</tr>
-<tr>
-<td>/post/info</td>
-<td>GET</td>
-<td>Get post info</td>
-</tr>
-<tr>
-<td>/post/published</td>
-<td>GET</td>
-<td>Get published posts of some user</td>
-</tr>
-<tr>
-<td>/post/like</td>
-<td>POST</td>
-<td>Like post</td>
-</tr>
-<tr>
-<td>/post/unlike</td>
-<td>POST</td>
-<td>Unlike post</td>
-</tr>
-<tr>
-<td>/post/liked</td>
-<td>GET</td>
-<td>Liked posts of some user</td>
-</tr>
-<tr>
-<td>/post/following</td>
-<td>GET</td>
-<td>Posts of following users of someone</td>
-</tr>
-<tr>
-<td>/file/upload</td>
-<td>POST</td>
-<td>Upload file</td>
-</tr>
-<tr>
-<td>/file/info</td>
-<td>GET</td>
-<td>Get file meta info</td>
-</tr>
-</tbody>
-</table>
-<h2 id="How-to-run"><a href="#How-to-run" class="headerlink" title="How to run"></a>How to run</h2><p>This project need java v11+.</p>
-<h3 id="By-local-environment"><a href="#By-local-environment" class="headerlink" title="By local environment"></a>By local environment</h3><h4 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/wenyongqd/seckil_backend.git</span><br></pre></td></tr></table></figure>
-<h4 id="Prepare-mysql-kafka-redis-and-zookeeper-service"><a href="#Prepare-mysql-kafka-redis-and-zookeeper-service" class="headerlink" title="Prepare mysql, kafka, redis and zookeeper service"></a>Prepare mysql, kafka, redis and zookeeper service</h4>
+                <h3 id="104-Maximum-Depth-of-Binary-Tree"><a href="#104-Maximum-Depth-of-Binary-Tree" class="headerlink" title="104. Maximum Depth of Binary Tree"></a>104. Maximum Depth of Binary Tree</h3><p>Given a binary tree, find its maximum depth.<br>The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.<br><strong>Note:</strong> A leaf is a node with no children.<br><strong>Example:</strong></p>
+<p>Given binary tree [3,9,20,null,null,15,7],<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure></p>
+<p>return its depth = 3.</p>
+<p><img src="https://github.com/MisterBooo/LeetCodeAnimation/raw/master/0104-Maximum-Depth-Of-Binary-Tree/Animation/Animation1.gif" alt="image"><br><strong>Approach 1:</strong> Recursion</p>
+<blockquote>
+<p><strong>Intuition</strong> By definition, the maximum depth of a binary tree is the maximum number of steps to reach a leaf node from the root node.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int val, TreeNode left, TreeNode right) &#123;</span></span><br><span class="line"><span class="comment"> *         this.val = val;</span></span><br><span class="line"><span class="comment"> *         this.left = left;</span></span><br><span class="line"><span class="comment"> *         this.right = right;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = maxDepth(root.left);</span><br><span class="line">        <span class="keyword">int</span> right = maxDepth(root.right);</span><br><span class="line">        <span class="keyword">return</span> Math.max(left, right) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><img src="https://github.com/MisterBooo/LeetCodeAnimation/raw/master/0104-Maximum-Depth-Of-Binary-Tree/Animation/Animation2.gif" alt="image"><br><strong>Approach 3:</strong> BFS<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.offer(root);</span><br><span class="line">        <span class="keyword">while</span>(!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> size = queue.size();</span><br><span class="line">            <span class="keyword">while</span>(size-- &gt;<span class="number">0</span>) &#123;</span><br><span class="line">                TreeNode node = queue.poll();</span><br><span class="line">                <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queue.offer(node.left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queue.offer(node.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
 
                 <hr>
 
@@ -334,13 +205,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2020/07/22/Tree-Questions/" data-toggle="tooltip" data-placement="top" title="Tree Questions">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2020/07/17/Linked-List-Questions/" data-toggle="tooltip" data-placement="top" title="Linked List Questions">Next Post &rarr;</a>
+                            <a href="/2020/07/19/Seckill-Project/" data-toggle="tooltip" data-placement="top" title="Seckill Project">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -411,8 +278,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://wenyongqd.github.io/2020/07/19/Seckill-Project/";
-    var disqus_url = "https://wenyongqd.github.io/2020/07/19/Seckill-Project/";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/07/22/Tree-Questions/";
+    var disqus_url = "https://wenyongqd.github.io/2020/07/22/Tree-Questions/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
