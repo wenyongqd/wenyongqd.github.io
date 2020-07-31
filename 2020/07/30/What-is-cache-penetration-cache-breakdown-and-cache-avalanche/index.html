@@ -13,11 +13,11 @@
 
     <title>
         
-          Wenyong的博客 | Wenyong&#39;s Blog
+          What is cache penetration, cache breakdown and cache avalanche? - Wenyong的博客 | Wenyong&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://wenyongqd.github.io/i_dont_wanna_use_default_archives/page/3/">
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/07/30/What-is-cache-penetration-cache-breakdown-and-cache-avalanche/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,7 +147,200 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>What is cache penetration, cache breakdown and cache avalanche?</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-07-30
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p>When designing and developing highly available system, cache is an very important consideration. It is useful to cache some frequently accessed data so that they can be accessed quickly and also cache can protect the downstream system like DB from being hit too often. </p>
+</blockquote>
+<p>To provide better cache design in large systems, some problems may need to be considered first. In this post, we will talk about some frequently discussed cache problems and mitigation plans.</p>
+<h3 id="Cache-penetration"><a href="#Cache-penetration" class="headerlink" title="Cache penetration"></a>Cache penetration</h3><p>Cache penetration is a scenario where the data to be searched doesn’t exist at DB and the returned empty result set is not cached as well and hence every search for the key will hit the DB eventually. If a hacker tries to initiate some attack by launching lots of searches with such key, the underlying DB layer will be hit too often and may eventually be brought down.</p>
+<p>In such cases, there are a few mitigation plans.</p>
+<ol>
+<li>If there is no data for the key in DB, just return an empty result and cache it for a short period of time(Don’t set a long expiration time)</li>
+<li>Using Bloom filter. Bloom filter is similar to hbase set which can be used to check whether a key exists in the data set. If the key exists, go to the cache layer or DB layer, if it doesn’t exists in the data set, then just return.</li>
+</ol>
+<p>If the searched key has high repeat rate, then can adopt the first solution. Otherwise if the searched key has low repeat rate and the searched keys are too many, can adopt the second solution to filter most of them first.</p>
+<h3 id="Cache-breakdown"><a href="#Cache-breakdown" class="headerlink" title="Cache breakdown"></a>Cache breakdown</h3><p>Cache breakdown is a scenario where the cached data expires and at the same time there are lots of search on the expired data which suddenly cause the searches to hit DB directly and increase the load to the DB layer dramatically.</p>
+<p>This would happen in high concurrency environment. Normally in this case, there needs to be a lock on the searched key so that other threads need to wait when some thread is trying to search the key and update the cache. After the cache is updated and lock is released, other threads will be able to read the newly cached data.</p>
+<p>Another feasible method is to asynchronously update the cached data through a worker thread so that the hot data will never expire.</p>
+<h3 id="Cache-avalanche"><a href="#Cache-avalanche" class="headerlink" title="Cache avalanche"></a>Cache avalanche</h3><p>Cache avalanche is a scenario where lots of cached data expire at the same time or the cache service is down and all of a sudden all searches of these data will hit DB and cause high load to the DB layer and impact the performance.</p>
+<p>To mitigate the problem, some methods can be adopted.</p>
+<ol>
+<li>Using clusters to ensure that some cache server instance is in service at any point of time. If Redis is used, can have redis clusters.</li>
+<li>Some other approaches like hystrix circuit breaker and rate limit can be configured so that the underlying system can still serve traffic and avoid high load</li>
+<li>Can adjust the expiration time for different keys so that they will not expire at the same time.</li>
+</ol>
+<p>All the mitigation methods need to be implemented based on real use cases and system design requirements.</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/07/22/Tree-Questions/" data-toggle="tooltip" data-placement="top" title="Tree Questions">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/07/30/What-is-cache-penetration-cache-breakdown-and-cache-avalanche/";
+    var disqus_url = "https://wenyongqd.github.io/2020/07/30/What-is-cache-penetration-cache-breakdown-and-cache-avalanche/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
 
     <!-- Footer -->
     <!-- Footer -->
