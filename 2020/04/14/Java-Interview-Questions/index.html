@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -236,6 +236,10 @@
 <li><a href="#q32-why-multiple-inheritance-is-not-supported-by-java">Q32 Why multiple Inheritance is not supported by Java?</a></li>
 <li><a href="#q33-what-is-the-difference-between-inheritance-and-abstraction">Q33 What is the difference between Inheritance and Abstraction?</a></li>
 <li><a href="#q34-can-we-override-static-method-in-java">Q34 Can we override static method in Java?</a></li>
+<li><a href="#q35-the-four-principles-of-object-oriented-programming-are-encapsulation-abstraction-inheritance-and-polymorphism">Q35 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism</a></li>
+<li><a href="#q36-multithreading-and-life-cycle-of-a-thread">Q36 Multithreading and Life Cycle of a thread</a></li>
+<li><a href="#q37-what-id-thread-synchronization">Q37 What id Thread Synchronization?</a></li>
+<li><a href="#q38-handling-thread-deadlock">Q38 Handling thread deadlock?</a></li>
 </ul>
 <!-- /TOC -->
 <h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
@@ -470,6 +474,37 @@
 <li>If the subclass doesn’t have enough information to implement the abstract methods, then the subclass should be declared as an abstract class.</li>
 </ul>
 <h3 id="Q34-Can-we-override-static-method-in-Java"><a href="#Q34-Can-we-override-static-method-in-Java" class="headerlink" title="Q34 Can we override static method in Java?"></a>Q34 Can we override static method in Java?</h3><p>No, you cannot override a static method in Java because it’s resolved at compile time. In order for overriding to work, a method should be virtual and resolved at runtime because objects are only available at runtime.</p>
+<h3 id="Q35-The-four-principles-of-object-oriented-programming-are-encapsulation-abstraction-inheritance-and-polymorphism"><a href="#Q35-The-four-principles-of-object-oriented-programming-are-encapsulation-abstraction-inheritance-and-polymorphism" class="headerlink" title="Q35 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism"></a>Q35 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism</h3><p><strong>Encapsulation:</strong> Encapsulation is the mechanism of binding the data together and hiding it from the outside world. Encapsulation is achieved when each object keeps its state private so that other objects don’t have direct access to its state. Instead, they can access this state only through a set of public functions.</p>
+<p><strong>Abstraction:</strong> Abstraction can be thought of as the natural extension of encapsulation. It means hiding all but the relevant data about an object in order to reduce the complexity of the system. In a large system, objects talk to each other, which makes it difficult to maintain a large code base; abstraction helps by hiding internal implementation details of objects and only revealing operations that are relevant to other objects.</p>
+<p><strong>Inheritance:</strong> The idea behind inheritance in Java is that you can create new classes that are built upon existing classes. When you inherit from an existing class, you can reuse methods and fields of the parent class. Moreover, you can add new methods and fields in your current class also. The extends keyword indicates that you are making a new class that derives from an existing class. The meaning of “extends” is to increase the functionality.</p>
+<p><strong>Polymorphism:</strong> Polymorphism is the ability of an object to take on many forms. The most common use of polymorphism in OOP occurs when a parent class reference is used to refer to a child class object.<br>Any Java object that can pass more than one IS-A test is considered to be polymorphic. In Java, all Java objects are polymorphic since any object will pass the IS-A test for their own type and for the class Object.</p>
+<p>It is important to know that the only possible way to access an object is through a reference variable. A reference variable can be of only one type. Once declared, the type of a reference variable cannot be changed.</p>
+<p>The reference variable can be reassigned to other objects provided that it is not declared final. The type of the reference variable would determine the methods that it can invoke on the object.</p>
+<p>A reference variable can refer to any object of its declared type or any subtype of its declared type. A reference variable can be declared as a class or interface type.</p>
+<h3 id="Q36-Multithreading-and-Life-Cycle-of-a-thread"><a href="#Q36-Multithreading-and-Life-Cycle-of-a-thread" class="headerlink" title="Q36 Multithreading and Life Cycle of a thread"></a>Q36 Multithreading and Life Cycle of a thread</h3><p>A multi-threaded program contains two or more parts that can run concurrently and each part can handle a different task at the same time making optimal use of the available resources specially when your computer has multiple CPUs.<br><strong>Life Cycle of a Thread</strong><br><img src="https://www.tutorialspoint.com/java/images/Thread_Life_Cycle.jpg" alt="image"></p>
+<ul>
+<li><p><strong>New</strong> − A new thread begins its life cycle in the new state. It remains in this state until the program starts the thread. It is also referred to as a born thread.</p>
+</li>
+<li><p><strong>Runnable</strong> − After a newly born thread is started, the thread becomes runnable. A thread in this state is considered to be executing its task.</p>
+</li>
+<li><p><strong>Waiting</strong> − Sometimes, a thread transitions to the waiting state while the thread waits for another thread to perform a task. A thread transitions back to the runnable state only when another thread signals the waiting thread to continue executing.</p>
+</li>
+<li><p><strong>Timed Waiting</strong> − A runnable thread can enter the timed waiting state for a specified interval of time. A thread in this state transitions back to the runnable state when that time interval expires or when the event it is waiting for occurs.</p>
+</li>
+<li><p><strong>Terminated</strong> (Dead) − A runnable thread enters the terminated state when it completes its task or otherwise terminates.</p>
+</li>
+</ul>
+<p><strong>Create a Thread by Implementing a Runnable Interface</strong><br><strong>Create a Thread by Extending a Thread Class</strong><br>初始化线程的 4 种方式：</p>
+<ol>
+<li>继承 Thread</li>
+<li>实现 Runnable 接口</li>
+<li>实现 Callable 接口 + FutureTask （可以拿到返回结果，可以处理异常）</li>
+<li>线程池</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Executors.newFiexedThreadPool(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit unit, workQueue, threadFactory, handler);</span><br></pre></td></tr></table></figure>
+<h3 id="Q37-What-id-Thread-Synchronization"><a href="#Q37-What-id-Thread-Synchronization" class="headerlink" title="Q37 What id Thread Synchronization?"></a>Q37 What id Thread Synchronization?</h3><p>When we start two or more threads within a program, there may be a situation when multiple threads try to access the same resource and finally they can produce unforeseen result due to concurrency issues.<br>Java programming language provides a very handy way of creating threads and synchronizing their task by using synchronized blocks.</p>
+<h3 id="Q38-Handling-thread-deadlock"><a href="#Q38-Handling-thread-deadlock" class="headerlink" title="Q38 Handling thread deadlock?"></a>Q38 Handling thread deadlock?</h3><p>Deadlock describes a situation where two or more threads are blocked forever, waiting for each other. Deadlock occurs when multiple threads need the same locks but obtain them in different order.</p>
+<p>In order to avoid deadlock, you have to acquire a lock in the fixed order.</p>
 
 
                 <hr>
