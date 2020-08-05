@@ -90,13 +90,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -105,6 +98,13 @@
                         
                         <li>
                             <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -194,7 +194,7 @@
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>As the name “factory” implies, we can use this pattern when we want to create different objects that have some similar characteristics. Let’s look at an example to understand this better.</p>
 <p>Consider the example from the previous chapter where an ice cream factory can be used to create multiple flavors of ice cream. Let’s see how we can apply the factory pattern in this example.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IceCreamFactory</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.createIcecream = <span class="function"><span class="keyword">function</span>(<span class="params">flavor</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> iceCream;</span><br><span class="line">      <span class="keyword">if</span> (flavor === <span class="string">'chocolate'</span>)&#123;</span><br><span class="line">          iceCream = <span class="keyword">new</span> Chocolate();</span><br><span class="line">      &#125;  </span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (flavor === <span class="string">'mint'</span>)&#123;</span><br><span class="line">          iceCream = <span class="keyword">new</span> Mint();</span><br><span class="line">      &#125; </span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (flavor === <span class="string">'strawberry'</span>)&#123;</span><br><span class="line">          iceCream = <span class="keyword">new</span> Strawberry();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> iceCream;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Chocolate</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.icecreamFlavor = <span class="string">"chocolate"</span>;</span><br><span class="line">    <span class="keyword">this</span>.message = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`You chose the <span class="subst">$&#123;<span class="keyword">this</span>.icecreamFlavor&#125;</span> flavor.`</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mint</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.icecreamFlavor = <span class="string">"mint"</span>;</span><br><span class="line">    <span class="keyword">this</span>.message = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`You chose the <span class="subst">$&#123;<span class="keyword">this</span>.icecreamFlavor&#125;</span> flavor.`</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Strawberry</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.icecreamFlavor = <span class="string">"strawberry"</span>;</span><br><span class="line">    <span class="keyword">this</span>.message = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`You chose the <span class="subst">$&#123;<span class="keyword">this</span>.icecreamFlavor&#125;</span> flavor.`</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// creating objects</span></span><br><span class="line"><span class="keyword">const</span> iceCreamfactory = <span class="keyword">new</span> IceCreamFactory();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> chocolate = iceCreamfactory.createIcecream(<span class="string">'chocolate'</span>);</span><br><span class="line"><span class="keyword">const</span> mint = iceCreamfactory.createIcecream(<span class="string">'mint'</span>);</span><br><span class="line"><span class="keyword">const</span> strawberry = iceCreamfactory.createIcecream(<span class="string">'strawberry'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(chocolate.message()); </span><br><span class="line"><span class="built_in">console</span>.log(mint.message()); </span><br><span class="line"><span class="built_in">console</span>.log(strawberry.message());</span><br></pre></td></tr></table></figure></p>
 <h3 id="Explanation"><a href="#Explanation" class="headerlink" title="Explanation"></a>Explanation</h3><p>In the example above, we created a factory called <code>IceCreamFactory</code>. Its <code>constructor</code> has a function createIcecream that accepts the parameter <code>flavor</code>. Depending on the <code>flavor</code>, it instantiates an object of the corresponding class. For example, if the <code>flavor</code> is <code>chocolate</code>, it instantiates an object of the <code>Chocolate</code> class (line 6). It does the same if the <code>flavor</code> is <code>mint</code> or <code>strawberry</code> (lines 9 and 12).</p>
-<p><img src="/2020/08/04/Factory-Pattern/111.png" alt="image"></p>
+<p><img src="/2020/08/04/Factory-Pattern/factory.jpg" alt="image"></p>
 <h2 id="When-to-use-the-factory-pattern"><a href="#When-to-use-the-factory-pattern" class="headerlink" title="When to use the factory pattern? -"></a>When to use the factory pattern? -</h2><ul>
 <li><p>When the type of objects required cannot be anticipated beforehand</p>
 </li>
@@ -203,6 +203,11 @@
 <li><p>When you want to generalize the object instantiation process since the object set up is complex in nature</p>
 </li>
 </ul>
+<h2 id="Q1-Explain-event-delegation"><a href="#Q1-Explain-event-delegation" class="headerlink" title="Q1 Explain event delegation?"></a>Q1 Explain event delegation?</h2><p>Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. The listener will fire whenever the event is triggered on the descendant elements due to event bubbling up the DOM. The benefits of this technique are:</p>
+<ul>
+<li>Memory footprint goes down because only one single handler is needed on the parent element, rather than having to attach event handlers on each descendant.</li>
+<li>There is no need to unbind the handler from elements that are removed and to bind the event for new elements.</li>
+</ul>
 
 
                 <hr>
@@ -210,6 +215,10 @@
                 
 
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/08/04/Font-End-Interview-Questions/" data-toggle="tooltip" data-placement="top" title="Font End Interview Questions">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
