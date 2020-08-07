@@ -90,6 +90,13 @@
 
                         
                         <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -98,13 +105,6 @@
                         
                         <li>
                             <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -195,6 +195,8 @@
 <li><a href="#what-are-application-transactions-">What are Application Transactions ?</a></li>
 <li><a href="#what-is-transaction-management-">What is Transaction Management ?</a></li>
 <li><a href="#how-to-implement-transactions-management-in-spring-boot-">How to implement Transactions Management in Spring Boot ?</a></li>
+<li><a href="#what-are-the-different-types-of-transaction-propagations">What are the different types of Transaction Propagations?</a></li>
+<li><a href="#what-are-transaction-isolation-levels-">What are Transaction Isolation Levels ?</a></li>
 </ul>
 <!-- /TOC -->
 <h2 id="What-are-Database-Transactions"><a href="#What-are-Database-Transactions" class="headerlink" title="What are Database Transactions ?"></a>What are Database Transactions ?</h2><p>A Database transaction is a single logical unit of work which accesses and possibly modifies the contents of a database. It can be considered as a sequence of Queries that should be run in a sequence performing one logical function.<br><img src="https://www.javainuse.com/trans-min.JPG" alt="image"></p>
@@ -204,7 +206,26 @@
 <li>Persist HealthInsurance Information<br><img src="https://www.javainuse.com/boot-66-19.JPG" alt="image"></li>
 </ul>
 <h2 id="What-is-Transaction-Management"><a href="#What-is-Transaction-Management" class="headerlink" title="What is Transaction Management ?"></a>What is Transaction Management ?</h2><p>A transaction manager is a part of an application that controls the coordination of transactions over one or more resources. The transaction manager is responsible for creating transaction objects and managing their durability and atomicity.</p>
-<h2 id="How-to-implement-Transactions-Management-in-Spring-Boot"><a href="#How-to-implement-Transactions-Management-in-Spring-Boot" class="headerlink" title="How to implement Transactions Management in Spring Boot ?"></a>How to implement Transactions Management in Spring Boot ?</h2><p>In Spring Boot Transaction Management is implemented using Transactional annotation. Transaction is a cross cutting concern and it is implemented using AOP in Spring Boot.</p>
+<h2 id="How-to-implement-Transactions-Management-in-Spring-Boot"><a href="#How-to-implement-Transactions-Management-in-Spring-Boot" class="headerlink" title="How to implement Transactions Management in Spring Boot ?"></a>How to implement Transactions Management in Spring Boot ?</h2><p>In Spring Boot Transaction Management is implemented using Transactional annotation. Transaction is a cross cutting concern and it is implemented using AOP in Spring Boot.<br><img src="https://www.javainuse.com/boot-66-9-min.JPG" alt="image"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.javainuse.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.annotation.Transactional;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.javainuse.model.Employee;</span><br><span class="line"><span class="keyword">import</span> com.javainuse.model.EmployeeHealthInsurance;</span><br><span class="line"><span class="keyword">import</span> com.javainuse.service.EmployeeService;</span><br><span class="line"><span class="keyword">import</span> com.javainuse.service.HealthInsuranceService;</span><br><span class="line"><span class="keyword">import</span> com.javainuse.service.OrganizationService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrganzationServiceImpl</span> <span class="keyword">implements</span> <span class="title">OrganizationService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	EmployeeService employeeService;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	HealthInsuranceService healthInsuranceService;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Transactional</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">joinOrganization</span><span class="params">(Employee employee, EmployeeHealthInsurance employeeHealthInsurance)</span> </span>&#123;</span><br><span class="line">		employeeService.insertEmployee(employee);</span><br><span class="line">		<span class="keyword">if</span> (employee.getEmpId().equals(<span class="string">"emp1"</span>)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"thowing exception to test transaction rollback"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		healthInsuranceService.registerEmployeeHealthInsurance(employeeHealthInsurance);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Transactional</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">leaveOrganization</span><span class="params">(Employee employee, EmployeeHealthInsurance employeeHealthInsurance)</span> </span>&#123;</span><br><span class="line">		employeeService.deleteEmployeeById(employee.getEmpId());</span><br><span class="line">		healthInsuranceService.deleteEmployeeHealthInsuranceById(employeeHealthInsurance.getEmpId());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring Boot implicitly creates a proxy for the transaction annotated methods. So for such methods the proxy acts like a wrapper which takes care of creating a transaction at the beginning of the method call and committing the transaction after the method is executed.<br><img src="https://www.javainuse.com/boot-66-7-min.JPG" alt="iamge"></p>
+<h2 id="What-are-the-different-types-of-Transaction-Propagations"><a href="#What-are-the-different-types-of-Transaction-Propagations" class="headerlink" title="What are the different types of Transaction Propagations?"></a>What are the different types of Transaction Propagations?</h2><p>The different types of Transaction Propagation for Spring Boot are as follows-</p>
+<ul>
+<li>REQUIRED</li>
+<li>SUPPORTS</li>
+<li>NOT_SUPPORTED</li>
+<li>REQUIRES_NEW</li>
+<li>NEVER</li>
+<li>MANDATORY</li>
+</ul>
+<h2 id="What-are-Transaction-Isolation-Levels"><a href="#What-are-Transaction-Isolation-Levels" class="headerlink" title="What are Transaction Isolation Levels ?"></a>What are Transaction Isolation Levels ?</h2><p>The Transaction Isolation Levels are as follows-</p>
+<ul>
+<li>READ_UNCOMMITTED</li>
+<li>READ_COMMITTED</li>
+<li>REPEATABLE_READ</li>
+<li>SERIALIZABLE</li>
+<li>DEFAULT</li>
+</ul>
 
 
                 <hr>
