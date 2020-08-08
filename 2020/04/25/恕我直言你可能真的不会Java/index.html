@@ -90,7 +90,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -104,7 +104,7 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -223,12 +223,12 @@
 <li><a href="#四flatmap">四、flatMap</a></li>
 </ul>
 </li>
-<li><a href="#5stream的状态与并行操作">5.Stream 的状态与并行操作</a><ul>
-<li><a href="#一回顾stream管道流操作">一、回顾 Stream 管道流操作</a></li>
+<li><a href="#5stream-的状态与并行操作">5.Stream 的状态与并行操作</a><ul>
+<li><a href="#一回顾-stream-管道流操作">一、回顾 Stream 管道流操作</a></li>
 <li><a href="#二中间操作有状态与无状态">二、中间操作：有状态与无状态</a></li>
-<li><a href="#三limit与skip管道数据截取">三、Limit 与 Skip 管道数据截取</a></li>
-<li><a href="#四distinct元素去重">四、Distinct 元素去重</a></li>
-<li><a href="#五sorted排序">五、Sorted 排序</a></li>
+<li><a href="#三limit-与-skip-管道数据截取">三、Limit 与 Skip 管道数据截取</a></li>
+<li><a href="#四distinct-元素去重">四、Distinct 元素去重</a></li>
+<li><a href="#五sorted-排序">五、Sorted 排序</a></li>
 <li><a href="#六串行并行与顺序">六、串行、并行与顺序</a></li>
 </ul>
 </li>
@@ -261,10 +261,26 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（）-&gt;  System.out.println(<span class="string">"anything you wan to print"</span>)</span><br></pre></td></tr></table></figure>
 <p>那么，我们最终通过 lambda 表达式，简化完成的代码是什么样的呢？庐山真面目：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    LambdaDemo demo = <span class="keyword">new</span> LambdaDemo();</span><br><span class="line">    String something=<span class="string">"I am Lambda"</span>;</span><br><span class="line">    <span class="comment">//关注下面的这行代码</span></span><br><span class="line">    demo.printSomething(something, toPrint -&gt; System.out.println(toPrint));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>lambda 表达式表达的是接口函数，箭头左侧是函数参数，箭头右侧是函数体。函数的参数类型和返回值类型都可以省略，程序会根据接口定义的上下文自动确定数据类型。</p>
+<p>lambda 表达式表达的是接口函数，箭头左侧是函数参数，箭头右侧是函数体。函数的参数类型和返回值类型都可以省略，程序会根据接口定义的上下文自动确定数据类型。<br><strong>What is a lambda expression in Java?</strong><br>A Lambda expression is just an anonymous function, it is an instance of a functional interface.<br><strong>Functional interface</strong><br>Single Abstract Method interfaces. From java 8, a new annotation i.e. @FunctionalInterface was introduced.<br><strong>lambda expression examples</strong></p>
+<ol>
+<li>Iterating over a List and perform some operations</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; pointList = <span class="keyword">new</span> ArrayList();</span><br><span class="line">pointList.add(<span class="string">"1"</span>);</span><br><span class="line">pointList.add(<span class="string">"2"</span>);</span><br><span class="line"></span><br><span class="line">pointList.forEach(p -&gt;  &#123;</span><br><span class="line">                            System.out.println(p);</span><br><span class="line">                            <span class="comment">//Do more work</span></span><br><span class="line">                        &#125;</span><br><span class="line">                 );</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Create a new runnable and pass it to thread</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(</span><br><span class="line">    () -&gt; System.out.println(<span class="string">"My Runnable"</span>);</span><br><span class="line">).start();</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Sorting employees objects by their name</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaIntroduction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] ar)</span></span>&#123;</span><br><span class="line">          Employee[] employees  = &#123;</span><br><span class="line">              <span class="keyword">new</span> Employee(<span class="string">"David"</span>),</span><br><span class="line">              <span class="keyword">new</span> Employee(<span class="string">"Naveen"</span>),</span><br><span class="line">              <span class="keyword">new</span> Employee(<span class="string">"Alex"</span>),</span><br><span class="line">              <span class="keyword">new</span> Employee(<span class="string">"Richard"</span>)&#125;;</span><br><span class="line"></span><br><span class="line">          System.out.println(<span class="string">"Before Sorting Names: "</span>+Arrays.toString(employees));</span><br><span class="line">          Arrays.sort(employees, Employee::nameCompare);</span><br><span class="line">          System.out.println(<span class="string">"After Sorting Names "</span>+Arrays.toString(employees));</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">  String name;</span><br><span class="line"></span><br><span class="line">  Employee(String name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">nameCompare</span><span class="params">(Employee a1, Employee a2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a1.name.compareTo(a2.name);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line"></span><br><span class="line">Before Sorting Names: [David, Naveen, Alex, Richard]</span><br><span class="line">After Sorting Names [Alex, David, Naveen, Richard]</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Adding an event listener to a GUI component</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JButton button =  <span class="keyword">new</span> JButton(<span class="string">"Submit"</span>);</span><br><span class="line">button.addActionListener((e) -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">"Click event triggered !!"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h2 id="2-初识-Stream-API"><a href="#2-初识-Stream-API" class="headerlink" title="2. 初识 Stream-API"></a>2. 初识 Stream-API</h2><h3 id="一、什么是-Java-Stream-API？"><a href="#一、什么是-Java-Stream-API？" class="headerlink" title="一、什么是 Java Stream API？"></a>一、什么是 Java Stream API？</h3><p>Java Stream 函数式编程接口最初是在 Java 8 中引入的，并且与 lambda 一起成为 Java 开发的里程碑式的功能特性，它极大的方便了开放人员处理集合类数据的效率。从笔者之前看过的调查文章显示，绝大部分的开发者使用的 JDK 版本是 java 8，其中 Java Stream 和 lambda 功不可没。</p>
 <p>Java Stream 就是一个数据流经的管道，并且在管道中对数据进行操作，然后流入下一个管道。有学过 linux 管道的同学应该会很容易就理解。在没有 Java Stram 之前，对于集合类的操作，更多的是通过 for 循环。大家从后文中就能看出 Java Stream 相对于 for 循环更加简洁、易用、快捷。</p>
-<p>管道的功能包括：Filter（过滤）、Map(映射)、sort(排序）等，集合数据通过 Java Stream 管道处理之后，转化为另一组集合或数据输出。<br><img src="http://cdn.zimug.com/javaStream1-2.jpg" alt="image"></p>
+<p>管道的功能包括：Filter（过滤）、Map(映射)、sort(排序）等，集合数据通过 Java Stream 管道处理之后，转化为另一组集合或数据输出。<br><img src="http://cdn.zimug.com/javaStream1-2.jpg" alt="image"><br>A Stream in Java can be defined as a sequence of elements from a source that supports aggregate operations on them. The source here refers to a Collections or Arrays who provides data to a Stream.</p>
 <h3 id="二、Stream-API-代替-for-循环"><a href="#二、Stream-API-代替-for-循环" class="headerlink" title="二、Stream API 代替 for 循环"></a>二、Stream API 代替 for 循环</h3><p>我们先来看一个例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; nameStrs = Arrays.asList(<span class="string">"Monkey"</span>, <span class="string">"Lion"</span>, <span class="string">"Giraffe"</span>,<span class="string">"Lemur"</span>);</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; list = nameStrs.stream()</span><br><span class="line">        .filter(s -&gt; s.startsWith(<span class="string">"L"</span>))</span><br><span class="line">        .map(String::toUpperCase)</span><br><span class="line">        .sorted()</span><br><span class="line">        .collect(toList());</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
 <ul>
