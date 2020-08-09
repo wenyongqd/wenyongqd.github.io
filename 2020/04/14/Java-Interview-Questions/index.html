@@ -241,7 +241,25 @@
 <li><a href="#q37-what-id-thread-synchronization">Q37 What id Thread Synchronization?</a></li>
 <li><a href="#q38-handling-thread-deadlock">Q38 Handling thread deadlock?</a></li>
 <li><a href="#q39-what-is-thread-safty">Q39 What is Thread Safty?</a></li>
-<li><a href="#q40-what-is-concurrency">Q40 What is Concurrency</a></li>
+<li><a href="#q40-what-is-concurrency">Q40 What is Concurrency?</a></li>
+<li><a href="#difference-between-runnable-vs-thread-in-java">Difference between Runnable vs Thread in Java</a><ul>
+<li><a href="#1-create-thread-using-runnable-interface-vs-thread-class">1. Create Thread using Runnable Interface vs Thread class</a><ul>
+<li><a href="#11-runnable-interface">1.1. Runnable interface</a></li>
+<li><a href="#12-thread-class">1.2. Thread class</a></li>
+</ul>
+</li>
+<li><a href="#2-difference-between-runnable-vs-thread">2. Difference between Runnable vs Thread</a></li>
+</ul>
+</li>
+<li><a href="#q41-what-is-a-thread-local-variable">Q41 What is a thread local variable?</a></li>
+<li><a href="#q42-what-is-the-difference-between-sleep-and-wait">Q42 What is the difference between sleep and wait?</a></li>
+<li><a href="#q43-what-is-the-difference-between-notify-and-notifyall">Q43 What is the difference between notify() and notifyAll()?</a></li>
+<li><a href="#q44-what-are-the-different-thread-states">Q44 What are the different thread states?</a></li>
+<li><a href="#q45-what-is-the-difference-between-thread-and-process">Q45 What is the difference between thread and process?</a></li>
+<li><a href="#q46-how-do-we-create-thread-in-java">Q46 How do we create thread in Java?</a></li>
+<li><a href="#q47-difference-between-vector-and-arraylist">Q47 Difference between Vector and ArrayList?</a></li>
+<li><a href="#q48-difference-between-hashmap-and-hashtable">Q48 Difference between HashMap and HashTable?</a></li>
+<li><a href="#q49-difference-between-set-and-list">Q49 Difference between Set and List?</a></li>
 </ul>
 <!-- /TOC -->
 <h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
@@ -509,6 +527,68 @@
 <p>In order to avoid deadlock, you have to acquire a lock in the fixed order.</p>
 <h3 id="Q39-What-is-Thread-Safty"><a href="#Q39-What-is-Thread-Safty" class="headerlink" title="Q39 What is Thread Safty?"></a>Q39 What is Thread Safty?</h3><p>Thread safe means that a method or class instance can be used by multiple threads at the same time without any problem.</p>
 <h3 id="Q40-What-is-Concurrency"><a href="#Q40-What-is-Concurrency" class="headerlink" title="Q40 What is Concurrency?"></a>Q40 What is Concurrency?</h3><p>In simple words, concurrency is the ability to run several programs or several parts of a program in parallel.</p>
+<h3 id="Difference-between-Runnable-vs-Thread-in-Java"><a href="#Difference-between-Runnable-vs-Thread-in-Java" class="headerlink" title="Difference between Runnable vs Thread in Java"></a>Difference between Runnable vs Thread in Java</h3><h4 id="1-Create-Thread-using-Runnable-Interface-vs-Thread-class"><a href="#1-Create-Thread-using-Runnable-Interface-vs-Thread-class" class="headerlink" title="1. Create Thread using Runnable Interface vs Thread class"></a>1. Create Thread using Runnable Interface vs Thread class</h4><h5 id="1-1-Runnable-interface"><a href="#1-1-Runnable-interface" class="headerlink" title="1.1. Runnable interface"></a>1.1. Runnable interface</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Code</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//start new thread with a "new Thread(new demoRunnable()).start()" call</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-2-Thread-class"><a href="#1-2-Thread-class" class="headerlink" title="1.2. Thread class"></a>1.2. Thread class</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DemoThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"DemoThread"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Code</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//start new thread with a "new demoThread().start()" call</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-Difference-between-Runnable-vs-Thread"><a href="#2-Difference-between-Runnable-vs-Thread" class="headerlink" title="2. Difference between Runnable vs Thread"></a>2. Difference between Runnable vs Thread</h4><ol>
+<li><p>Implementing Runnable is the preferred way to do it. Here, you’re not really specializing or modifying the thread’s behavior. You’re just giving the thread something to run. That means composition is the better way to go.</p>
+</li>
+<li><p>Java only supports single inheritance, so you can only extend one class.</p>
+</li>
+<li><p>Instantiating an interface gives a cleaner separation between your code and the implementation of threads.</p>
+</li>
+<li><p>Implementing Runnable makes your class more flexible. If you extend Thread then the action you’re doing is always going to be in a thread. However, if you implement Runnable it doesn’t have to be. You can run it in a thread, or pass it to some kind of executor service, or just pass it around as a task within a single threaded application.</p>
+</li>
+<li><p>when there are multiple threads then, memory usage would be more in case of extends Thread. Because, each of your threads contains unique object associated with it. Where as, memory usage would be less in case of implements Runnable. Because, many threads can share the same runnable instance.</p>
+</li>
+</ol>
+<p>我们先来看 Thread 和 Runnable，最直接的区别是，Thread 是一个类，需要继承，而 Runnable 是一个接口，需要实现。我们知道，Java 中，是单继承多实现的，即一个类，通过 extends 只能继承一个类，而通过 implements 关键字，可以实现多个接口。所以，就这两种方法而言，更推荐使用实现 Runnable 接口的方式。这样，extends 可以留给更需要的人。</p>
+<p>Runnable 还有一个优势，我们可以通过分析 Thread 的源码发现。Thead 类中，有一个属性，类型是 Runnable，名称是 target。也就是说，当我们调用 start 方法启动线程后，事实上在运行时，执行的是 target 的 run 方法。注意我们在使用 Runnable 时做的事情，是先 new 了一个 Runnable 类的实例，再将其包装成一个 Thread 的实例，再执行 start 方法，就好像是我们把 Runnable 和 Thread 作了一定程度的解耦，换句话说，我们把线程的创建和具体的业务做了解耦。这样的好处是什么？一是代码和数据独立，二是多线程可以共享同一个资源。</p>
+<p>代码和数据独立很好理解，那么，多线程共享资源是什么意思？看如下：<br><img src="https://pics1.baidu.com/feed/b17eca8065380cd77f77a1e09c6aa53159828101.png?token=5194a4a9d98e80cdd102e73f403518f3&amp;s=1AAA7023CD226D224C5540DA030080B1" alt="image"><br>我们看到，创建了两个线程，但是它们使用了同一个 Runnable 实例。也就意味着，如果 Runnable 实例中包含一个类变量，比如 count，那么，两个线程对 count 的操作是相互影响的，也就是说，count 这个变量是两个线程共享的，Runnable 实例是两个线程共享的。</p>
+<h3 id="Q41-What-is-a-thread-local-variable"><a href="#Q41-What-is-a-thread-local-variable" class="headerlink" title="Q41 What is a thread local variable?"></a>Q41 What is a thread local variable?</h3><p>In Java there is a class called ThreadLocal which provides another way of thread-safety apart from synchronization. Usually when we have multiple threads sharing an object we need to synchronize the critical section of the code in order to make it thread safe.<br>ThreadLocal class provides thread-local variables where each thread that accesses one (via its get or set method) has its own, independently initialized copy of the variable. Since each and every threadhas its own copy of the object so explicit synchronization is not needed to provide thread safety.</p>
+<h3 id="Q42-What-is-the-difference-between-sleep-and-wait"><a href="#Q42-What-is-the-difference-between-sleep-and-wait" class="headerlink" title="Q42 What is the difference between sleep and wait?"></a>Q42 What is the difference between sleep and wait?</h3><ul>
+<li>The very first difference is that sleep is defined as a static method in Thread class and operates on the currently executing thread. Whereas wait() method is in Object class and operates on the thread which is currently holding the lock on the object on which the wait method is called.</li>
+<li>Since wait method is supposed to release the lock on an object so it has to be called from a synchronized context (with in a synchronized method or synchronized block). If not called from a synchronized context will result in a IllegalMonitorStateException being thrown. With sleep method there is no such mandatory condition it doesn’t need to be called from a synchronized context.</li>
+<li>Wait method will release the lock it holds on an object before going to waiting state which gives another thread a chance to enter the synchronized block. Sleep method if called from a synchronized block or method will not release the lock so another won’t get a chance to enter the synchronized block.</li>
+</ul>
+<h3 id="Q43-What-is-the-difference-between-notify-and-notifyAll"><a href="#Q43-What-is-the-difference-between-notify-and-notifyAll" class="headerlink" title="Q43 What is the difference between notify() and notifyAll()?"></a>Q43 What is the difference between notify() and notifyAll()?</h3><ul>
+<li><p><strong>Notify</strong> method wakes up a single thread that is waiting to acquire a lock on the object. If more than one threads are waiting on this object, one of them is chosen to be awakened.</p>
+</li>
+<li><p><strong>NotifyAll</strong> method wakes up all the threads that called wait on the same object. Note that only one of these threads will get a lock to the object.</p>
+</li>
+</ul>
+<h3 id="Q44-What-are-the-different-thread-states"><a href="#Q44-What-are-the-different-thread-states" class="headerlink" title="Q44 What are the different thread states?"></a>Q44 What are the different thread states?</h3><p><strong>New</strong> - When a thread is created either by extending Thread class or implementing Runnable interface it is in “New State”.<br><strong>Runnable</strong> - When we call start() method on the thread object that causes the thread to begin execution and it’s the Java Virtual Machine that calls the run method of the thread.<br><strong>Blocked</strong> - When a resource is shared among various threads then a thread may go into blocked state as the resource may be used by another thread.<br><strong>Waiting</strong> - A thread that is waiting indefinitely for another thread to perform a particular action is in the waiting state.<br><strong>Timed_Waiting</strong> - A thread that is waiting for another thread to perform an action for up to a specified waiting time is in timed_waiting state.</p>
+<h3 id="Q45-What-is-the-difference-between-thread-and-process"><a href="#Q45-What-is-the-difference-between-thread-and-process" class="headerlink" title="Q45 What is the difference between thread and process?"></a>Q45 What is the difference between thread and process?</h3><ul>
+<li>A process has a self-contained execution environment, Threads exist within a process - every process has at least one.</li>
+<li>Process are heavyweight tasks whereas threads are referred as lightweight processes as creating a new thread requires fewer resources than creating a new process.</li>
+<li>Each Process has its own separate address spaces, threads with in the same process share the process’ resources, including memory and open files. This means that it’s very easy to share data amongst threads, but it’s also easy for the threads to bump on each other, which can lead to unpredictable scenarios.</li>
+<li>Inter process communication is expensive whereas inter thread communication is inexpensive and in Java can be achieved easily using wait and notify.</li>
+<li>Context switching from one process to another is expensive; context switching between threads is generally less expensive than in processes.</li>
+<li>Threads are easier to create than processes as separate address space is not required for a thread.-</li>
+</ul>
+<h3 id="Q46-How-do-we-create-thread-in-Java"><a href="#Q46-How-do-we-create-thread-in-Java" class="headerlink" title="Q46 How do we create thread in Java?"></a>Q46 How do we create thread in Java?</h3><p>In Java there are two ways to create thread.</p>
+<ul>
+<li>By implementing the Runnable interface.</li>
+<li>By extending the Thread class.</li>
+</ul>
+<h3 id="Q47-Difference-between-Vector-and-ArrayList"><a href="#Q47-Difference-between-Vector-and-ArrayList" class="headerlink" title="Q47 Difference between Vector and ArrayList?"></a>Q47 Difference between Vector and ArrayList?</h3><ul>
+<li><p>All the methods of Vector is synchronized. But, the methods of ArrayList is not synchronized.</p>
+</li>
+<li><p>By default, Vector doubles the size of its array when it is re-sized internally. But, ArrayList increases by half of its size when it is re-sized.</p>
+</li>
+</ul>
+<h3 id="Q48-Difference-between-HashMap-and-HashTable"><a href="#Q48-Difference-between-HashMap-and-HashTable" class="headerlink" title="Q48 Difference between HashMap and HashTable?"></a>Q48 Difference between HashMap and HashTable?</h3><ul>
+<li><p>Hashtable is synchronized, whereas HashMap is not.</p>
+</li>
+<li><p>Hashtable does not allow null keys or values. HashMap allows one null key and any number of null values.</p>
+</li>
+<li><p>The third significant difference between HashMap vs Hashtable is that Iterator in the HashMap is a fail-fast iterator while the enumerator for the Hashtable is not.</p>
+</li>
+</ul>
+<h3 id="Q49-Difference-between-Set-and-List"><a href="#Q49-Difference-between-Set-and-List" class="headerlink" title="Q49 Difference between Set and List?"></a>Q49 Difference between Set and List?</h3><ul>
+<li>Set is unordered collection where List is ordered collection based on zero based index.</li>
+<li>List allow duplicate elements but Set does not allow duplicates.</li>
+<li>List does not prevent inserting null elements (as many you like), but Set will allow only one null element.</li>
+</ul>
 
 
                 <hr>
