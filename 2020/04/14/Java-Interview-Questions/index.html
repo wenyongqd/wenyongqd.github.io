@@ -260,6 +260,8 @@
 <li><a href="#q47-difference-between-vector-and-arraylist">Q47 Difference between Vector and ArrayList?</a></li>
 <li><a href="#q48-difference-between-hashmap-and-hashtable">Q48 Difference between HashMap and HashTable?</a></li>
 <li><a href="#q49-difference-between-set-and-list">Q49 Difference between Set and List?</a></li>
+<li><a href="#q50-how-to-design-a-good-key-for-hashmap">Q50 How to design a good key for hashmap?</a></li>
+<li><a href="#q51-how-hashmap-works">Q51 How hashmap works?</a></li>
 </ul>
 <!-- /TOC -->
 <h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
@@ -589,6 +591,13 @@
 <li>List allow duplicate elements but Set does not allow duplicates.</li>
 <li>List does not prevent inserting null elements (as many you like), but Set will allow only one null element.</li>
 </ul>
+<h3 id="Q50-How-to-design-a-good-key-for-hashmap"><a href="#Q50-How-to-design-a-good-key-for-hashmap" class="headerlink" title="Q50 How to design a good key for hashmap?"></a>Q50 How to design a good key for hashmap?</h3><p>HashMap is well known class and all of us know that. So, I will leave this part by saying that it is used to store key-value pairs and allows to perform many operations on such collection of pairs.</p>
+<p>TreeMap is special form of HashMap. It maintains the ordering of keys which is missing in HashMap class. This ordering is by default “natural ordering”. The default ordering can be override by providing an instance of Comparator class, whose compare method will be used to maintain ordering of keys.</p>
+<h3 id="Q51-How-hashmap-works"><a href="#Q51-How-hashmap-works" class="headerlink" title="Q51 How hashmap works?"></a>Q51 How hashmap works?</h3><p>Answer to this question is very large and you should read it my post: How HashMap works? For now, lets remember that HashMap works on principle of Hashing. A map by definition is : “An object that maps keys to values”. To store such structure, it uses an inner class Entry:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">final</span> K key;</span><br><span class="line">V value;</span><br><span class="line">Entry next;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">...<span class="comment">//More code goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here key and value variables are used to store key-value pairs. Whole entry object is stored in an array.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* The table, re-sized as necessary. Length MUST Always be a power of two.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">transient</span> Entry[] table;</span><br></pre></td></tr></table></figure>
+<p>The index of array is calculated on basis on hashcode of Key object. Read more of linked topic.</p>
 
 
                 <hr>
