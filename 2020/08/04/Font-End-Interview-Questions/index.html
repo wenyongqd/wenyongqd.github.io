@@ -90,13 +90,6 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -105,6 +98,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -189,7 +189,21 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h2 id="Explain-event-delegation"><a href="#Explain-event-delegation" class="headerlink" title="Explain event delegation?"></a>Explain event delegation?</h2><p>Event delegation is a technique involving adding event listeners to a parent element instead of adding them to the descendant elements. The listener will fire whenever the event is triggered on the descendant elements due to event bubbling up the DOM. The benefits of this technique are:</p>
+<ul>
+<li>Memory footprint goes down because only one single handler is needed on the parent element, rather than having to attach event handlers on each descendant.</li>
+<li>There is no need to unbind the handler from elements that are removed and to bind the event for new elements.<h2 id="Explain-how-this-works-in-JavaScript"><a href="#Explain-how-this-works-in-JavaScript" class="headerlink" title="Explain how this works in JavaScript"></a>Explain how this works in JavaScript</h2>There’s no simple explanation for <code>this</code>; it is one of the most confusing concepts in JavaScript. A hand-wavey explanation is that the value of <code>this</code> depends on how the function is called. I have read many explanations on <code>this</code> online, and I found Arnav Aggrawal’s explanation to be the clearest. The following rules are applied:</li>
+</ul>
+<ol>
+<li>If the <code>new</code> keyword is used when calling the function, <code>this</code> inside the function is a brand new object.</li>
+<li>If <code>apply</code>, <code>call</code>, or <code>bind</code> are used to call/create a function, <code>this</code> inside the function is the object that is passed in as the argument.</li>
+<li>If a function is called as a method, such as <code>obj.method()</code> — <code>this</code> is the object that the function is a property of.</li>
+<li>If a function is invoked as a free function invocation, meaning it was invoked without any of the conditions present above, <code>this</code> is the global object. In a browser, it is the <code>window</code> object. If in strict mode (‘<code>use strict</code>‘), <code>this</code> will be undefined instead of the global object.</li>
+<li>If multiple of the above rules apply, the rule that is higher wins and will set the <code>this</code> value.</li>
+<li>If the function is an ES2015 arrow function, it ignores all the rules above and receives the <code>this</code> value of its surrounding scope at the time it is created.<br>For an in-depth explanation, do check out his article on Medium.</li>
+</ol>
+<p>Can you give an example of one of the ways that working with this has changed in ES6?#<br>ES6 allows you to use arrow functions which uses the enclosing lexical scope. This is usually convenient, but does prevent the caller from controlling context via .call or .apply—the consequences being that a library such as jQuery will not properly bind this in your event handler functions. Thus, it’s important to keep this in mind when refactoring large legacy applications.</p>
+
 
                 <hr>
 
