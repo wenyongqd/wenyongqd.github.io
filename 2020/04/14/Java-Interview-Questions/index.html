@@ -262,6 +262,7 @@
 <li><a href="#q49-difference-between-set-and-list">Q49 Difference between Set and List?</a></li>
 <li><a href="#q50-how-to-design-a-good-key-for-hashmap">Q50 How to design a good key for hashmap?</a></li>
 <li><a href="#q51-how-hashmap-works">Q51 How hashmap works?</a></li>
+<li><a href="#what-is-rest">What is REST?</a></li>
 </ul>
 <!-- /TOC -->
 <h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
@@ -598,6 +599,16 @@
 <p>Here key and value variables are used to store key-value pairs. Whole entry object is stored in an array.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* The table, re-sized as necessary. Length MUST Always be a power of two.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">transient</span> Entry[] table;</span><br></pre></td></tr></table></figure>
 <p>The index of array is calculated on basis on hashcode of Key object. Read more of linked topic.</p>
+<h3 id="What-is-REST"><a href="#What-is-REST" class="headerlink" title="What is REST?"></a>What is REST?</h3><p>REST, or Representational State Transfer, is an architectural design that defines a set of rules for creating web services that interact between systems. Web services that follow this architecture are termed, ‘RESTful web services’.</p>
+<p>At a very high level, the RESTful system consists of two major components:</p>
+<p>A server that hosts the resources</p>
+<p>A client that connects to the server to fetch the resources</p>
+<p>REST uses HTTP (Hypertext Transfer Protocol) or HTTPS (Hypertext Transfer Protocol Secure) to exchange data between client and server using HTTP methods – GET, POST, UPDATE, DELETE, HEAD, PATCH, etc.</p>
+<p>Benefits of using REST #<br>By following the principles of REST, we can benefit from the loose coupling between the server and the client, reliability, scalability, and better performance of the application. Few of the benefits of REST are listed below:</p>
+<p>Simplicity – REST web services are easy and simple to develop compared to SOAP web services</p>
+<p>Light-weight – REST advocates simple communication with the server over HTTP that supports plain XML, JSON formats in comparison to SOAP which supports only XML</p>
+<p>Architecture is similar to Web –the architecture of REST is very similar to how the web is designed. So, developers who understand the web can easily understand and develop RESTful web services</p>
+<p>Scalability – the REST architecture advocates refraining from the conversational state that allows us to easily add multiple instances of the components or application behind load balancers</p>
 
 
                 <hr>
