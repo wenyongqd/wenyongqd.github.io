@@ -2,18 +2,53 @@
 layout: "about"
 title: "About"
 date: 2016-04-21 04:48:33
-description: "Hey, this is Kaijun."
+description: "Hey, this is wenyong."
 header-img: "img/about-bg.jpg"
 comments: true
 ---
 
 
->写写代码，做做设计，看看产品。
->世界那么大，多玩玩看看。
+>To be a quick learner
+>And also know when to stop 
 
-9月21日上午，阳光明媚，鲜花斗艳。帕洛阿尔托苹果店里欢声笑语，人头攒动。苹果公司首席执行官蒂姆·库克先生在店长欧阳猛南陪同下，不远千米，深入到一线店面，为那里的员工带去节曰的问候和良好的祝愿。<br><br>“果粉们，你们辛苦了，我代表某果公司，祝你们身体健康，生活幸福，工作成功！”库克亲切慰问广大员工和顾客，并就iOS7、iPhone 5S和iPhone 5C的销售状况进行调研。 <br><br>“您现在每月工资有多少？肾5S拿到了吗？”在店里，库克关切地向果粉们问起这一问题。当听说果粉们排到了5S，库克满意地连连点头。接着他指出，近年来苹果事业发展取得巨大成就，特别是iPhone影响剧增，老百姓对iOS满意度逐步提高，在这个转变过程中，果粉的辛勤工作功不可没。<br><br>库克看到一个中国小朋友在排队买iPhone 5S，亲切的问：“5288元一台能承受不？”小朋友回答到：“能！”当得知这位小朋友卖了一个肾来买iPhone 5S时，库克叮嘱道：“在支持苹果的同时，也要爱护身体。”<br><br>库克与购买苹果手机的果粉们兴致勃勃地参观了苹果专卖店，和员工们拉了拉家常，并饶有兴趣地玩了四盘切西瓜游戏，与普通员工同乐。<br><br>在交谈中，库克多次关心地强调：“有了iPhone 5C，就不卖iPhone 5了。”并对顾客说：“好好休息，身体是革命的本钱嘛！”会谈始终在亲切友好的气氛中进行。<br><br>顾客们就库克的讲话达成了广泛的共识，并承认世界上只有iOS最流畅，要紧紧的团结在以库克先生为首席执行官的苹果公司集体周围，一心一意抓学习，聚精会神谋发展。<br>
-<br>帕洛阿尔托苹果专卖店当日原则通过《蒂姆·库克首席执行官在加州新苹果店的讲话纪要》，并下发各分店认真学习、研讨。
 
-<p style="text-align:right;">
-    —— <a href="http://www.zhihu.com/question/19687065">李书航 － 什么是「共产中文腔调」？ </a>
-</p>
+
+
+<div class="container" style="border: #a3a3a3 solid 3px; border-radius: 25px; height: 800px;width: 600px;flex-grow: 1">
+    <img src="https://wenyongqd.github.io/img/wenyongqd.png" style="align-items: center; border-radius: 100%;height: 250px; width:250px">
+    <text class="text" style="font-size: 18px">Skilled Java Developer with almost 3 years of experience in the full SDLC creating dynamic web applications. Updates functionality based on customer requirements to ensure excellent user experience.</text>
+    <div class="line"></div>
+    <ul class="a" >
+        <li><text class="b" style="font-weight: bold">Programming:</text> Java, Javascript, Python, SQL, HTML, CSS</li>
+        <li><p class="b" style="font-weight: bold">Software & Tools:</p><ol><text style="font-weight: bold">Back-end:</text><text> Spring, Spring Boot, Spring Cloud, RabbitMQ, MySQL, Docker, Redis, MongoDB Kafka, Maven, Mybatis</text></ol></li><ol><text style="font-weight: bold">Front-end:</text><text> JQuery, Bootstrap, React.js, Vue.js</text></ol>
+        <li><text class="b" style="font-weight: bold">Others:</text> Linux, Git, JSP, JMeter, Element-UI, Junit, Thymeleaf, CI/CD pipeline, AWS Postman, Nginx, rdm, HBuilderX, VS code, Intellij Idea</li>
+    </ul>
+</div>
+
+
+<style>
+    .a{border-top: #a3a3a3 solid 1px}
+
+    .success{
+        display: inline-block;
+        font-weight: 700;
+        margin: 0 10px;
+        width: 8px;
+        height: 13px;
+        transform: rotate(45deg);
+        border-style: solid;
+        border-color: #009933;
+        border-width:   0 4px 4px 0;}
+    
+    
+    
+</style>
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+

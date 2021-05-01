@@ -90,3 +90,55 @@ class Solution {
     }
 }
 ```
+#### Algorithmd: Divide and Conquer
+
+![devideandconquer](https://camo.githubusercontent.com/dfbf75bebf1618655527ed5dbb9f376a527d9817/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f303038327a7962706c7931676276336867756961646a333134303075303434742e6a7067)
+
+##### Algorithm
+
+maxSubArray for array with n numbers:
+
+1. If n == 1 : return this single element.
+2. left_sum = maxSubArray for the left subarray, i.e. for the first n/2 numbers (middle element at index (left + right) / 2 always belongs to the left subarray).
+3. right_sum = maxSubArray for the right subarray, i.e. for the last n/2 numbers.
+4. cross_sum = maximum sum of the subarray containing elements from both left and right subarrays and hence crossing the middle element at index (left + right) / 2.
+5. Merge the subproblems solutions, i.e. return max(left_sum, right_sum, cross_sum).
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 0 || nums == null) return 0;
+        return helper(nums, 0, nums.length-1);
+    }
+    
+    public int helper(int[] nums, int l, int r) {
+        if (r < l) return Integer.MIN_VALUE;
+        int mid = (r + l) >>> 1;
+        int left = helper(nums, l, mid - 1);
+        int right = helper(nums, mid + 1, r);
+        int leftmax = 0;
+        int rightmax = 0;
+        int sum = 0;
+        // left surfix maxSum start from index mid - 1 to l
+        for (int i = mid - 1; i >= l; i--) {
+            sum += nums[i];
+            leftmax = Math.max(sum, leftmax);
+        }
+        // remember to let sum = 0
+        sum = 0;
+        // right prefix maxSum start from index mid + 1 to r
+        for (int i = mid + 1; i <= r; i++) {
+            sum += nums[i];
+            rightmax = Math.max(sum, rightmax);
+        }
+        // max(left, right, crossSum)
+        return Math.max(leftmax + nums[mid] + rightmax, Math.max(left, right));
+    }
+}
+```
+##### Complexity Analysis
+
+- **Time complexity** : O(NlogN)
+
+
+- **Space complexity** : O(logN) to keep the recursion stack.

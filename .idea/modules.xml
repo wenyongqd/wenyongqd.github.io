@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/hexo-theme-huxblog.iml" filepath="$PROJECT_DIR$/hexo-theme-huxblog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../IdeaProjects/ppmtool/ppmtool.iml" filepath="$PROJECT_DIR$/../IdeaProjects/ppmtool/ppmtool.iml" />
     </modules>
   </component>
 </project>

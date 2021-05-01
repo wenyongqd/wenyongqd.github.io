@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <meta charset="utf-8">
+  <script src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+</head>
+ 
+<body>
+  <ul id="myLinks">
+    <li id="goSomewhere">Go somewhere</li>
+    <li id="doSomething">Do something</li>
+    <li id="sayHi">Say hi</li>
+  </ul>
+ 
+  <script>
+    $(document).ready(function () {
+      $("#myLinks").delegate("#goSomewhere", "click", function () {
+        location.href = "http://www.baidu.com";
+      });
+    });
+  </script>
+ 
+</body>
+ 
+</html>

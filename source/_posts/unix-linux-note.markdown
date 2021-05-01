@@ -16,11 +16,11 @@ tags:
 
 ## Catagory
 
-1. [Unix](#unix)
-	1. [Bell Labs](#bell-labs)
+1. [Unix](#Unix)
+	1. [Bell Labs](#Bell-Labs)
 	2. [Xenix](#xenix)
 	3. [BSD](#bsd)
-	4. [FreeBSD & Apple](#freebsd--apple)
+	4. [FreeBSD & Apple](#FreeBSD--Apple)
 	5. [NeXTStep](#nextstep)
 	6. [Darwin](#darwin)
 	7. [POSIX](#posix)
