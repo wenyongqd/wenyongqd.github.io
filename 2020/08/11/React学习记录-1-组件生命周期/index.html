@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          React学习记录-1-组件生命周期 - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/08/11/React学习记录-1-组件生命周期/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>React学习记录-1-组件生命周期</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-08-11
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- TOC -->
+<ul>
+<li><a href="#react学习记录-1-组件生命周期---逻辑协会---博客园">React 学习记录-1-组件生命周期 - 逻辑协会 - 博客园</a><ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#第一个问题reactcomponent是什么意思">第一个问题：React.Component 是什么意思？</a></li>
+<li><a href="#第二个问题什么是dom">第二个问题：什么是 DOM？</a></li>
+<li><a href="#第三个问题什么是组件的生命周期">第三个问题：什么是组件的生命周期？</a></li>
+<li><a href="#1-挂载">1. 挂载</a></li>
+<li><a href="#2-更新">2. 更新</a></li>
+<li><a href="#3-卸载">3. 卸载</a></li>
+<li><a href="#4-错误处理">4. 错误处理</a></li>
+<li><a href="#小结">小结</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="React-学习记录-1-组件生命周期-逻辑协会-博客园"><a href="#React-学习记录-1-组件生命周期-逻辑协会-博客园" class="headerlink" title="React 学习记录-1-组件生命周期 - 逻辑协会 - 博客园"></a>React 学习记录-1-组件生命周期 - 逻辑协会 - 博客园</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>准备学习前端。<br>从【反动君】的文章中，我知道了 <code>系统性学习</code> 这个词语。 他说的是很对的。系统性学习，是很难的。 作为一个在技术公司做综合工作的人，我产生了系统性学习技术的兴趣。 就从前端开始吧。 先确立学习的方法论。</p>
+<p>我的方法是：系统性学习分为有限数量的点，将每个点都理解，贴上标签，划分优先级，排列分布。最终才产生应用的价值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;<span class="attr">date</span>:<span class="keyword">new</span> <span class="built_in">Date</span>()&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount()&#123;</span><br><span class="line">    <span class="keyword">this</span>.timerID = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.tick(),<span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentWillUnmount()&#123;</span><br><span class="line">    clearInterval(<span class="keyword">this</span>.timerID);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  tick()&#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">date</span>:<span class="keyword">new</span> <span class="built_in">Date</span>()&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render()&#123;</span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Hello,world!&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;h2&gt;现在是&#123;this.state.date.toLocaleTimeString()&#125;.&lt;/</span>h2&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  ReactDOM.render(</span></span><br><span class="line"><span class="regexp">    &lt;Clock /</span>&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是菜鸟教程的 <a href="https://www.runoob.com/react/react-state.html" target="_blank" rel="noopener">这篇文章</a> 中的代码。</p>
+<h2 id="第一个问题：React-Component-是什么意思？"><a href="#第一个问题：React-Component-是什么意思？" class="headerlink" title="第一个问题：React.Component 是什么意思？"></a>第一个问题：React.Component 是什么意思？</h2><p>在 React 前端框架当中，有一个 <code>组件</code> 的概念。<br>这个 <code>组件</code> 是可以两种定义的形式： <code>类(class)</code> 和 <code>函数</code> 。</p>
+<blockquote>
+<p>既然有两种形式，那么怎么决定，什么时候用哪一种呢？ 这可以作为一个【待确认问题】。</p>
+</blockquote>
+<blockquote>
+<p>首先可以确定的是，class 组件目前是提供了更多的功能。</p>
+</blockquote>
+<p>如果是定义 class 组件，就是上面代码中的如下部分：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">  constructor(props)&#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;date:<span class="keyword">new</span> <span class="type">Date</span>()&#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这里 <code>extends</code> 英文翻译是 <code>延伸</code> 的意思，可以引申为 <code>继承</code> 的意思。<br>第一句话，是说有一个类 Clock，是继承自 <code>React.Component</code> 的。<br>也就是说，Clock 是 <code>React.Component</code> 的子类。</p>
+<blockquote>
+<p>这里 Component 就是组件的意思。 React.Component 好像是所有组件类的爹的样子。 它是所有组件类的爹，它最牛逼。</p>
+</blockquote>
+<blockquote>
+<p>Component 的源代码在 ReactBaseClasses.js 中。</p>
+</blockquote>
+<p>上面的代码，就是创建了一个 <code>Clock组件</code> 了。</p>
+<h2 id="第二个问题：什么是-DOM？"><a href="#第二个问题：什么是-DOM？" class="headerlink" title="第二个问题：什么是 DOM？"></a>第二个问题：什么是 DOM？</h2><p>DOM，是 <code>document object model</code> 的缩写。 意思是文档对象模型。 本意上，它是一种接口(API)，类似一种操作方法。</p>
+<p>比如说 <code>HTML DOM</code> 就是访问和操作 HTML 文档的标准方法。</p>
+<p>但是，在一般性的表达中，DOM 还具有一层经常使用的指代意思。</p>
+<p>就是 <code>DOM就是文档</code> 。</p>
+<p>在【第一个问题】中，我们是创建了 React 的组件。<br>组件是一个类，是一个对象，所以，组件是有实例的。</p>
+<blockquote>
+<p>当组件实例被创建并插入到 DOM 当中的时候。<br>这句话中，我就可以理解 DOM，指代的就是文档。</p>
+</blockquote>
+<h2 id="第三个问题：什么是组件的生命周期？"><a href="#第三个问题：什么是组件的生命周期？" class="headerlink" title="第三个问题：什么是组件的生命周期？"></a>第三个问题：什么是组件的生命周期？</h2><p>组件的生命周期，有几个阶段： <code>挂载</code> ， <code>更新</code> ， <code>卸载</code> ， <code>错误处理</code> 。<br>组件的每个阶段都包含 <code>生命周期方法</code> 。</p>
+<blockquote>
+<p>注意：加粗的，都是组件常用的生命周期方法。不加粗的，不常用。</p>
+</blockquote>
+<h2 id="1-挂载"><a href="#1-挂载" class="headerlink" title="1. 挂载"></a>1. 挂载</h2><p>当组件实例被创建，并且插入到 DOM 当中的时候，这个过程叫做挂载。<br>组件挂载的生命周期方法的调用顺序如下：</p>
+<ul>
+<li><strong>constructor()</strong> //constructor 英文是构造器的意思。</li>
+<li>static getDerivedStateFromProps() //Derive 英文是从…中获得。从 Props 中获得派生状态(State)。</li>
+<li><strong>render()</strong> //render 英文意思是提供，提出，使成为的意思。</li>
+<li><strong>compenentDidMount()</strong> //Mount 英文的意思，是安装…于高处的意思。翻译为挂载。<br>我看挂载的顺序就是 <code>构造 - 获取派生状态 - 提供 - 安装</code> 。</li>
+</ul>
+<h2 id="2-更新"><a href="#2-更新" class="headerlink" title="2. 更新"></a>2. 更新</h2><p>当组件的 props 或 state 发生变化的时候，会触发更新。</p>
+<blockquote>
+<p>props 是属性？state 是状态？</p>
+</blockquote>
+<p>组件更新的生命周期方法调用顺序如下：</p>
+<ul>
+<li>static getDerivedStateFromProps() //从 props 当中获得派生状态</li>
+<li>shouldComponentUpdate() // 判断组件是否应该更新</li>
+<li><strong>render()</strong> //提供</li>
+<li>getSnapshotBeforeUpdate() // 组件更新前获得快照(Snapshot)</li>
+<li><strong>componentDidUpdate()</strong> //组件实施更新</li>
+</ul>
+<h2 id="3-卸载"><a href="#3-卸载" class="headerlink" title="3. 卸载"></a>3. 卸载</h2><p>当组件从 DOM 当中移除的时候，会调用如下的方法：</p>
+<ul>
+<li><strong>componentWillUnmount()</strong> //组件将会卸载</li>
+</ul>
+<h2 id="4-错误处理"><a href="#4-错误处理" class="headerlink" title="4. 错误处理"></a>4. 错误处理</h2><p>当渲染过程，生命周期，或子组件的构造函数中抛出错误时，会调用如下方法：</p>
+<ul>
+<li>static getDerivedStateFromError() //从 Error 中获得派生状态。</li>
+<li>componentDidCatch() //组件执行捕获异常<blockquote>
+<p>到了这里，我基本上能够看懂：【前言】代码中 componentDidMount()和 componentWillUnmount() 这两个函数，都是生命周期方法，一个是挂载的，一个是卸载的。 这两个方法被叫做【生命周期钩子】。 constructor()和 render()也是生命周期方法。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>但是代码里面的内容，我还是不太理解。</p>
+</blockquote>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>为了使我的问题点，能够有清晰的界限。我先决定一篇文章，就记录 3 个问题。 主要是理解了【前言】代码中的几个函数的作用。</p>
+<p>对这一段代码的完全理解，还没有达到。</p>
+<p><a href="https://www.cnblogs.com/gnuzsx/p/11923570.html" target="_blank" rel="noopener">React 学习记录-1-组件生命周期 - 逻辑协会 - 博客园</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/08/11/React学习记录-2-props和state简析/" data-toggle="tooltip" data-placement="top" title="React学习记录-2-props和state简析">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/08/10/Java-Optional使用的最佳实践/" data-toggle="tooltip" data-placement="top" title="Java Optional使用的最佳实践">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/08/11/React学习记录-1-组件生命周期/";
+    var disqus_url = "https://wenyongqd.github.io/2020/08/11/React学习记录-1-组件生命周期/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

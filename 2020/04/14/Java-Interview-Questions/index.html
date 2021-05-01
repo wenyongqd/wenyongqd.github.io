@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Java Interview Questions - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/04/14/Java-Interview-Questions/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Interview" title="Interview">Interview</a>
+                        
+                    </div>
+                    <h1>Java Interview Questions</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-04-14
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- TOC -->
+<ul>
+<li><a href="#q1-what-are-wrapper-classes-in-java">Q1. What are wrapper classes in Java?</a></li>
+<li><a href="#q2-what-are-constructors-in-java">Q2. What are constructors in Java?</a></li>
+<li><a href="#q3-what-is-singleton-class-in-java-and-how-can-we-make-a-class-singleton">Q3. What is singleton class in Java and how can we make a class singleton?</a></li>
+<li><a href="#q4-what-is-the-difference-between-array-list-and-vector-in-java">Q4. What is the difference between Array list and vector in Java?</a></li>
+<li><a href="#q5-what-is-the-difference-between-equals-and--in-java">Q5. What is the difference between equals() and == in Java?</a></li>
+<li><a href="#q6-what-are-the-differences-between-heap-and-stack-memory-in-java">Q6. What are the differences between Heap and Stack Memory in Java?</a><ul>
+<li><a href="#java-heap-space">Java Heap Space</a></li>
+<li><a href="#java-stack-memory">Java Stack Memory</a></li>
+<li><a href="#heap-and-stack-memory-in-java-program">Heap and Stack Memory in Java Program</a></li>
+<li><a href="#difference-between-java-heap-space-and-stack-memory">Difference between Java Heap Space and Stack Memory</a></li>
+</ul>
+</li>
+<li><a href="#q7-why-pointers-are-not-used-in-java">Q7. Why pointers are not used in Java?</a></li>
+<li><a href="#q8-what-are-access-modifiers-in-java">Q8. What are access modifiers in Java?</a></li>
+<li><a href="#q9-how-garbage-collector-knows-that-the-object-is-not-in-use-and-needs-to-be-removed">Q9 How garbage collector knows that the object is not in use and needs to be removed?</a></li>
+<li><a href="#q10-can-java-thread-object-invoke-start-method-twice">Q10 Can Java thread object invoke start method twice?</a></li>
+<li><a href="#q11-give-the-list-of-java-object-class-methods">Q11 Give the list of Java Object class methods.</a></li>
+<li><a href="#q12-can-we-override-static-method">Q12 Can we override static method?</a></li>
+<li><a href="#q13-can-you-list-serialization-methods">Q13 Can you list serialization methods?</a></li>
+<li><a href="#q14-what-is-the-difference-between-super-and-this">Q14 What is the difference between super() and this()?</a></li>
+<li><a href="#q15-how-to-prevent-a-method-from-being-overridden">Q15 How to prevent a method from being overridden?</a></li>
+<li><a href="#q16-can-we-create-abstract-classes-without-any-abstract-methods">Q16 Can we create abstract classes without any abstract methods?</a></li>
+<li><a href="#q17-how-to-destroy-the-session-in-servlets">Q17 How to destroy the session in servlets?</a></li>
+<li><a href="#q18-explain-final-keyword-in-java">Q18 Explain Final keyword in java?</a></li>
+<li><a href="#q19-when-is-the-super-keyword-used">Q19 When is the super keyword used?</a></li>
+<li><a href="#q20-what-is-the-difference-between-stringbuffer-and-string">Q20 What is the difference between StringBuffer and String?</a></li>
+<li><a href="#q21-why-multiple-inheritance-is-not-supported-in-java">Q21 Why multiple inheritance is not supported in java?</a></li>
+<li><a href="#q22-what-is-the-difference-between-throw-and-throws-in-java-exception-handling">Q22 What is the difference between ‘throw’ and ‘throws’ in Java Exception Handling?</a></li>
+<li><a href="#q23-what-is-finalize-method">Q23 What is finalize() method?</a></li>
+<li><a href="#q24-difference-in-set-and-list-interface">Q24 Difference in Set and List interface?</a></li>
+<li><a href="#q25-what-will-happen-if-you-put-systemexit0-on-try-or-catch-block-will-finally-block-execute">Q25 What will happen if you put System.exit(0) on try or catch block? Will finally block execute?</a></li>
+<li><a href="#q26-overriding-vs-overloading">Q26 Overriding vs. Overloading</a></li>
+<li><a href="#q27-string-vs-stringbuffer-vs-stringbuilder">Q27 String vs StringBuffer vs StringBuilder</a></li>
+<li><a href="#q27-autoboxing-and-unautoboxing-in-java">Q27 Autoboxing and Unautoboxing in Java</a></li>
+<li><a href="#q28-exception-handling-in-java">Q28 Exception Handling in Java</a></li>
+<li><a href="#q29-what-is-the-difference-between-checked-and-unchecked-exception-in-java">Q29 What is the difference between Checked and Unchecked Exception in Java?</a></li>
+<li><a href="#q30-获取用键盘输入常用的的两种方法">Q30 获取用键盘输入常用的的两种方法</a></li>
+<li><a href="#q31-difference-between-abstract-class-and-interface">Q31 Difference between abstract class and interface</a></li>
+<li><a href="#q32-what-is-inheritance-in-java">Q32 What is Inheritance in Java?</a></li>
+<li><a href="#q32-what-are-different-types-of-inheritance-supported-by-java">Q32 What are different types of Inheritance supported by Java?</a></li>
+<li><a href="#q32-why-multiple-inheritance-is-not-supported-by-java">Q32 Why multiple Inheritance is not supported by Java?</a></li>
+<li><a href="#q33-what-is-the-difference-between-inheritance-and-abstraction">Q33 What is the difference between Inheritance and Abstraction?</a></li>
+<li><a href="#q34-can-we-override-static-method-in-java">Q34 Can we override static method in Java?</a></li>
+<li><a href="#q35-the-four-principles-of-object-oriented-programming-are-encapsulation-abstraction-inheritance-and-polymorphism">Q35 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism</a></li>
+<li><a href="#q36-multithreading-and-life-cycle-of-a-thread">Q36 Multithreading and Life Cycle of a thread</a></li>
+<li><a href="#q37-what-id-thread-synchronization">Q37 What id Thread Synchronization?</a></li>
+<li><a href="#q38-handling-thread-deadlock">Q38 Handling thread deadlock?</a></li>
+<li><a href="#q39-what-is-thread-safty">Q39 What is Thread Safty?</a></li>
+<li><a href="#q40-what-is-concurrency">Q40 What is Concurrency?</a></li>
+<li><a href="#difference-between-runnable-vs-thread-in-java">Difference between Runnable vs Thread in Java</a><ul>
+<li><a href="#1-create-thread-using-runnable-interface-vs-thread-class">1. Create Thread using Runnable Interface vs Thread class</a><ul>
+<li><a href="#11-runnable-interface">1.1. Runnable interface</a></li>
+<li><a href="#12-thread-class">1.2. Thread class</a></li>
+</ul>
+</li>
+<li><a href="#2-difference-between-runnable-vs-thread">2. Difference between Runnable vs Thread</a></li>
+</ul>
+</li>
+<li><a href="#q41-what-is-a-thread-local-variable">Q41 What is a thread local variable?</a></li>
+<li><a href="#q42-what-is-the-difference-between-sleep-and-wait">Q42 What is the difference between sleep and wait?</a></li>
+<li><a href="#q43-what-is-the-difference-between-notify-and-notifyall">Q43 What is the difference between notify() and notifyAll()?</a></li>
+<li><a href="#q44-what-are-the-different-thread-states">Q44 What are the different thread states?</a></li>
+<li><a href="#q45-what-is-the-difference-between-thread-and-process">Q45 What is the difference between thread and process?</a></li>
+<li><a href="#q46-how-do-we-create-thread-in-java">Q46 How do we create thread in Java?</a></li>
+<li><a href="#q47-difference-between-vector-and-arraylist">Q47 Difference between Vector and ArrayList?</a></li>
+<li><a href="#q48-difference-between-hashmap-and-hashtable">Q48 Difference between HashMap and HashTable?</a></li>
+<li><a href="#q49-difference-between-set-and-list">Q49 Difference between Set and List?</a></li>
+<li><a href="#q50-how-to-design-a-good-key-for-hashmap">Q50 How to design a good key for hashmap?</a></li>
+<li><a href="#q51-how-hashmap-works">Q51 How hashmap works?</a></li>
+<li><a href="#what-is-rest">What is REST?</a></li>
+</ul>
+<!-- /TOC -->
+<h3 id="Q1-What-are-wrapper-classes-in-Java"><a href="#Q1-What-are-wrapper-classes-in-Java" class="headerlink" title="Q1. What are wrapper classes in Java?"></a>Q1. What are wrapper classes in Java?</h3><p>Wrapper classes convert the Java primitives into the reference types (objects). Every primitive data type has a class dedicated to it. These are known as wrapper classes because they “wrap” the primitive data type into an object of that class. Refer to the below image which displays different primitive type, wrapper class and constructor argument.<br><img src="/2020/04/14/Java-Interview-Questions/d1.png" alt="day1"></p>
+<h3 id="Q2-What-are-constructors-in-Java"><a href="#Q2-What-are-constructors-in-Java" class="headerlink" title="Q2. What are constructors in Java?"></a>Q2. What are constructors in Java?</h3><p>In Java, constructor refers to a block of code which is used to initialize an object. It must have the same name as that of the class. Also, it has no return type and it is automatically called when an object is created.</p>
+<p>There are two types of constructors:</p>
+<ul>
+<li><strong>Default Constructor</strong>: In Java, a default constructor is the one which does not take any inputs. In other words, default constructors are the no argument constructors which will be created by default in case no other constructor is defined by the user. Its <strong>main purpose</strong> is to initialize the instance variables with the default values. Also, it is majorly used for object creation.</li>
+<li><strong>Parameterized Constructor</strong>: The parameterized constructor in Java, is the constructor which is capable of initializing the instance variables with the provided values. In other words, the constructors which take the arguments are called parameterized constructors.</li>
+</ul>
+<h3 id="Q3-What-is-singleton-class-in-Java-and-how-can-we-make-a-class-singleton"><a href="#Q3-What-is-singleton-class-in-Java-and-how-can-we-make-a-class-singleton" class="headerlink" title="Q3. What is singleton class in Java and how can we make a class singleton?"></a>Q3. What is singleton class in Java and how can we make a class singleton?</h3><p>Singleton class means you can create only one object for the given class. You can create a singleton class by making its constructor as private, so that you can restrict the creation of the object. Provide a static method to get instance of the object, wherein you can handle the object creation inside the class only. In this example we are creating object by using static block.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ublic <span class="class"><span class="keyword">class</span> <span class="title">MySingleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MySingleton myObj;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        myObj = <span class="keyword">new</span> MySingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MySingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> myObj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMe</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hey.... it is working!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String a[])</span></span>&#123;</span><br><span class="line">        MySingleton ms = getInstance();</span><br><span class="line">        ms.testMe();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Q4-What-is-the-difference-between-Array-list-and-vector-in-Java"><a href="#Q4-What-is-the-difference-between-Array-list-and-vector-in-Java" class="headerlink" title="Q4. What is the difference between Array list and vector in Java?"></a>Q4. What is the difference between Array list and vector in Java?</h3><p><img src="/2020/04/14/Java-Interview-Questions/d2.png" alt="d2"></p>
+<h3 id="Q5-What-is-the-difference-between-equals-and-in-Java"><a href="#Q5-What-is-the-difference-between-equals-and-in-Java" class="headerlink" title="Q5. What is the difference between equals() and == in Java?"></a>Q5. What is the difference between equals() and == in Java?</h3><p>In general both equals() and “==” operator in Java are used to compare objects to check equality but here are some of the differences between the two:</p>
+<ol>
+<li><p>First difference between them is, equals() is a method defined inside the java.lang.Object class and == is one type of operator and you can compare both primitive and objects using equality operator in Java.</p>
+</li>
+<li><p>We can use == operators for reference comparison (address comparison) and .equals() method for content comparison. In simple words, == checks if both objects point to the same memory location whereas .equals() evaluates to the comparison of values in the objects.</p>
+</li>
+<li>If a class does not override the equals method, then by default it uses equals(Object o) method of the closest parent class that has overridden this method. See this for detail<br>Coding Example:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java program to understand</span></span><br><span class="line"><span class="comment">// the concept of == operator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(<span class="string">"HELLO"</span>);</span><br><span class="line">        String s2 = <span class="keyword">new</span> String(<span class="string">"HELLO"</span>);</span><br><span class="line">        System.out.println(s1 == s2);</span><br><span class="line">        System.out.println(s1.equals(s2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<h3 id="Q6-What-are-the-differences-between-Heap-and-Stack-Memory-in-Java"><a href="#Q6-What-are-the-differences-between-Heap-and-Stack-Memory-in-Java" class="headerlink" title="Q6. What are the differences between Heap and Stack Memory in Java?"></a>Q6. What are the differences between Heap and Stack Memory in Java?</h3><h4 id="Java-Heap-Space"><a href="#Java-Heap-Space" class="headerlink" title="Java Heap Space"></a>Java Heap Space</h4><p>Java Heap space is used by java runtime to allocate memory to Objects and JRE classes. Whenever we create an object, it’s always created in the Heap space.</p>
+<p>Garbage Collection runs on the heap memory to free the memory used by objects that don’t have any reference. Any object created in the heap space has global access and can be referenced from anywhere of the application.<br><a href="https://www.journaldev.com/4098/java-heap-space-vs-stack-memory" target="_blank" rel="noopener">https://www.journaldev.com/4098/java-heap-space-vs-stack-memory</a></p>
+<h4 id="Java-Stack-Memory"><a href="#Java-Stack-Memory" class="headerlink" title="Java Stack Memory"></a>Java Stack Memory</h4><p>Java Stack memory is used for the execution of a thread. They contain method-specific values that are short-lived and references to other objects in the heap that is getting referred from the method.</p>
+<p>Stack memory is always referenced in LIFO (Last-In-First-Out) order. Whenever a method is invoked, a new block is created in the stack memory for the method to hold local primitive values and reference to other objects in the method.</p>
+<p>As soon as the method ends, the block becomes unused and becomes available for the next method.<br>Stack memory size is very less compared to Heap memory.</p>
+<h4 id="Heap-and-Stack-Memory-in-Java-Program"><a href="#Heap-and-Stack-Memory-in-Java-Program" class="headerlink" title="Heap and Stack Memory in Java Program"></a>Heap and Stack Memory in Java Program</h4><p>Let’s understand the Heap and Stack memory usage with a simple program.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.journaldev.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Memory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; <span class="comment">// Line 1</span></span><br><span class="line">		<span class="keyword">int</span> i=<span class="number">1</span>; <span class="comment">// Line 2</span></span><br><span class="line">		Object obj = <span class="keyword">new</span> Object(); <span class="comment">// Line 3</span></span><br><span class="line">		Memory mem = <span class="keyword">new</span> Memory(); <span class="comment">// Line 4</span></span><br><span class="line">		mem.foo(obj); <span class="comment">// Line 5</span></span><br><span class="line">	&#125; <span class="comment">// Line 9</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">(Object param)</span> </span>&#123; <span class="comment">// Line 6</span></span><br><span class="line">		String str = param.toString(); <span class="comment">//// Line 7</span></span><br><span class="line">		System.out.println(str);</span><br><span class="line">	&#125; <span class="comment">// Line 8</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Let’s go through the steps of the execution of the program.</p>
+<ul>
+<li>As soon as we run the program, it loads all the Runtime classes into the Heap space. When the main() method is found at line 1, Java Runtime creates stack memory to be used by main() method thread.</li>
+<li>We are creating primitive local variable at line 2, so it’s created and stored in the stack memory of main() method.</li>
+<li>Since we are creating an Object in the 3rd line, it’s created in heap memory and stack memory contains the reference for it. A similar process occurs when we create Memory object in the 4th line.</li>
+<li>Now when we call the foo() method in the 5th line, a block in the top of the stack is created to be used by the foo() method. Since Java is pass-by-value, a new reference to Object is created in the foo() stack block in the 6th line.</li>
+<li>A string is created in the 7th line, it goes in the String Pool in the heap space and a reference is created in the foo() stack space for it.</li>
+<li>foo() method is terminated in the 8th line, at this time memory block allocated for foo() in stack becomes free.</li>
+<li>In line 9, main() method terminates and the stack memory created for main() method is destroyed. Also, the program ends at this line, hence Java Runtime frees all the memory and ends the execution of the program.<br><img src="https://cdn.journaldev.com/wp-content/uploads/2014/08/Java-Heap-Stack-Memory.png" alt="image"></li>
+</ul>
+<h4 id="Difference-between-Java-Heap-Space-and-Stack-Memory"><a href="#Difference-between-Java-Heap-Space-and-Stack-Memory" class="headerlink" title="Difference between Java Heap Space and Stack Memory"></a>Difference between Java Heap Space and Stack Memory</h4><p>Based on the above explanations, we can easily conclude the following differences between Heap and Stack memory.</p>
+<ol>
+<li>Heap memory is used by all the parts of the application whereas stack memory is used only by one thread of execution.</li>
+<li>Whenever an object is created, it’s always stored in the Heap space and stack memory contains the reference to it. Stack memory only contains local primitive variables and reference variables to objects in heap space.</li>
+<li>Objects stored in the heap are globally accessible whereas stack memory can’t be accessed by other threads.</li>
+<li>Memory management in stack is done in LIFO manner whereas it’s more complex in Heap memory because it’s used globally. Heap memory is divided into Young-Generation, Old-Generation etc, more details at Java <code>Garbage Collection</code>.</li>
+<li>Stack memory is short-lived whereas heap memory lives from the start till the end of application execution.</li>
+<li>We can use -Xms and -Xmx JVM option to define the startup size and maximum size of heap memory. We can use -Xss to define the stack memory size.</li>
+<li>When stack memory is full, Java runtime throws <code>java.lang.StackOverFlowError</code> whereas if heap memory is full, it throws <code>java.lang.OutOfMemoryError</code>: Java Heap Space error.</li>
+<li>Stack memory size is very less when compared to Heap memory. Because of simplicity in memory allocation (LIFO), stack memory is very fast when compared to heap memory.</li>
+</ol>
+<h3 id="Q7-Why-pointers-are-not-used-in-Java"><a href="#Q7-Why-pointers-are-not-used-in-Java" class="headerlink" title="Q7. Why pointers are not used in Java?"></a>Q7. Why pointers are not used in Java?</h3><p>Java doesn’t use pointers because they are unsafe and increases the complexity of the program. Since, Java is known for its simplicity of code, adding the concept of pointers will be contradicting. Moreover, since JVM is responsible for implicit memory allocation, thus in order to avoid direct access to memory by the user, pointers are discouraged in Java.<br>Q</p>
+<h3 id="Q8-What-are-access-modifiers-in-Java"><a href="#Q8-What-are-access-modifiers-in-Java" class="headerlink" title="Q8. What are access modifiers in Java?"></a>Q8. What are access modifiers in Java?</h3><p>As the name suggests access modifiers in Java helps to restrict the scope of a class, constructor , variable , method or data member. There are four types of access modifiers available in java:</p>
+<ol>
+<li>Default – No keyword required<br><strong>Default</strong>: When no access modifier is specified for a class , method or data member – It is said to be having the default access modifier by default.</li>
+<li><p>Private<br><strong>Private</strong>: The private access modifier is specified using the keyword private.</p>
+<ul>
+<li>The methods or data members declared as private are accessible only within the class in which they are declared.</li>
+<li>Any other class of same package will not be able to access these members.</li>
+<li>Top level Classes or interface can not be declared as private because<ol>
+<li>private means “only visible within the enclosing class”.</li>
+<li>protected means “only visible within the enclosing class and any subclasses”</li>
+</ol>
+</li>
+</ul>
+<p>Hence these modifiers in terms of application to classes, they apply only to nested classes and not on top level classes</p>
+</li>
+<li><p>Protected<br><strong>protected</strong>: The protected access modifier is specified using the keyword protected.</p>
+<ul>
+<li>The methods or data members declared as protected are accessible within same package or sub classes in different package.</li>
+</ul>
+</li>
+<li><p>Public<br><strong>public</strong>: The public access modifier is specified using the keyword public.</p>
+<ul>
+<li>The public access modifier has the widest scope among all other access modifiers.</li>
+<li>Classes, methods or data members which are declared as public are accessible from every where in the program. There is no restriction on the scope of a public data members.</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/Access-Modifiers-in-Java.png" alt="image"></p>
+<h3 id="Q9-How-garbage-collector-knows-that-the-object-is-not-in-use-and-needs-to-be-removed"><a href="#Q9-How-garbage-collector-knows-that-the-object-is-not-in-use-and-needs-to-be-removed" class="headerlink" title="Q9 How garbage collector knows that the object is not in use and needs to be removed?"></a>Q9 How garbage collector knows that the object is not in use and needs to be removed?</h3><p>Garbage collector reclaims objects that are no longer being used, clears their memory, and keeps the memory available for future allocations. This is done via bookkeeping the references to the objects. Any unreferenced object is a garbage and will be collected.</p>
+<h3 id="Q10-Can-Java-thread-object-invoke-start-method-twice"><a href="#Q10-Can-Java-thread-object-invoke-start-method-twice" class="headerlink" title="Q10 Can Java thread object invoke start method twice?"></a>Q10 Can Java thread object invoke start method twice?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyExmpCode</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Run"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String a[])</span></span>&#123;</span><br><span class="line">		Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyExmpCode());</span><br><span class="line">		t1.start();</span><br><span class="line">		t1.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Answer:</strong><br>No, it throws IllegalThreadStateException</p>
+</blockquote>
+<h3 id="Q11-Give-the-list-of-Java-Object-class-methods"><a href="#Q11-Give-the-list-of-Java-Object-class-methods" class="headerlink" title="Q11 Give the list of Java Object class methods."></a>Q11 Give the list of Java Object class methods.</h3><blockquote>
+<p><strong>Answer:</strong><br>clone( ) - Creates and returns a copy of this object.<br>equals( ) - Indicates whether some other object is “equal to” this one.<br>finalize( ) - Called by the garbage collector on an object when garbage collection<br>determines that there are no more references to the object.<br>getClass( ) - Returns the runtime class of an object.<br>hashCode( ) - Returns a hash code value for the object.<br>notify( ) - Wakes up a single thread that is waiting on this object’s monitor.<br>notifyAll( ) - Wakes up all threads that are waiting on this object’s monitor.<br>toString( ) - Returns a string representation of the object.<br>wait( ) - Causes current thread to wait until another thread invokes the notify() method<br>or the notifyAll() method for this object.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass()<span class="comment">//native方法，用于返回当前运行时对象的Class对象，使用了</span></span><br><span class="line"><span class="keyword">final</span>关键字修饰，故不允许子类重写。</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> <span class="comment">//native方法，用于返回对象的哈希码，主要使用在哈希表中，比如JDK中的</span></span></span><br><span class="line"><span class="function">HashMap。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span><span class="comment">//用于比较2个对象的内存地址是否相等，String类对该方法进行了重写用户</span></span></span><br><span class="line"><span class="function">比较字符串的值是否相等。</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException<span class="comment">//naitive方法，用于创建并返回</span></span></span><br><span class="line"><span class="function">当前对象的一份拷贝。一般情况下，对于任何对象 x，表达式 x.<span class="title">clone</span><span class="params">()</span> !</span>= x 为<span class="keyword">true</span>，x.clone().getClass()</span><br><span class="line">== x.getClass() 为<span class="keyword">true</span>。Object本身没有实现Cloneable接口，所以不重写clone方法并且进行调用的话会发生</span><br><span class="line">CloneNotSupportedException异常。</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span><span class="comment">//返回类的名字@实例的哈希码的16进制的字符串。建议Object所有的子类都重写这个方</span></span></span><br><span class="line"><span class="function">法。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span><span class="comment">//native方法，并且不能重写。唤醒一个在此对象监视器上等待的线程(监视</span></span></span><br><span class="line"><span class="function">器相当于就是锁的概念)。如果有多个线程在等待只会任意唤醒一个。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span><span class="comment">//native方法，并且不能重写。跟notify一样，唯一的区别就是会唤醒</span></span></span><br><span class="line"><span class="function">在此对象监视器上等待的所有线程，而不是一个线程。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException<span class="comment">//native方法，并且不能</span></span></span><br><span class="line"><span class="function">重写。暂停线程的执行。注意：sleep方法没有释放锁，而wait方法释放了锁 。timeout是等待时间。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException<span class="comment">//多了nanos参数，</span></span></span><br><span class="line"><span class="function">这个参数表示额外时间（以毫微秒为单位，范围是 0-999999）。 所以超时的时间还需要加上nanos毫秒。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException<span class="comment">//跟之前的2个wait方法一样，只不过该方法一直等</span></span></span><br><span class="line"><span class="function">待，没有超时时间这个概念</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;<span class="comment">//实例被垃圾回收器回收的时候触发的操作</span></span><br></pre></td></tr></table></figure>
+<h3 id="Q12-Can-we-override-static-method"><a href="#Q12-Can-we-override-static-method" class="headerlink" title="Q12 Can we override static method?"></a>Q12 Can we override static method?</h3><blockquote>
+<p><strong>Answer:</strong><br>We cannot override static methods. Static methods are belogs to class, not belongs<br>to object. Inheritance will not be applicable for class members</p>
+</blockquote>
+<h3 id="Q13-Can-you-list-serialization-methods"><a href="#Q13-Can-you-list-serialization-methods" class="headerlink" title="Q13 Can you list serialization methods?"></a>Q13 Can you list serialization methods?</h3><blockquote>
+<p><strong>Answer:</strong><br>Serialization interface does not have any methods. It is a marker interface.<br>It just tells that your class can be serializable.</p>
+</blockquote>
+<h3 id="Q14-What-is-the-difference-between-super-and-this"><a href="#Q14-What-is-the-difference-between-super-and-this" class="headerlink" title="Q14 What is the difference between super() and this()?"></a>Q14 What is the difference between super() and this()?</h3><blockquote>
+<p>Answer:<br>super() is used to call super class constructor, whereas this() used to call<br>constructors in the same class, means to call parameterized constructors.</p>
+</blockquote>
+<h3 id="Q15-How-to-prevent-a-method-from-being-overridden"><a href="#Q15-How-to-prevent-a-method-from-being-overridden" class="headerlink" title="Q15 How to prevent a method from being overridden?"></a>Q15 How to prevent a method from being overridden?</h3><blockquote>
+<p><strong>Answer:</strong><br>By specifying final keyword to the method you can avoid overriding<br>in a subcalss. Similarlly one can use final at class level to<br>prevent creating subclasses.</p>
+</blockquote>
+<h3 id="Q16-Can-we-create-abstract-classes-without-any-abstract-methods"><a href="#Q16-Can-we-create-abstract-classes-without-any-abstract-methods" class="headerlink" title="Q16 Can we create abstract classes without any abstract methods?"></a>Q16 Can we create abstract classes without any abstract methods?</h3><blockquote>
+<p><strong>Answer:</strong><br>Yes, we can create abstract classes without any abstract methods.</p>
+</blockquote>
+<h3 id="Q17-How-to-destroy-the-session-in-servlets"><a href="#Q17-How-to-destroy-the-session-in-servlets" class="headerlink" title="Q17 How to destroy the session in servlets?"></a>Q17 How to destroy the session in servlets?</h3><blockquote>
+<p><strong>Answer:</strong><br>By calling invalidate() method on session object, we can destory the session.</p>
+</blockquote>
+<h3 id="Q18-Explain-Final-keyword-in-java"><a href="#Q18-Explain-Final-keyword-in-java" class="headerlink" title="Q18 Explain Final keyword in java?"></a>Q18 Explain Final keyword in java?</h3><blockquote>
+<p>Final keyword in java is used to restrict usage of variable, class and method.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li><strong>Variable</strong>: Value of Final variable is constant, you can not change it.</li>
+<li><strong>Method</strong>: you can’t override a Final method.<br>A Java method with the final keyword is called a final method and it can not be overridden in the subclass. You should make a method final in Java if you think it’s complete and its behavior should remain constant in sub-classes. In general, final methods are faster than non-final methods because they are not required to be resolved during run-time and they are bonded at compile time.</li>
+<li><strong>Class</strong>: you can’t inherit from Final class.<br>The final class is complete in nature and can not be sub-classed or inherited. Several classes in Java are final e.g. String, Integer, and other wrapper classes.</li>
+</ol>
+</blockquote>
+<h3 id="Q19-When-is-the-super-keyword-used"><a href="#Q19-When-is-the-super-keyword-used" class="headerlink" title="Q19 When is the super keyword used?"></a>Q19 When is the super keyword used?</h3><blockquote>
+<p>super keyword is used to refer:</p>
+</blockquote>
+<ul>
+<li>immediate parent class constructor,</li>
+<li>immediate parent class variable,</li>
+<li>immediate parent class method.<br>refer <a href="https://www.geeksforgeeks.org/commonly-asked-java-programming-interview-questions-set-1/" target="_blank" rel="noopener">this</a> for details.</li>
+</ul>
+<h3 id="Q20-What-is-the-difference-between-StringBuffer-and-String"><a href="#Q20-What-is-the-difference-between-StringBuffer-and-String" class="headerlink" title="Q20 What is the difference between StringBuffer and String?"></a>Q20 What is the difference between StringBuffer and String?</h3><blockquote>
+<p>String is an Immutable class, i.e. you can not modify its content once created. While StringBuffer is a mutable class, means you can change its content later. Whenever we alter content of String object, it creates a new string and refer to that,it does not modify the existing one. This is the reason that the performance with StringBuffer is better than with String.<br>Refer <a href="https://www.geeksforgeeks.org/string-vs-stringbuilder-vs-stringbuffer-in-java/" target="_blank" rel="noopener">this</a> for details.<br><strong>When to use which one :</strong></p>
+</blockquote>
+<ul>
+<li>If a string is going to remain constant throughout the program, then use String class object because a String object is immutable.</li>
+<li>If a string can change (example: lots of logic and operations in the construction of the string) and will only be accessed from a single thread, using a StringBuilder is good enough.</li>
+<li>If a string can change, and will be accessed from multiple threads, use a StringBuffer because StringBuffer is synchronous so you have thread-safety.</li>
+</ul>
+<h3 id="Q21-Why-multiple-inheritance-is-not-supported-in-java"><a href="#Q21-Why-multiple-inheritance-is-not-supported-in-java" class="headerlink" title="Q21 Why multiple inheritance is not supported in java?"></a>Q21 Why multiple inheritance is not supported in java?</h3><blockquote>
+<p>Java supports multiple inheritance but not through classes, it supports only through its interfaces. The reason for not supporting multiple inheritance is to avoid the conflict and complexity arises due to it and keep Java a Simple Object Oriented Language. If we recall this in C++, there is a special case of multiple inheritance (diamond problem) where you have a multiple inheritance with two classes which have methods in conflicts. So, Java developers decided to avoid such conflicts and didn’t allow multiple inheritance through classes at all.</p>
+</blockquote>
+<h3 id="Q22-What-is-the-difference-between-‘throw’-and-‘throws’-in-Java-Exception-Handling"><a href="#Q22-What-is-the-difference-between-‘throw’-and-‘throws’-in-Java-Exception-Handling" class="headerlink" title="Q22 What is the difference between ‘throw’ and ‘throws’ in Java Exception Handling?"></a>Q22 What is the difference between ‘throw’ and ‘throws’ in Java Exception Handling?</h3><blockquote>
+<ul>
+<li>throw keyword is used to throw Exception from any method or static block whereas throws is used to indicate that which Exception can possibly be thrown by this method</li>
+</ul>
+</blockquote>
+<ul>
+<li>If any method throws checked Exception, then caller can either handle this exception(using try catch block )or can re throw it by declaring another ‘throws’ clause in method declaration.</li>
+<li>throw clause can be used in any part of code where you feel a specific exception needs to be thrown to the calling method<br><img src="https://iknow-pic.cdn.bcebos.com/94cad1c8a786c917168f224fc43d70cf3bc75733?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="image"><br><img src="https://iknow-pic.cdn.bcebos.com/bd315c6034a85edfc6478e5544540923dc5475f8?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="image"></li>
+</ul>
+<p><strong>Another Answer:</strong><br>Though they are similar in terms that both are used in Exception handling, they are different on how and where they are used in code. throws keyword is used in method signature to declare which checked exception method can throw, you can also declare unchecked exception, but that is not mandatory by the compiler.</p>
+<p>This signifies a lot of things like method is not going to handle Exception instead it’s throwing it, if method throws checked Exception then the caller should provide compile-time exception handling etc.</p>
+<p>On the other hand, throw keyword is actually used to throw any Exception. Syntactically you can throw any Throwable (i.e. Throwable or any class derived from Throwable) , throw keyword transfers control of execution to the caller so it can be used in place of return keyword. Most common example of using throw in place of return is throwing UnSupportedOperationException from an empty method as shown below :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123; <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>); &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Q23-What-is-finalize-method"><a href="#Q23-What-is-finalize-method" class="headerlink" title="Q23 What is finalize() method?"></a>Q23 What is finalize() method?</h3><blockquote>
+<p>Unlike c++ , we don’t need to destroy objects explicitly in Java. ‘Garbage Collector‘ does that automatically for us. Garbage Collector checks if no references to an object exist, that object is assumed to be no longer required, and the memory occupied by the object can be freed. Sometimes an object can hold non-java resources such as file handle or database connection, then you want to make sure these resources are also released before object is destroyed. To perform such operation Java provide protected void finalize() in object class. You can override this method in your class and do the required tasks. Right before an object is freed, the java run time calls the finalize() method on that object. Refer this for more details.</p>
+</blockquote>
+<h3 id="Q24-Difference-in-Set-and-List-interface"><a href="#Q24-Difference-in-Set-and-List-interface" class="headerlink" title="Q24 Difference in Set and List interface?"></a>Q24 Difference in Set and List interface?</h3><blockquote>
+<p>Set and List both are child interface of Collection interface. There are following two main differences between them</p>
+</blockquote>
+<ul>
+<li>List can hold duplicate values but Set doesn’t allow this.</li>
+<li>In List interface data is present in the order you inserted but in the case of Set insertion order is not preserved.</li>
+</ul>
+<h3 id="Q25-What-will-happen-if-you-put-System-exit-0-on-try-or-catch-block-Will-finally-block-execute"><a href="#Q25-What-will-happen-if-you-put-System-exit-0-on-try-or-catch-block-Will-finally-block-execute" class="headerlink" title="Q25 What will happen if you put System.exit(0) on try or catch block? Will finally block execute?"></a>Q25 What will happen if you put System.exit(0) on try or catch block? Will finally block execute?</h3><blockquote>
+<p>By Calling System.exit(0) in try or catch block, we can skip the finally block. System.exit(int) method can throw a SecurityException. If Sysytem.exit(0) exits the JVM without throwing that exception then finally block will not execute. But, if System.exit(0) does throw security exception then finally block will be executed.</p>
+</blockquote>
+<h3 id="Q26-Overriding-vs-Overloading"><a href="#Q26-Overriding-vs-Overloading" class="headerlink" title="Q26 Overriding vs. Overloading"></a>Q26 Overriding vs. Overloading</h3><p><img src="https://www.programcreek.com/wp-content/uploads/2009/02/overloading-vs-overriding.png?ezimgfmt=ng:webp/ngcb7" alt="image"></p>
+<ol>
+<li><p>Defination:<br><strong>Overloading</strong> occurs when two or more methods in one class have the same method name but different parameters.<br><strong>Overriding</strong> means having two methods with the same method name and parameters (i.e., method signature). One of the methods is in the parent class and the other is in the child class. Overriding allows a child class to provide a specific implementation of a method that is already provided its parent class.</p>
+</li>
+<li><p>Overridding vs. Overloading</p>
+<ul>
+<li>The real object type in the run-time, not the reference variable’s type, determines which overridden method is used at runtime. In contrast, reference type determines which overloaded method will be used at compile time.</li>
+</ul>
+<ul>
+<li>Polymorphism applies to overriding, not to overloading.</li>
+<li>Overriding is a run-time concept while overloading is a compile-time concept.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Q27-String-vs-StringBuffer-vs-StringBuilder"><a href="#Q27-String-vs-StringBuffer-vs-StringBuilder" class="headerlink" title="Q27 String vs StringBuffer vs StringBuilder"></a>Q27 String vs StringBuffer vs StringBuilder</h3><p><img src="https://cdn.journaldev.com/wp-content/uploads/2010/12/StringBuffer-vs-StringBuilder-1.png" alt="image"></p>
+<ol>
+<li>String in Java</li>
+</ol>
+<ul>
+<li>String is immutable in Java. So it’s suitable to use in a multi-threaded environment. We can share it across functions because there is no concern of data inconsistency.</li>
+</ul>
+<ul>
+<li>When we create a String using double quotes, JVM first looks for the String with the same value in the string pool. If found, it returns the reference of the string object from the pool. Otherwise, it creates the String object in the String pool and returns the reference. JVM saves a lot of memory by using the same String in different threads.</li>
+<li>If the new operator is used to create a string, it gets created in the heap memory.</li>
+<li>String overrides equals() and hashCode() methods. Two Strings are equal only if they have the same character sequence. The equals() method is case sensitive. If you are looking for case insensitive checks, you should use equalsIgnoreCase() method.</li>
+<li>String is a final class. All the fields as final except “private int hash”. This field contains the hashCode() function value. The hashcode value is calculated only when the hashCode() method is called for the first time and then cached in this field. Furthermore, the hash is generated using the final fields of String class with some calculations. So every time the hashCode() method is called, it will result in the same output. For the caller, it seems like calculations are happening every time but internally it’s cached in the hash field.</li>
+</ul>
+<p><strong>String vs StringBuffer</strong><br>Since String is immutable in Java, whenever we do String manipulation like concatenation, substring, etc. it generates a new String and discards the older String for garbage collection.<br>These are heavy operations and generate a lot of garbage in heap. So Java has provided StringBuffer and StringBuilder classes that should be used for String manipulation.<br>StringBuffer and StringBuilder are mutable objects in Java. They provide append(), insert(), delete(), and substring() methods for String manipulation.<br><strong>StringBuffer vs StringBuilder</strong><br>StringBuffer was the only choice for String manipulation until Java 1.4. But, it has one disadvantage that all of its public methods are synchronized. StringBuffer provides Thread safety but at a performance cost.<br>In most of the scenarios, we don’t use String in a multithreaded environment. So Java 1.5 introduced a new class StringBuilder.<br>If you are in a single-threaded environment or don’t care about thread safety, you should use StringBuilder. Otherwise, use StringBuffer for thread-safe operations.</p>
+<h3 id="Q27-Autoboxing-and-Unautoboxing-in-Java"><a href="#Q27-Autoboxing-and-Unautoboxing-in-Java" class="headerlink" title="Q27 Autoboxing and Unautoboxing in Java"></a>Q27 Autoboxing and Unautoboxing in Java</h3><p>Converting a primitive data type into an object of the corresponding wrapper class is called <strong>autoboxing</strong>. For example, converting int to Integer or converting long to Long object.<br>Converting an object of a wrapper type to its corresponding primitive data type is called <strong>unboxing</strong>.</p>
+<h3 id="Q28-Exception-Handling-in-Java"><a href="#Q28-Exception-Handling-in-Java" class="headerlink" title="Q28 Exception Handling in Java"></a>Q28 Exception Handling in Java</h3><p><img src="https://img-blog.csdn.net/20160326233035366" alt="image"><br>In Java Exception feature is implemented by using class like Throwable, Exception, RuntimeException and keywords like throw, throws, try, catch and finally. All Exception are derived from Throwable class.<br>Throwable further divides errors in two category one is java.lang.Exception and other is java.lang.Error. java.lang.Error deals with system errors like java.lang.StackOverFlowError or Java.lang.OutOfMemoryError while Exception is mostly used to deal with programming mistakes, non availability of requested resource etc.</p>
+<table>
+<thead>
+<tr>
+<th>ArithmeticException</th>
+<th>int a=0;<br>int b= 3/a;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClassCastException：</td>
+<td>Object x = new Integer(0);<br>System.out.println((String)x);</td>
+</tr>
+<tr>
+<td>IndexOutOfBoundsException<br>ArrayIndexOutOfBoundsException <br>StringIndexOutOfBoundsException</td>
+<td>int [] numbers = { 1, 2, 3 };<br><br>int sum = numbers[3];</td>
+</tr>
+<tr>
+<td>IllegalArgumentException<br>NumberFormatException</td>
+<td>int a = Interger.parseInt(“test”);</td>
+</tr>
+<tr>
+<td>NullPointerExceptionextends</td>
+<td>继承自 RuntimeException，所以它是个 unchecked exception</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Q29-What-is-the-difference-between-Checked-and-Unchecked-Exception-in-Java"><a href="#Q29-What-is-the-difference-between-Checked-and-Unchecked-Exception-in-Java" class="headerlink" title="Q29 What is the difference between Checked and Unchecked Exception in Java?"></a>Q29 What is the difference between Checked and Unchecked Exception in Java?</h3><p>Main difference between Checked and Unchecked Exception lies in there handling. Checked Exception requires to be handled at compile time using try, catch and finally keywords or else compiler will flag error. This is not a requirement for Unchecked Exceptions. Also all exceptions derived from java.lang.Exception classes are checked exception, exception those which extends RuntimeException, these are known as unchecked exception in Java.</p>
+<h3 id="Q30-获取用键盘输入常用的的两种方法"><a href="#Q30-获取用键盘输入常用的的两种方法" class="headerlink" title="Q30 获取用键盘输入常用的的两种方法"></a>Q30 获取用键盘输入常用的的两种方法</h3><p><strong>方法 1：通过 Scanner</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Scanner input = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">String s = input.nextLine();</span><br><span class="line">input.close();</span><br></pre></td></tr></table></figure>
+<p><strong>方法 2：通过 BufferedReader</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader input = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">String s = input.readLine();</span><br></pre></td></tr></table></figure>
+<h3 id="Q31-Difference-between-abstract-class-and-interface"><a href="#Q31-Difference-between-abstract-class-and-interface" class="headerlink" title="Q31 Difference between abstract class and interface"></a>Q31 Difference between abstract class and interface</h3><p>Abstract class and interface both are used to achieve abstraction where we can declare the abstract methods. Abstract class and interface both can’t be instantiated.<br>But there are many differences between abstract class and interface that are given below.<br>| Abstract class | Interface |<br>| —- | —- |<br>| <strong>1.</strong> Abstract class can have abstract and non-abstract methods. | Interface can have only abstract methods. Since Java 8, it can have default and static methods also. |<br>| <strong>2.</strong> Abstract class doesn’t support multiple inheritance.| Interface supports multiple inheritance. |<br>| <strong>3.</strong> Abstract class can have final, non-final, static and non-static variables.| Interface has only static and final variables. |<br>| <strong>4.</strong> Abstract class can provide the implementation of interface.| Interface can’t provide the implementation of abstract class. |<br>| <strong>5.</strong> The abstract keyword is used to declare abstract class. | The interface keyword is used to declare interface. |<br>| <strong>6.</strong> An abstract class can extend another Java class and implement multiple Java interfaces. | An interface can extend another Java interface only. |<br>| <strong>7.</strong> An abstract class can be extended using keyword “extends”. | An interface can be implemented using keyword “implements”. |<br>| <strong>8.</strong> A Java abstract class can have class members like private, protected, etc. | Members of a Java interface are public by default. |</p>
+<h3 id="Q32-What-is-Inheritance-in-Java"><a href="#Q32-What-is-Inheritance-in-Java" class="headerlink" title="Q32 What is Inheritance in Java?"></a>Q32 What is Inheritance in Java?</h3><p>Inheritance is an Object oriented feature which allows a class to inherit behavior and data from other class. For example, a class Car can extend basic feature of Vehicle class by using Inheritance. One of the most intuitive examples of Inheritance in the real world is Father-Son relationship, where Son inherit Father’s property.</p>
+<h3 id="Q32-What-are-different-types-of-Inheritance-supported-by-Java"><a href="#Q32-What-are-different-types-of-Inheritance-supported-by-Java" class="headerlink" title="Q32 What are different types of Inheritance supported by Java?"></a>Q32 What are different types of Inheritance supported by Java?</h3><p>Java supports single Inheritance, multi-level inheritance and at some extent multiple inheritances because Java allows a class to only extend another class, but an interface in Java can extend multiple inheritances.</p>
+<h3 id="Q32-Why-multiple-Inheritance-is-not-supported-by-Java"><a href="#Q32-Why-multiple-Inheritance-is-not-supported-by-Java" class="headerlink" title="Q32 Why multiple Inheritance is not supported by Java?"></a>Q32 Why multiple Inheritance is not supported by Java?</h3><p>Java is introduced after C++ and Java designer didn’t want to take some C++ feature which is confusing and not essential. They think multiple inheritances is one of them which doesn’t justify complexity and confusion it introduces.</p>
+<h3 id="Q33-What-is-the-difference-between-Inheritance-and-Abstraction"><a href="#Q33-What-is-the-difference-between-Inheritance-and-Abstraction" class="headerlink" title="Q33 What is the difference between Inheritance and Abstraction?"></a>Q33 What is the difference between Inheritance and Abstraction?</h3><ul>
+<li>In Interfaces, all the methods will not have method implementation.</li>
+<li>The class which is implementing the interface should implement all the methods in that particular interface.</li>
+<li>Abstract classes can have abstract methods as well as normal concrete methods. Abstract methods don’t have an implementation.</li>
+<li>The class which is extending the abstract class should have the implementation for all the abstract methods in the abstract class.</li>
+<li>If the subclass doesn’t have enough information to implement the abstract methods, then the subclass should be declared as an abstract class.</li>
+</ul>
+<h3 id="Q34-Can-we-override-static-method-in-Java"><a href="#Q34-Can-we-override-static-method-in-Java" class="headerlink" title="Q34 Can we override static method in Java?"></a>Q34 Can we override static method in Java?</h3><p>No, you cannot override a static method in Java because it’s resolved at compile time. In order for overriding to work, a method should be virtual and resolved at runtime because objects are only available at runtime.</p>
+<h3 id="Q35-The-four-principles-of-object-oriented-programming-are-encapsulation-abstraction-inheritance-and-polymorphism"><a href="#Q35-The-four-principles-of-object-oriented-programming-are-encapsulation-abstraction-inheritance-and-polymorphism" class="headerlink" title="Q35 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism"></a>Q35 The four principles of object-oriented programming are encapsulation, abstraction, inheritance, and polymorphism</h3><p><strong>Encapsulation:</strong> Encapsulation is the mechanism of binding the data together and hiding it from the outside world. Encapsulation is achieved when each object keeps its state private so that other objects don’t have direct access to its state. Instead, they can access this state only through a set of public functions.</p>
+<p><strong>Abstraction:</strong> Abstraction can be thought of as the natural extension of encapsulation. It means hiding all but the relevant data about an object in order to reduce the complexity of the system. In a large system, objects talk to each other, which makes it difficult to maintain a large code base; abstraction helps by hiding internal implementation details of objects and only revealing operations that are relevant to other objects.</p>
+<p><strong>Inheritance:</strong> The idea behind inheritance in Java is that you can create new classes that are built upon existing classes. When you inherit from an existing class, you can reuse methods and fields of the parent class. Moreover, you can add new methods and fields in your current class also. The extends keyword indicates that you are making a new class that derives from an existing class. The meaning of “extends” is to increase the functionality.</p>
+<p><strong>Polymorphism:</strong> Polymorphism is the ability of an object to take on many forms. The most common use of polymorphism in OOP occurs when a parent class reference is used to refer to a child class object.<br>Any Java object that can pass more than one IS-A test is considered to be polymorphic. In Java, all Java objects are polymorphic since any object will pass the IS-A test for their own type and for the class Object.</p>
+<p>It is important to know that the only possible way to access an object is through a reference variable. A reference variable can be of only one type. Once declared, the type of a reference variable cannot be changed.</p>
+<p>The reference variable can be reassigned to other objects provided that it is not declared final. The type of the reference variable would determine the methods that it can invoke on the object.</p>
+<p>A reference variable can refer to any object of its declared type or any subtype of its declared type. A reference variable can be declared as a class or interface type.</p>
+<h3 id="Q36-Multithreading-and-Life-Cycle-of-a-thread"><a href="#Q36-Multithreading-and-Life-Cycle-of-a-thread" class="headerlink" title="Q36 Multithreading and Life Cycle of a thread"></a>Q36 Multithreading and Life Cycle of a thread</h3><p>A multi-threaded program contains two or more parts that can run concurrently and each part can handle a different task at the same time making optimal use of the available resources specially when your computer has multiple CPUs.<br><strong>Life Cycle of a Thread</strong><br><img src="https://www.tutorialspoint.com/java/images/Thread_Life_Cycle.jpg" alt="image"></p>
+<ul>
+<li><p><strong>New</strong> − A new thread begins its life cycle in the new state. It remains in this state until the program starts the thread. It is also referred to as a born thread.</p>
+</li>
+<li><p><strong>Runnable</strong> − After a newly born thread is started, the thread becomes runnable. A thread in this state is considered to be executing its task.</p>
+</li>
+<li><p><strong>Waiting</strong> − Sometimes, a thread transitions to the waiting state while the thread waits for another thread to perform a task. A thread transitions back to the runnable state only when another thread signals the waiting thread to continue executing.</p>
+</li>
+<li><p><strong>Timed Waiting</strong> − A runnable thread can enter the timed waiting state for a specified interval of time. A thread in this state transitions back to the runnable state when that time interval expires or when the event it is waiting for occurs.</p>
+</li>
+<li><p><strong>Terminated</strong> (Dead) − A runnable thread enters the terminated state when it completes its task or otherwise terminates.</p>
+</li>
+</ul>
+<p><strong>Create a Thread by Implementing a Runnable Interface</strong><br><strong>Create a Thread by Extending a Thread Class</strong><br>初始化线程的 4 种方式：</p>
+<ol>
+<li>继承 Thread</li>
+<li>实现 Runnable 接口</li>
+<li>实现 Callable 接口 + FutureTask （可以拿到返回结果，可以处理异常）</li>
+<li>线程池</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Executors.newFiexedThreadPool(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit unit, workQueue, threadFactory, handler);</span><br></pre></td></tr></table></figure>
+<h3 id="Q37-What-id-Thread-Synchronization"><a href="#Q37-What-id-Thread-Synchronization" class="headerlink" title="Q37 What id Thread Synchronization?"></a>Q37 What id Thread Synchronization?</h3><p>When we start two or more threads within a program, there may be a situation when multiple threads try to access the same resource and finally they can produce unforeseen result due to concurrency issues.<br>Java programming language provides a very handy way of creating threads and synchronizing their task by using synchronized blocks.</p>
+<h3 id="Q38-Handling-thread-deadlock"><a href="#Q38-Handling-thread-deadlock" class="headerlink" title="Q38 Handling thread deadlock?"></a>Q38 Handling thread deadlock?</h3><p>Deadlock describes a situation where two or more threads are blocked forever, waiting for each other. Deadlock occurs when multiple threads need the same locks but obtain them in different order.</p>
+<p>In order to avoid deadlock, you have to acquire a lock in the fixed order.</p>
+<h3 id="Q39-What-is-Thread-Safty"><a href="#Q39-What-is-Thread-Safty" class="headerlink" title="Q39 What is Thread Safty?"></a>Q39 What is Thread Safty?</h3><p>Thread safe means that a method or class instance can be used by multiple threads at the same time without any problem.</p>
+<h3 id="Q40-What-is-Concurrency"><a href="#Q40-What-is-Concurrency" class="headerlink" title="Q40 What is Concurrency?"></a>Q40 What is Concurrency?</h3><p>In simple words, concurrency is the ability to run several programs or several parts of a program in parallel.</p>
+<h3 id="Difference-between-Runnable-vs-Thread-in-Java"><a href="#Difference-between-Runnable-vs-Thread-in-Java" class="headerlink" title="Difference between Runnable vs Thread in Java"></a>Difference between Runnable vs Thread in Java</h3><h4 id="1-Create-Thread-using-Runnable-Interface-vs-Thread-class"><a href="#1-Create-Thread-using-Runnable-Interface-vs-Thread-class" class="headerlink" title="1. Create Thread using Runnable Interface vs Thread class"></a>1. Create Thread using Runnable Interface vs Thread class</h4><h5 id="1-1-Runnable-interface"><a href="#1-1-Runnable-interface" class="headerlink" title="1.1. Runnable interface"></a>1.1. Runnable interface</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Code</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//start new thread with a "new Thread(new demoRunnable()).start()" call</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-2-Thread-class"><a href="#1-2-Thread-class" class="headerlink" title="1.2. Thread class"></a>1.2. Thread class</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DemoThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"DemoThread"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Code</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//start new thread with a "new demoThread().start()" call</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-Difference-between-Runnable-vs-Thread"><a href="#2-Difference-between-Runnable-vs-Thread" class="headerlink" title="2. Difference between Runnable vs Thread"></a>2. Difference between Runnable vs Thread</h4><ol>
+<li><p>Implementing Runnable is the preferred way to do it. Here, you’re not really specializing or modifying the thread’s behavior. You’re just giving the thread something to run. That means composition is the better way to go.</p>
+</li>
+<li><p>Java only supports single inheritance, so you can only extend one class.</p>
+</li>
+<li><p>Instantiating an interface gives a cleaner separation between your code and the implementation of threads.</p>
+</li>
+<li><p>Implementing Runnable makes your class more flexible. If you extend Thread then the action you’re doing is always going to be in a thread. However, if you implement Runnable it doesn’t have to be. You can run it in a thread, or pass it to some kind of executor service, or just pass it around as a task within a single threaded application.</p>
+</li>
+<li><p>when there are multiple threads then, memory usage would be more in case of extends Thread. Because, each of your threads contains unique object associated with it. Where as, memory usage would be less in case of implements Runnable. Because, many threads can share the same runnable instance.</p>
+</li>
+</ol>
+<p>我们先来看 Thread 和 Runnable，最直接的区别是，Thread 是一个类，需要继承，而 Runnable 是一个接口，需要实现。我们知道，Java 中，是单继承多实现的，即一个类，通过 extends 只能继承一个类，而通过 implements 关键字，可以实现多个接口。所以，就这两种方法而言，更推荐使用实现 Runnable 接口的方式。这样，extends 可以留给更需要的人。</p>
+<p>Runnable 还有一个优势，我们可以通过分析 Thread 的源码发现。Thead 类中，有一个属性，类型是 Runnable，名称是 target。也就是说，当我们调用 start 方法启动线程后，事实上在运行时，执行的是 target 的 run 方法。注意我们在使用 Runnable 时做的事情，是先 new 了一个 Runnable 类的实例，再将其包装成一个 Thread 的实例，再执行 start 方法，就好像是我们把 Runnable 和 Thread 作了一定程度的解耦，换句话说，我们把线程的创建和具体的业务做了解耦。这样的好处是什么？一是代码和数据独立，二是多线程可以共享同一个资源。</p>
+<p>代码和数据独立很好理解，那么，多线程共享资源是什么意思？看如下：<br><img src="https://pics1.baidu.com/feed/b17eca8065380cd77f77a1e09c6aa53159828101.png?token=5194a4a9d98e80cdd102e73f403518f3&amp;s=1AAA7023CD226D224C5540DA030080B1" alt="image"><br>我们看到，创建了两个线程，但是它们使用了同一个 Runnable 实例。也就意味着，如果 Runnable 实例中包含一个类变量，比如 count，那么，两个线程对 count 的操作是相互影响的，也就是说，count 这个变量是两个线程共享的，Runnable 实例是两个线程共享的。</p>
+<h3 id="Q41-What-is-a-thread-local-variable"><a href="#Q41-What-is-a-thread-local-variable" class="headerlink" title="Q41 What is a thread local variable?"></a>Q41 What is a thread local variable?</h3><p>In Java there is a class called ThreadLocal which provides another way of thread-safety apart from synchronization. Usually when we have multiple threads sharing an object we need to synchronize the critical section of the code in order to make it thread safe.<br>ThreadLocal class provides thread-local variables where each thread that accesses one (via its get or set method) has its own, independently initialized copy of the variable. Since each and every threadhas its own copy of the object so explicit synchronization is not needed to provide thread safety.</p>
+<h3 id="Q42-What-is-the-difference-between-sleep-and-wait"><a href="#Q42-What-is-the-difference-between-sleep-and-wait" class="headerlink" title="Q42 What is the difference between sleep and wait?"></a>Q42 What is the difference between sleep and wait?</h3><ul>
+<li>The very first difference is that sleep is defined as a static method in Thread class and operates on the currently executing thread. Whereas wait() method is in Object class and operates on the thread which is currently holding the lock on the object on which the wait method is called.</li>
+<li>Since wait method is supposed to release the lock on an object so it has to be called from a synchronized context (with in a synchronized method or synchronized block). If not called from a synchronized context will result in a IllegalMonitorStateException being thrown. With sleep method there is no such mandatory condition it doesn’t need to be called from a synchronized context.</li>
+<li>Wait method will release the lock it holds on an object before going to waiting state which gives another thread a chance to enter the synchronized block. Sleep method if called from a synchronized block or method will not release the lock so another won’t get a chance to enter the synchronized block.</li>
+</ul>
+<h3 id="Q43-What-is-the-difference-between-notify-and-notifyAll"><a href="#Q43-What-is-the-difference-between-notify-and-notifyAll" class="headerlink" title="Q43 What is the difference between notify() and notifyAll()?"></a>Q43 What is the difference between notify() and notifyAll()?</h3><ul>
+<li><p><strong>Notify</strong> method wakes up a single thread that is waiting to acquire a lock on the object. If more than one threads are waiting on this object, one of them is chosen to be awakened.</p>
+</li>
+<li><p><strong>NotifyAll</strong> method wakes up all the threads that called wait on the same object. Note that only one of these threads will get a lock to the object.</p>
+</li>
+</ul>
+<h3 id="Q44-What-are-the-different-thread-states"><a href="#Q44-What-are-the-different-thread-states" class="headerlink" title="Q44 What are the different thread states?"></a>Q44 What are the different thread states?</h3><p><strong>New</strong> - When a thread is created either by extending Thread class or implementing Runnable interface it is in “New State”.<br><strong>Runnable</strong> - When we call start() method on the thread object that causes the thread to begin execution and it’s the Java Virtual Machine that calls the run method of the thread.<br><strong>Blocked</strong> - When a resource is shared among various threads then a thread may go into blocked state as the resource may be used by another thread.<br><strong>Waiting</strong> - A thread that is waiting indefinitely for another thread to perform a particular action is in the waiting state.<br><strong>Timed_Waiting</strong> - A thread that is waiting for another thread to perform an action for up to a specified waiting time is in timed_waiting state.</p>
+<h3 id="Q45-What-is-the-difference-between-thread-and-process"><a href="#Q45-What-is-the-difference-between-thread-and-process" class="headerlink" title="Q45 What is the difference between thread and process?"></a>Q45 What is the difference between thread and process?</h3><ul>
+<li>A process has a self-contained execution environment, Threads exist within a process - every process has at least one.</li>
+<li>Process are heavyweight tasks whereas threads are referred as lightweight processes as creating a new thread requires fewer resources than creating a new process.</li>
+<li>Each Process has its own separate address spaces, threads with in the same process share the process’ resources, including memory and open files. This means that it’s very easy to share data amongst threads, but it’s also easy for the threads to bump on each other, which can lead to unpredictable scenarios.</li>
+<li>Inter process communication is expensive whereas inter thread communication is inexpensive and in Java can be achieved easily using wait and notify.</li>
+<li>Context switching from one process to another is expensive; context switching between threads is generally less expensive than in processes.</li>
+<li>Threads are easier to create than processes as separate address space is not required for a thread.-</li>
+</ul>
+<h3 id="Q46-How-do-we-create-thread-in-Java"><a href="#Q46-How-do-we-create-thread-in-Java" class="headerlink" title="Q46 How do we create thread in Java?"></a>Q46 How do we create thread in Java?</h3><p>In Java there are two ways to create thread.</p>
+<ul>
+<li>By implementing the Runnable interface.</li>
+<li>By extending the Thread class.</li>
+</ul>
+<h3 id="Q47-Difference-between-Vector-and-ArrayList"><a href="#Q47-Difference-between-Vector-and-ArrayList" class="headerlink" title="Q47 Difference between Vector and ArrayList?"></a>Q47 Difference between Vector and ArrayList?</h3><ul>
+<li><p>All the methods of Vector is synchronized. But, the methods of ArrayList is not synchronized.</p>
+</li>
+<li><p>By default, Vector doubles the size of its array when it is re-sized internally. But, ArrayList increases by half of its size when it is re-sized.</p>
+</li>
+</ul>
+<h3 id="Q48-Difference-between-HashMap-and-HashTable"><a href="#Q48-Difference-between-HashMap-and-HashTable" class="headerlink" title="Q48 Difference between HashMap and HashTable?"></a>Q48 Difference between HashMap and HashTable?</h3><ul>
+<li><p>Hashtable is synchronized, whereas HashMap is not.</p>
+</li>
+<li><p>Hashtable does not allow null keys or values. HashMap allows one null key and any number of null values.</p>
+</li>
+<li><p>The third significant difference between HashMap vs Hashtable is that Iterator in the HashMap is a fail-fast iterator while the enumerator for the Hashtable is not.</p>
+</li>
+</ul>
+<h3 id="Q49-Difference-between-Set-and-List"><a href="#Q49-Difference-between-Set-and-List" class="headerlink" title="Q49 Difference between Set and List?"></a>Q49 Difference between Set and List?</h3><ul>
+<li>Set is unordered collection where List is ordered collection based on zero based index.</li>
+<li>List allow duplicate elements but Set does not allow duplicates.</li>
+<li>List does not prevent inserting null elements (as many you like), but Set will allow only one null element.</li>
+</ul>
+<h3 id="Q50-How-to-design-a-good-key-for-hashmap"><a href="#Q50-How-to-design-a-good-key-for-hashmap" class="headerlink" title="Q50 How to design a good key for hashmap?"></a>Q50 How to design a good key for hashmap?</h3><p>HashMap is well known class and all of us know that. So, I will leave this part by saying that it is used to store key-value pairs and allows to perform many operations on such collection of pairs.</p>
+<p>TreeMap is special form of HashMap. It maintains the ordering of keys which is missing in HashMap class. This ordering is by default “natural ordering”. The default ordering can be override by providing an instance of Comparator class, whose compare method will be used to maintain ordering of keys.</p>
+<h3 id="Q51-How-hashmap-works"><a href="#Q51-How-hashmap-works" class="headerlink" title="Q51 How hashmap works?"></a>Q51 How hashmap works?</h3><p>Answer to this question is very large and you should read it my post: How HashMap works? For now, lets remember that HashMap works on principle of Hashing. A map by definition is : “An object that maps keys to values”. To store such structure, it uses an inner class Entry:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">final</span> K key;</span><br><span class="line">V value;</span><br><span class="line">Entry next;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">...<span class="comment">//More code goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here key and value variables are used to store key-value pairs. Whole entry object is stored in an array.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* The table, re-sized as necessary. Length MUST Always be a power of two.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">transient</span> Entry[] table;</span><br></pre></td></tr></table></figure>
+<p>The index of array is calculated on basis on hashcode of Key object. Read more of linked topic.</p>
+<h3 id="What-is-REST"><a href="#What-is-REST" class="headerlink" title="What is REST?"></a>What is REST?</h3><p>REST, or Representational State Transfer, is an architectural design that defines a set of rules for creating web services that interact between systems. Web services that follow this architecture are termed, ‘RESTful web services’.</p>
+<p>At a very high level, the RESTful system consists of two major components:</p>
+<p>A server that hosts the resources</p>
+<p>A client that connects to the server to fetch the resources</p>
+<p>REST uses HTTP (Hypertext Transfer Protocol) or HTTPS (Hypertext Transfer Protocol Secure) to exchange data between client and server using HTTP methods – GET, POST, UPDATE, DELETE, HEAD, PATCH, etc.</p>
+<p>Benefits of using REST #<br>By following the principles of REST, we can benefit from the loose coupling between the server and the client, reliability, scalability, and better performance of the application. Few of the benefits of REST are listed below:</p>
+<p>Simplicity – REST web services are easy and simple to develop compared to SOAP web services</p>
+<p>Light-weight – REST advocates simple communication with the server over HTTP that supports plain XML, JSON formats in comparison to SOAP which supports only XML</p>
+<p>Architecture is similar to Web –the architecture of REST is very similar to how the web is designed. So, developers who understand the web can easily understand and develop RESTful web services</p>
+<p>Scalability – the REST architecture advocates refraining from the conversational state that allows us to easily add multiple instances of the components or application behind load balancers</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/04/15/Bipartite-Gtaph/" data-toggle="tooltip" data-placement="top" title="Bipartite Gtaph">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/04/13/LeetCode-399/" data-toggle="tooltip" data-placement="top" title="LeetCode 399">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Interview" title="Interview">Interview</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/04/14/Java-Interview-Questions/";
+    var disqus_url = "https://wenyongqd.github.io/2020/04/14/Java-Interview-Questions/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

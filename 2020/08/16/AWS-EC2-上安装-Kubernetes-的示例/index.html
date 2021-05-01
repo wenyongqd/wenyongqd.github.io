@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          AWS EC2 上安装 Kubernetes 的示例 - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/08/16/AWS-EC2-上安装-Kubernetes-的示例/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>AWS EC2 上安装 Kubernetes 的示例</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-08-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- TOC -->
+<ul>
+<li><a href="#aws-ec2-上安装-kubernetes-的示例">AWS EC2 上安装 Kubernetes 的示例</a><ul>
+<li><a href="#kubernetes-的核心概念">Kubernetes 的核心概念</a><ul>
+<li><a href="#master-组件">Master 组件</a></li>
+<li><a href="#节点组件">节点组件</a></li>
+</ul>
+</li>
+<li><a href="#在-aws-上使用-kubernetes-方式1使用-amazon-eks">在 AWS 上使用 Kubernetes 方式1：使用 Amazon EKS</a></li>
+<li><a href="#在-aws-上使用-kubernetes-方式2手动来操作">在 AWS 上使用 Kubernetes 方式2：手动来操作</a><ul>
+<li><a href="#准备工作">准备工作</a></li>
+<li><a href="#确保已成功安装-awscli">确保已成功安装 awscli</a></li>
+<li><a href="#安装-kubectl">安装 kubectl</a></li>
+<li><a href="#安装-kops">安装 kops</a></li>
+<li><a href="#创建-iam-用户">创建 IAM 用户</a></li>
+<li><a href="#配置-s3-bucket">配置 S3 Bucket</a></li>
+<li><a href="#创建集群">创建集群</a></li>
+<li><a href="#创建集群的配置文件">创建集群的配置文件</a></li>
+<li><a href="#创建集群-1">创建集群</a></li>
+<li><a href="#操作集群">操作集群</a></li>
+<li><a href="#使用-kubectl-get-nodes-来查看节点信息">使用 kubectl get nodes 来查看节点信息</a></li>
+<li><a href="#使用-kubectl-cluster-info-来查看集群信息">使用 kubectl cluster-info 来查看集群信息</a></li>
+<li><a href="#获取-kube-和-admin-这两个账户的密码">获取 kube 和 admin 这两个账户的密码</a></li>
+<li><a href="#登陆到-master-和-node-看看">登陆到 Master 和 Node 看看？</a></li>
+<li><a href="#部署-kubernetes-的控制面板-dashboard">部署 Kubernetes 的控制面板 Dashboard</a></li>
+<li><a href="#操作-kubernetes-的控制面板-dashboard">操作 Kubernetes 的控制面板 Dashboard</a></li>
+<li><a href="#销毁集群">销毁集群</a></li>
+<li><a href="#发布一个容器化应用到-kubernetes">发布一个容器化应用到 Kubernetes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="AWS-EC2-上安装-Kubernetes-的示例"><a href="#AWS-EC2-上安装-Kubernetes-的示例" class="headerlink" title="AWS EC2 上安装 Kubernetes 的示例"></a>AWS EC2 上安装 Kubernetes 的示例</h1><p>官网：</p>
+<p><a href="https://kubernetes.io/zh/" target="_blank" rel="noopener">https://kubernetes.io/zh/</a></p>
+<blockquote>
+<p>Kubernetes 是用于自动部署，扩展和管理容器化应用程序的开源系统。</p>
+</blockquote>
+<p>Kubernetes 特性：</p>
+<ul>
+<li><strong>自动包装。</strong> 根据资源需求和其他约束自动放置容器，同时不会牺牲可用性，混合关键和最大努力的工作负载，以提高资源利用率并节省更多资源。</li>
+<li><strong>横向缩放。</strong> 使用简单的命令或 UI，或者根据 CPU 的使用情况自动调整应用程序副本数。</li>
+<li><strong>自动部署和回滚。</strong> Kubernetes 逐渐部署对应用程序或其配置的更改，同时监视应用程序运行状况，以确保它不会同时终止所有实例。 如果出现问题，Kubernetes会为您恢复更改，利用日益增长的部署解决方案的生态系统。</li>
+<li><strong>存储编排。</strong> 自动安装您所选择的存储系统，无论是本地存储，如公有云提供商 <a href="https://cloud.google.com/storage/" target="_blank" rel="noopener">GCP</a> 或 <a href="https://aws.amazon.com/products/storage/" target="_blank" rel="noopener">AWS</a>, 还是网络存储系统 NFS, iSCSI, Gluster, Ceph, Cinder, 或 Flocker。</li>
+<li><strong>自我修复。</strong> 重新启动失败的容器，在节点不可用时，替换和重新编排节点上的容器，终止不对用户定义的健康检查做出响应的容器，并且不会在客户端准备投放之前将其通告给客户端。</li>
+<li><strong>服务发现和负载均衡。</strong> 不需要修改您的应用程序来使用不熟悉的服务发现机制，Kubernetes 为容器提供了自己的 IP 地址和一组容器的单个 DNS 名称，并可以在它们之间进行负载均衡。</li>
+<li><strong>密钥 和 配置 管理。</strong> 部署和更新密钥和应用程序配置，不会重新编译您的镜像，不会在堆栈配置中暴露密钥(secrets)。</li>
+<li><strong>批处理。</strong> 除了服务之外，Kubernetes还可以管理您的批处理和 CI 工作负载，如果需要，替换出现故障的容器。</li>
+</ul>
+<h2 id="Kubernetes-的核心概念"><a href="#Kubernetes-的核心概念" class="headerlink" title="Kubernetes 的核心概念"></a>Kubernetes 的核心概念</h2><p>参考： <a href="https://kubernetes.io/zh/docs/concepts/overview/components/" target="_blank" rel="noopener">Kubernetes 组件</a></p>
+<p>一个典型的 Kubernetes 架构图如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-91b743cc53406ac2.png?imageMogr2/auto-orient/strip|imageView2/2/w/682/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-91b743cc53406ac2.png?imageMogr2/auto-orient/strip|imageView2/2/w/682/format/webp"></p>
+<h3 id="Master-组件"><a href="#Master-组件" class="headerlink" title="Master 组件"></a>Master 组件</h3><p><strong>Master 组件提供的集群控制。</strong> Master 组件对集群做出全局性决策(例如：调度)，以及检测和响应集群事件(副本控制器的replicas字段不满足时，启动新的副本)。</p>
+<p>Master 组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会启动同一个虚拟机上所有 Master 组件，并且不会在此虚拟机上运行用户容器。</p>
+<p><strong>API 服务器</strong> <strong><a href="https://kubernetes.io/docs/admin/kube-apiserver" target="_blank" rel="noopener">kube-apiserver</a>对外暴露了Kubernetes API。</strong> 它是的 Kubernetes 前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。</p>
+<p><strong>etcd</strong> <strong><a href="https://kubernetes.io/docs/admin/etcd" target="_blank" rel="noopener">etcd</a>用于 Kubernetes 的后端存储。</strong> 所有集群数据都存储在此处，始终为您的 Kubernetes 集群的 etcd 数据提供备份计划。</p>
+<p><strong>kube-controller-manager</strong> <strong><a href="https://kubernetes.io/docs/admin/kube-controller-manager" target="_blank" rel="noopener">kube-controller-manager</a>运行控制器，它们是处理集群中常规任务的后台线程。</strong> 逻辑上，每个控制器是一个单独的进程，但为了降低复杂性，它们都被编译成独立的可执行文件，并在单个进程中运行。</p>
+<p>这些控制器包括:</p>
+<ul>
+<li><strong>节点控制器</strong>: 当节点移除时，负责注意和响应。</li>
+<li><strong>副本控制器</strong>: 负责维护系统中每个副本控制器对象正确数量的 Pod。</li>
+<li><strong>端点控制器</strong>: 填充 端点(Endpoints) 对象(即连接 Services &amp; Pods)。</li>
+<li><strong>服务帐户和令牌控制器</strong>: 为新的命名空间创建默认帐户和 API 访问令牌. <strong>云控制器管理器-(cloud-controller-manager)</strong> <strong>cloud-controller-manager 是用于与底层云提供商交互的控制器。</strong></li>
+</ul>
+<p>以下控制器具有云提供商依赖关系:</p>
+<ul>
+<li><strong>节点控制器</strong>: 用于检查云提供商以确定节点是否在云中停止响应后被删除。</li>
+<li><strong>路由控制器</strong>: 用于在底层云基础架构中设置路由。</li>
+<li><strong>服务控制器</strong>: 用于创建，更新和删除云提供商负载平衡器。</li>
+<li><strong>数据卷控制器</strong>: 用于创建，附加和装载卷，并与云提供商进行交互以协调卷。 <strong>调度器 - (kube-scheduler)</strong> <strong><a href="https://kubernetes.io/docs/admin/kube-scheduler" target="_blank" rel="noopener">kube-scheduler</a>监视没有分配节点的新创建的 Pod，选择一个节点供他们运行。</strong></li>
+</ul>
+<p><strong>插件(addons)</strong> <strong>插件是实现集群功能的 Pod 和 Service。</strong> Pods 可以通过 Deployments，ReplicationControllers 管理。插件对象本身是受命名空间限制的，被创建于 <code>kube-system</code> 命名空间。</p>
+<p><strong>DNS</strong> 虽然其他插件并不是必需的， <strong>但所有 Kubernetes 集群都应该具有<a href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/" target="_blank" rel="noopener">Cluster DNS</a> ，</strong> 许多示例依赖于它。</p>
+<p>Cluster DNS 是一个 DNS 服务器，和您部署环境中的其他 DNS 服务器一起工作，为 Kubernetes 服务提供 DNS 记录。 Kubernetes 启动的容器自动将 DNS 服务器包含在 DNS 搜索中。</p>
+<p><strong>用户界面</strong> 控制面板 Dashboard 提供了集群状态的只读概述。</p>
+<p><strong>容器资源监控</strong> <strong><a href="https://kubernetes.io/docs/user-guide/monitoring" target="_blank" rel="noopener">容器资源监控</a>将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。</strong></p>
+<p><strong>集群层面日志</strong> <strong><a href="https://kubernetes.io/docs/user-guide/logging/overview" target="_blank" rel="noopener">集群层面日志</a>机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。</strong></p>
+<h3 id="节点组件"><a href="#节点组件" class="headerlink" title="节点组件"></a>节点组件</h3><p>节点组件在每个节点上运行，维护运行的 Pod 并提供 Kubernetes 运行时环境。</p>
+<p><strong>kubelet</strong> <strong><a href="https://kubernetes.io/docs/admin/kubelet" target="_blank" rel="noopener">kubelet</a>是主要的节点代理</strong> ，它监测已分配给其节点的 Pod(通过 apiserver 或通过本地配置文件)，提供如下功能:</p>
+<ul>
+<li>挂载 Pod 所需要的数据卷(Volume)。</li>
+<li>下载 Pod 的 secrets。</li>
+<li>通过 Docker 运行(或通过 rkt)运行 Pod 的容器。</li>
+<li>周期性的对容器生命周期进行探测。</li>
+<li>如果需要，通过创建 <em>镜像 Pod（Mirror Pod）</em> 将 Pod 的状态报告回系统的其余部分。</li>
+<li>将节点的状态报告回系统的其余部分。 <strong>kube-proxy</strong> <strong><a href="https://kubernetes.io/docs/admin/kube-proxy" target="_blank" rel="noopener">kube-proxy</a>通过维护主机上的网络规则并执行连接转发，实现了Kubernetes服务抽象。</strong></li>
+</ul>
+<p><strong>docker</strong> Docker 用于运行容器。</p>
+<p><strong>rkt</strong> 支持 rkt 运行容器作为 Docker 的试验性替代方案。</p>
+<p><strong>supervisord</strong> supervisord 是一个轻量级的进程监控系统，可以用来保证 kubelet 和 docker 运行。</p>
+<p><strong>fluentd</strong> fluentd 是一个守护进程，它有助于提供 <a href="https://kubernetes.io/zh/docs/concepts/overview/components/#cluster-level-logging" target="_blank" rel="noopener">集群层面日志</a> 集群层面的日志。</p>
+<h2 id="在-AWS-上使用-Kubernetes-方式1：使用-Amazon-EKS"><a href="#在-AWS-上使用-Kubernetes-方式1：使用-Amazon-EKS" class="headerlink" title="在 AWS 上使用 Kubernetes 方式1：使用 Amazon EKS"></a>在 AWS 上使用 Kubernetes 方式1：使用 Amazon EKS</h2><p>参见： <a href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/what-is-eks.html" target="_blank" rel="noopener">什么是 Amazon EKS？</a> Amazon Elastic Container Service for Kubernetes (Amazon EKS) 是一项托管服务，可让您在 AWS 上轻松运行 Kubernetes， <strong>而无需支持或维护您自己的 Kubernetes 控制层面。</strong></p>
+<p>Amazon EKS 运行最新版本的开源 Kubernetes 软件，因此您可以使用 Kubernetes 社区的所有现有插件和工具。在 Amazon EKS 上运行的应用程序与在任何标准 Kubernetes 环境中运行的应用程序完全兼容，无论此类环境是在本地数据中心还是在公有云中运行都是如此。这意味着，您可以轻松地将任何标准 Kubernetes 应用程序迁移到 Amazon EKS，而无需进行任何代码修改。</p>
+<p>Amazon EKS 入门是很轻松的：</p>
+<ul>
+<li>首先，在 AWS 管理控制台中或使用 AWS CLI 或 AWS 开发工具包之一创建一个 Amazon EKS 集群。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-8ab3eb822a6b546f.png?imageMogr2/auto-orient/strip|imageView2/2/w/315/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-8ab3eb822a6b546f.png?imageMogr2/auto-orient/strip|imageView2/2/w/315/format/webp"></p>
+<ul>
+<li>然后，启动向此 Amazon EKS 集群注册的工作线程节点。我们为您提供了一个可自动配置您的节点的 AWS CloudFormation 模板。</li>
+<li>在集群准备就绪时，可以将常用 Kubernetes 工具（如 <strong>kubectl</strong> ）配置为与集群通信。</li>
+<li>像在任何其他 Kubernetes 环境中一样在 Amazon EKS 集群上部署和管理应用程序。</li>
+</ul>
+<h2 id="在-AWS-上使用-Kubernetes-方式2：手动来操作"><a href="#在-AWS-上使用-Kubernetes-方式2：手动来操作" class="headerlink" title="在 AWS 上使用 Kubernetes 方式2：手动来操作"></a>在 AWS 上使用 Kubernetes 方式2：手动来操作</h2><p>登陆到一台 EC2 主机： <code>ssh -i &quot;XiangSecret.pem&quot; ec2-user@52.14.52.46</code> 关于 AWS EC2 的创建，参见： <a href="https://www.jianshu.com/p/0eb59614950e" target="_blank" rel="noopener">AWS 第一个 NodeJS 应用程序</a></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h3 id="确保已成功安装-awscli"><a href="#确保已成功安装-awscli" class="headerlink" title="确保已成功安装 awscli"></a>确保已成功安装 awscli</h3><p>可以通过 <code>aws</code> 来确认：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-59f6c726aa01e7fd.png?imageMogr2/auto-orient/strip|imageView2/2/w/601/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-59f6c726aa01e7fd.png?imageMogr2/auto-orient/strip|imageView2/2/w/601/format/webp"></p>
+<h3 id="安装-kubectl"><a href="#安装-kubectl" class="headerlink" title="安装 kubectl"></a>安装 kubectl</h3><p>什么是 <code>kubectl</code> ？ <strong><code>kubectl</code>是 Kubernetes 命令行工具，它通过 Kubernetes API 来管理部署。</strong> 参见： <a href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html" target="_blank" rel="noopener">安装 kubectl</a></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">curl</span> -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/kubectl</span><br><span class="line">chmod +x ./kubectl</span><br><span class="line">mkdir <span class="variable">$HOME</span>/bin &amp;&amp; cp ./kubectl <span class="variable">$HOME</span>/bin/kubectl &amp;&amp; export PATH=<span class="variable">$HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line">echo <span class="string">'export PATH=<span class="variable">$HOME</span>/bin:<span class="variable">$PATH</span>'</span> &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>可以通过 <code>kubectl version --short --client</code> 查看 <code>kubectr</code> 版本：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-4244a603c5cf4f07.png?imageMogr2/auto-orient/strip|imageView2/2/w/510/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-4244a603c5cf4f07.png?imageMogr2/auto-orient/strip|imageView2/2/w/510/format/webp"></p>
+<p>PS：如果碰到权限问题，请使用 <code>sudo</code></p>
+<h3 id="安装-kops"><a href="#安装-kops" class="headerlink" title="安装 kops"></a>安装 kops</h3><p>什么是 <code>kops</code> ？ <a href="https://github.com/kubernetes/kops" target="_blank" rel="noopener">https://github.com/kubernetes/kops</a></p>
+<blockquote>
+<p>kops 是官方推荐的工具，用来在 AWS 生产环境中，快速地部署 Kubernetes 集群。<br>We like to think of it as kubectl for clusters.kops helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters from the command line. AWS (Amazon Web Services) is currently officially supported.</p>
+</blockquote>
+<p>参见：</p>
+<ul>
+<li><a href="https://kubernetes.io/docs/setup/custom-cloud/kops/" target="_blank" rel="noopener">Installing Kubernetes on AWS with kops</a></li>
+<li><a href="http://senlinzhan.github.io/2018/01/11/k8s-on-aws/" target="_blank" rel="noopener">使用 kops 在 AWS 部署 Kubernetes 集群</a></li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/kubernetes/</span>kops<span class="regexp">/releases/</span>download<span class="regexp">/1.10.0/</span>kops-linux-amd64</span><br><span class="line">chmod +x kops-linux-amd64</span><br><span class="line">mv kops-linux-amd64 <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>kops</span><br></pre></td></tr></table></figure>
+<p>可以通过 <code>kops version</code> 查看 <code>kops</code> 版本：</p>
+<p>查看 kops 版本</p>
+<h3 id="创建-IAM-用户"><a href="#创建-IAM-用户" class="headerlink" title="创建 IAM 用户"></a>创建 IAM 用户</h3><p><strong>为了使用 <code>kops</code> 部署集群，还需要为 <code>kops</code> 创建一个 IAM 用户 <code>kops</code> ，并分配相应的权限。</strong> 包括：</p>
+<ul>
+<li>AmazonEC2FullAccess</li>
+<li>AmazonRoute53FullAccess</li>
+<li>AmazonS3FullAccess</li>
+<li>IAMFullAccess</li>
+<li>AmazonVPCFullAccess</li>
+</ul>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="built_in">create-group</span> <span class="built_in">--group-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="string">attach-group-</span><span class="string">policy </span><span class="built_in">--policy-arn</span> <span class="string">arn:aws:</span><span class="string">iam:</span>:<span class="string">aws:policy/</span><span class="string">AmazonEC2FullAccess </span><span class="built_in">--group-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="string">attach-group-</span><span class="string">policy </span><span class="built_in">--policy-arn</span> <span class="string">arn:aws:</span><span class="string">iam:</span>:<span class="string">aws:policy/</span><span class="string">AmazonRoute53FullAccess </span><span class="built_in">--group-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="string">attach-group-</span><span class="string">policy </span><span class="built_in">--policy-arn</span> <span class="string">arn:aws:</span><span class="string">iam:</span>:<span class="string">aws:policy/</span><span class="string">AmazonS3FullAccess </span><span class="built_in">--group-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="string">attach-group-</span><span class="string">policy </span><span class="built_in">--policy-arn</span> <span class="string">arn:aws:</span><span class="string">iam:</span>:<span class="string">aws:policy/</span><span class="string">IAMFullAccess </span><span class="built_in">--group-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="string">attach-group-</span><span class="string">policy </span><span class="built_in">--policy-arn</span> <span class="string">arn:aws:</span><span class="string">iam:</span>:<span class="string">aws:policy/</span><span class="string">AmazonVPCFullAccess </span><span class="built_in">--group-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="built_in">create-user</span> <span class="built_in">--user-name</span> <span class="string">kops</span></span><br><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="string">add-user-</span><span class="string">to-group </span><span class="built_in">--user-name</span> <span class="string">kops </span><span class="built_in">--group-name</span> <span class="string">kops</span></span><br></pre></td></tr></table></figure>
+<p><strong>为 <code>kops</code>用户创建密钥：</strong></p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">aws </span><span class="string">iam </span><span class="built_in">create-access-key</span> <span class="built_in">--user-name</span> <span class="string">kops</span></span><br></pre></td></tr></table></figure>
+<p>上面的命令会返回 <code>kops</code> 用户的 <code>AccessKeyID</code> 和 <code>SecretAccessKey</code> 。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-092e87010e6a3c6f.png?imageMogr2/auto-orient/strip|imageView2/2/w/599/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-092e87010e6a3c6f.png?imageMogr2/auto-orient/strip|imageView2/2/w/599/format/webp"></p>
+<p>创建后，我们可以在 AWS 控制台的 UI 上看到用户： <code>kops</code> ：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-933cc3c97bbde0b3.png?imageMogr2/auto-orient/strip|imageView2/2/w/574/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-933cc3c97bbde0b3.png?imageMogr2/auto-orient/strip|imageView2/2/w/574/format/webp"></p>
+<p><strong>接着通过 <code>aws configure</code> 更新 <code>awscli</code> 的配置，让它使用新创建的 <code>kops</code>用户的密钥：</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-2a696fee7e212093.png?imageMogr2/auto-orient/strip|imageView2/2/w/699/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-2a696fee7e212093.png?imageMogr2/auto-orient/strip|imageView2/2/w/699/format/webp"></p>
+<p><strong>同时还需要将 <code>kops</code>用户的密钥导出到命令行的环境变量：</strong> 其实是写入 <code>~/.bashrc</code> 文件</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> 'export AWS_ACCESS_KEY_ID=<span class="string">...</span>' &gt;&gt; ~<span class="string">/.bashrc</span></span><br><span class="line"><span class="keyword">echo</span> 'export AWS_SECRET_ACCESS_KEY=<span class="string">...</span>' &gt;&gt; ~<span class="string">/.bashrc</span></span><br><span class="line"><span class="keyword">echo</span> 'export AWS_REGION=us-east-2' &gt;&gt; ~<span class="string">/.bashrc</span></span><br></pre></td></tr></table></figure>
+<p><strong>最后是生成 SSH 密钥</strong> ：生成的密钥位置 <code>/home/ec2-user/.ssh/id_rsa.pub</code></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置-S3-Bucket"><a href="#配置-S3-Bucket" class="headerlink" title="配置 S3 Bucket"></a>配置 S3 Bucket</h3><p>需要创建一个 S3 bucket， <strong>用于存储集群的数据</strong> ，例如，这里我们将这个 bucket 命名为 <code>xiang.k8s.local-state</code> ，同时写到到环境变量 <code>KOPS_STATE_STORE</code> 。 （PS：这里用 <code>xiang</code> 是因为我的名字里有 <code>xiang</code> ，不代表你也一定要这么用）</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">aws </span><span class="string">s3api </span><span class="built_in">create-bucket</span> <span class="built_in">--bucket</span> <span class="string">xiang.</span><span class="string">k8s.</span><span class="string">local-state </span><span class="built_in">--create-bucket-configuration</span> <span class="string">LocationConstraint=</span><span class="string">us-east-</span>2</span><br><span class="line"></span><br><span class="line"><span class="string">echo </span><span class="string">'export KOPS_STATE_STORE=s3://xiang.k8s.local-state'</span> &gt;&gt; ~/.<span class="string">bashrc</span></span><br></pre></td></tr></table></figure>
+<p>创建后，我们可以在 AWS 控制台的 UI 上看到S3 bucket： <code>xiang.k8s.local-state</code> ：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-5d727933ec69c179.png?imageMogr2/auto-orient/strip|imageView2/2/w/633/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-5d727933ec69c179.png?imageMogr2/auto-orient/strip|imageView2/2/w/633/format/webp"></p>
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><p>在上面的准备工作完成后，我们可以开始创建 Kubernetes 集群。</p>
+<h3 id="创建集群的配置文件"><a href="#创建集群的配置文件" class="headerlink" title="创建集群的配置文件"></a>创建集群的配置文件</h3><p>下面的命令会创建集群的配置文件， <strong>并不会真正地创建集群：</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kops create cluster \</span><br><span class="line">    <span class="attribute">--name</span>=xiang.k8s.local \</span><br><span class="line">    <span class="attribute">--zones</span>=us-east-2b  \</span><br><span class="line">    <span class="attribute">--master-size</span>=<span class="string">"t2.micro"</span> \</span><br><span class="line">    <span class="attribute">--node-size</span>=<span class="string">"t2.micro"</span>  \</span><br><span class="line">    <span class="attribute">--ssh-public-key</span>=<span class="string">"~/.ssh/id_rsa.pub"</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li><code>xiang.k8s.local</code> 是什么呢？为了让 <code>kops</code> 创建基于 gossip 的集群，集群的命名需要使用 <code>.k8s.local</code> 作为后缀，例如，这里我们将集群命名为 <code>xiang.k8s.local</code></li>
+<li><p><code>t2.micro</code> 是什么呢？它是一种 EC2 实例的类型</p>
+<ul>
+<li>具体的类型可以参见：<a href="https://aws.amazon.com/cn/ec2/pricing/on-demand/" target="_blank" rel="noopener">https://aws.amazon.com/cn/ec2/pricing/on-demand/</a></li>
+<li><p>我现在拥有的两个 EC2 实例就是 t2.micro 类型的：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-240bda515f13883c.png?imageMogr2/auto-orient/strip|imageView2/2/w/397/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-240bda515f13883c.png?imageMogr2/auto-orient/strip|imageView2/2/w/397/format/webp"></p>
+</li>
+</ul>
+</li>
+<li><p><code>~/.ssh/id_rsa.pub</code> 其实就是上面我们通过 <code>ssh-keygen</code> 来创建的 在创建集群之前，可以检查集群的配置文件是否正确：</p>
+</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kops <span class="keyword">edit</span> <span class="keyword">cluster</span> xiang.k8s.<span class="keyword">local</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建集群-1"><a href="#创建集群-1" class="headerlink" title="创建集群"></a>创建集群</h3><p><strong>如果确认没问题，就可以使用下面的命令创建集群：</strong></p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kops <span class="keyword">update</span> <span class="keyword">cluster</span> xiang.k8s.<span class="keyword">local</span> --yes</span><br></pre></td></tr></table></figure>
+<p>创建集群之后，需要一段时间等待集群的初始化，我们可以通过 <code>kops validate cluster</code> 来检查集群的创建状态：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[ec2-user@ip-<span class="number">172</span>-<span class="number">31</span>-<span class="number">38</span>-<span class="number">187</span> ~]$ kops validate cluster</span><br><span class="line">Using cluster from kubectl context: xiang.k8s.local</span><br><span class="line"></span><br><span class="line">Validating cluster xiang.k8s.local</span><br><span class="line"></span><br><span class="line">INSTANCE GROUPS</span><br><span class="line">NAME            <span class="keyword">ROLE</span>    <span class="title">MACHINETYPE</span> MIN MAX SUBNETS</span><br><span class="line"><span class="literal">master</span>-us-east-<span class="number">2</span>b   <span class="keyword">Master</span>  <span class="title">t2</span>.micro    <span class="number">1</span>   <span class="number">1</span>   us-east-<span class="number">2</span>b</span><br><span class="line">nodes           <span class="keyword">Node</span>    <span class="title">t2</span>.micro    <span class="number">2</span>   <span class="number">2</span>   us-east-<span class="number">2</span>b</span><br><span class="line"></span><br><span class="line"><span class="keyword">NODE</span> <span class="title">STATUS</span></span><br><span class="line">NAME                        <span class="keyword">ROLE</span>    <span class="title">READY</span></span><br><span class="line">ip-<span class="number">172</span>-<span class="number">20</span>-<span class="number">44</span>-<span class="number">223</span>.us-east-<span class="number">2</span>.compute.internal <span class="keyword">node</span>    <span class="title">True</span></span><br><span class="line">ip-<span class="number">172</span>-<span class="number">20</span>-<span class="number">54</span>-<span class="number">238</span>.us-east-<span class="number">2</span>.compute.internal <span class="keyword">master</span>  <span class="title">True</span></span><br><span class="line">ip-<span class="number">172</span>-<span class="number">20</span>-<span class="number">59</span>-<span class="number">124</span>.us-east-<span class="number">2</span>.compute.internal <span class="keyword">node</span>    <span class="title">True</span></span><br><span class="line"></span><br><span class="line">Your cluster xiang.k8s.local is ready</span><br></pre></td></tr></table></figure>
+<p>等待集群起来之后，可以在 AWS 控制台的 UI 上看到新创建的 EC2 实例：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-dd65dac13fa5d541.png?imageMogr2/auto-orient/strip|imageView2/2/w/902/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-dd65dac13fa5d541.png?imageMogr2/auto-orient/strip|imageView2/2/w/902/format/webp"></p>
+<p>可以在 AWS 控制台的 UI 上看到产生的集群，包括一个 master，两个 node</p>
+<p>每一个实例对应一个 Kunernetes 中的节点 Node，其中一个的角色为 master，另外两个的角色为 node 具体信息如下：</p>
+<ul>
+<li><strong>EC2 实例名称：</strong> <code>master-us-east-2b.masters.xiang.k8s.local</code><ul>
+<li>公有 IP： <code>3.16.188.170</code></li>
+<li>公有 DNS： <code>ec2-3-16-188-170.us-east-2.compute.amazonaws.com</code></li>
+<li>私有 IP： <code>172.20.54.238</code></li>
+<li><strong>对应的 Kunernetes 节点名称：</strong> <code>ip-172-20-54-238.us-east-2.compute.internal</code> （其实这就是私有 DNS）</li>
+</ul>
+</li>
+<li><strong>EC2 实例名称：</strong> <code>nodes.xiang.k8s.local</code><ul>
+<li>公有 IP： <code>3.16.181.109</code></li>
+<li>公有 DNS： <code>ec2-3-16-181-109.us-east-2.compute.amazonaws.com</code></li>
+<li>私有 IP： <code>172.20.44.223</code></li>
+<li><strong>对应的 Kunernetes 节点名称：</strong> <code>ip-172-20-44-223.us-east-2.compute.internal</code> （其实这就是私有 DNS）</li>
+</ul>
+</li>
+<li><strong>EC2 实例名称：</strong> <code>nodes.xiang.k8s.local</code><ul>
+<li>公有 IP： <code>18.223.182.144</code></li>
+<li>公有 DNS： <code>ec2-18-223-182-144.us-east-2.compute.amazonaws.com</code></li>
+<li>私有 IP： <code>172.20.59.124</code></li>
+<li><strong>对应的 Kunernetes 节点名称：</strong> <code>ip-172-20-59-124.us-east-2.compute.internal</code> （其实这就是私有 DNS）</li>
+</ul>
+</li>
+</ul>
+<p>我们也可以在 AWS 控制台的 UI 上看到 <code>xiang.k8s.local-state</code> 这个 S3 Bucket 包含对应的文件，用于存储集群的数据：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-5d017dad46151a99.png?imageMogr2/auto-orient/strip|imageView2/2/w/267/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-5d017dad46151a99.png?imageMogr2/auto-orient/strip|imageView2/2/w/267/format/webp"></p>
+<p>xiang.k8s.local-state 这个 S3 Bucket 包含对应的文件</p>
+<h3 id="操作集群"><a href="#操作集群" class="headerlink" title="操作集群"></a>操作集群</h3><p>在上述步骤结束之后， <code>kops</code> 会配置好 Kubernetes 的命令行工具 <code>kubectl</code> ，配置的内容包括 Kubernetes 集群的 API endpoint 端口和身份认证信息。此后，我们就可以使用 <code>kubectl</code> 来操作 Kubernetes 集群了。</p>
+<h3 id="使用-kubectl-get-nodes-来查看节点信息"><a href="#使用-kubectl-get-nodes-来查看节点信息" class="headerlink" title="使用 kubectl get nodes 来查看节点信息"></a>使用 kubectl get nodes 来查看节点信息</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ec2-user@ip<span class="number">-172</span><span class="number">-31</span><span class="number">-38</span><span class="number">-187</span> ~]$ kubectl get nodes</span><br><span class="line">NAME                                          STATUS    ROLES     AGE       VERSION</span><br><span class="line">ip<span class="number">-172</span><span class="number">-20</span><span class="number">-44</span><span class="number">-223.</span>us-east<span class="number">-2.</span>compute.internal   Ready     node      <span class="number">2</span>h        v1<span class="number">.10</span><span class="number">.6</span></span><br><span class="line">ip<span class="number">-172</span><span class="number">-20</span><span class="number">-54</span><span class="number">-238.</span>us-east<span class="number">-2.</span>compute.internal   Ready     master    <span class="number">2</span>h        v1<span class="number">.10</span><span class="number">.6</span></span><br><span class="line">ip<span class="number">-172</span><span class="number">-20</span><span class="number">-59</span><span class="number">-124.</span>us-east<span class="number">-2.</span>compute.internal   Ready     node      <span class="number">2</span>h        v1<span class="number">.10</span><span class="number">.6</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用-kubectl-cluster-info-来查看集群信息"><a href="#使用-kubectl-cluster-info-来查看集群信息" class="headerlink" title="使用 kubectl cluster-info 来查看集群信息"></a>使用 kubectl cluster-info 来查看集群信息</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ec2-user@ip-<span class="number">172</span>-<span class="number">31</span>-<span class="number">38</span>-<span class="number">187</span> ~]$ kubectl cluster-info</span><br><span class="line">Kubernetes master <span class="keyword">is</span> running at http<span class="variable">s:</span>//api-xiang-k8s-local-ips5k0-<span class="number">118730418</span>.us-east-<span class="number">2</span>.elb.amazonaws.<span class="keyword">com</span></span><br><span class="line">KubeDNS <span class="keyword">is</span> running at http<span class="variable">s:</span>//api-xiang-k8s-local-ips5k0-<span class="number">118730418</span>.us-east-<span class="number">2</span>.elb.amazonaws.<span class="keyword">com</span>/api/v1/namespaces/kube-<span class="built_in">system</span>/services/kube-dn<span class="variable">s:dns</span>/proxy</span><br><span class="line"></span><br><span class="line">To further <span class="keyword">debug</span> <span class="built_in">and</span> diagnose cluster problems, use <span class="string">'kubectl cluster-info dump'</span>.</span><br></pre></td></tr></table></figure>
+<p><code>api-xiang-k8s-local-ips5k0-118730418.us-east-2.elb.amazonaws.com</code> 这又是个什么呢？ <strong>好像刚刚创建的三个 EC2 的实例都不叫这个域名。</strong> 我们打开 AWS 控制台，可以看到自动自动创建了一个 <strong>负载均衡器</strong> <code>api-xiang-k8s-local-ips5k0</code> ，它提供了这个域名：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-13394ad009b43e58.png?imageMogr2/auto-orient/strip|imageView2/2/w/807/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-13394ad009b43e58.png?imageMogr2/auto-orient/strip|imageView2/2/w/807/format/webp"></p>
+<p>负载均衡器 api-xiang-k8s-local-ips5k0</p>
+<h3 id="获取-kube-和-admin-这两个账户的密码"><a href="#获取-kube-和-admin-这两个账户的密码" class="headerlink" title="获取 kube 和 admin 这两个账户的密码"></a>获取 kube 和 admin 这两个账户的密码</h3><p>我们可以通过下面的命令获取 <code>kube</code> 和 <code>admin</code> 这两个账户的密码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kops <span class="builtin-name">get</span> secrets kube --type<span class="built_in"> secret </span>-oplaintext</span><br><span class="line">kops <span class="builtin-name">get</span> secrets admin --type<span class="built_in"> secret </span>-oplaintext</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-b155283361919805.png?imageMogr2/auto-orient/strip|imageView2/2/w/650/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-b155283361919805.png?imageMogr2/auto-orient/strip|imageView2/2/w/650/format/webp"></p>
+<p>在设置之后，可以通过 <code>kubectl config view</code> 看到用户名和密码：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-2e74da962af42f0b.png?imageMogr2/auto-orient/strip|imageView2/2/w/683/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-2e74da962af42f0b.png?imageMogr2/auto-orient/strip|imageView2/2/w/683/format/webp"></p>
+<p>kubectl config view 看到用户名和密码</p>
+<h3 id="登陆到-Master-和-Node-看看？"><a href="#登陆到-Master-和-Node-看看？" class="headerlink" title="登陆到 Master 和 Node 看看？"></a>登陆到 Master 和 Node 看看？</h3><p>我们已经知道了 Master 和 Node 的 DNS 和 IP 地址。</p>
+<p>我们通过如下命令登陆到 Master：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh admin@3.16.188.170 (公有<span class="built_in"> IP </span>或者 公有 DNS)</span><br></pre></td></tr></table></figure>
+<p>我们可以看到 Master 上已经安装好了 Docker 和 <code>kubectl</code> ：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-08ccac5f147fe400.png?imageMogr2/auto-orient/strip|imageView2/2/w/485/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-08ccac5f147fe400.png?imageMogr2/auto-orient/strip|imageView2/2/w/485/format/webp"></p>
+<p>我们通过如下命令分别登陆到两个 Node，同样， Node 上已经安装好了 Docker 和 <code>kubectl</code> 。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh admin@3.16.181.109 (公有<span class="built_in"> IP </span>或者 公有 DNS)</span><br><span class="line"></span><br><span class="line">ssh admin@18.223.182.144 (公有<span class="built_in"> IP </span>或者 公有 DNS)</span><br></pre></td></tr></table></figure>
+<h3 id="部署-Kubernetes-的控制面板-Dashboard"><a href="#部署-Kubernetes-的控制面板-Dashboard" class="headerlink" title="部署 Kubernetes 的控制面板 Dashboard"></a>部署 Kubernetes 的控制面板 Dashboard</h3><p>通过下面的命令到部署 Kubernetes 的控制面板 Dashboard：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/kubernetes/</span>dashboard<span class="regexp">/master/</span>src<span class="regexp">/deploy/</span>recommended<span class="regexp">/kubernetes-dashboard.yaml</span></span><br></pre></td></tr></table></figure>
+<p>部署成功后，我们可以通过如下的网址访问 Dashboard：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>&lt;master-ip&gt;:&lt;apiserver-port&gt;<span class="regexp">/api/</span>v1<span class="regexp">/namespaces/</span>kube-system<span class="regexp">/services/</span>https:kubernetes-dashboard:<span class="regexp">/proxy/</span></span><br></pre></td></tr></table></figure>
+<p>在这里 <code>&lt;master-ip&gt;</code> 为 <code>api-xiang-k8s-local-ips5k0-118730418.us-east-2.elb.amazonaws.com</code> （通过 <code>kubectl cluster-info</code> 命令获得）， <code>&lt;apiserver-port&gt;</code> 为 <code>443</code> ，通过如下的网址访问 Dashboard： <a href="https://api-xiang-k8s-local-ips5k0-118730418.us-east-2.elb.amazonaws.com/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/" target="_blank" rel="noopener">https://api-xiang-k8s-local-ips5k0-118730418.us-east-2.elb.amazonaws.com:443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</a></p>
+<p>如果弹出一个登陆框，用户名输入 <code>kube</code> ，密码为上述步骤中为 <code>kube</code> 用户设置的密码。 接下累可能需要第二次 Login，选择 Token，密码为上述步骤中为 <code>admin</code> 用户设置的密码：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-981a510ef3d5ce26.png?imageMogr2/auto-orient/strip|imageView2/2/w/493/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-981a510ef3d5ce26.png?imageMogr2/auto-orient/strip|imageView2/2/w/493/format/webp"></p>
+<p>Login</p>
+<h3 id="操作-Kubernetes-的控制面板-Dashboard"><a href="#操作-Kubernetes-的控制面板-Dashboard" class="headerlink" title="操作 Kubernetes 的控制面板 Dashboard"></a>操作 Kubernetes 的控制面板 Dashboard</h3><p>具体玩法，参见： <a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/" target="_blank" rel="noopener">Kubernetes Web UI (Dashboard)</a></p>
+<p>可以看到目前有三个 Namespace 和 三个 Node：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-0e0cc85e0e7f4591.png?imageMogr2/auto-orient/strip|imageView2/2/w/443/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-0e0cc85e0e7f4591.png?imageMogr2/auto-orient/strip|imageView2/2/w/443/format/webp"></p>
+<p>三个 Namespace</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-2797fbaf39e50284.png?imageMogr2/auto-orient/strip|imageView2/2/w/859/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-2797fbaf39e50284.png?imageMogr2/auto-orient/strip|imageView2/2/w/859/format/webp"></p>
+<p>三个 Node</p>
+<h3 id="销毁集群"><a href="#销毁集群" class="headerlink" title="销毁集群"></a>销毁集群</h3><p>在销毁集群之前，需要先确认一下 <code>kops</code> 会删除哪些资源：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">kops</span> <span class="selector-tag">delete</span> <span class="selector-tag">cluster</span> <span class="selector-tag">--name</span> <span class="selector-tag">xiang</span><span class="selector-class">.k8s</span><span class="selector-class">.local</span></span><br></pre></td></tr></table></figure>
+<p>如果确认没问题，就可以真正删除集群：</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">kops</span> <span class="comment">delete</span> <span class="comment">cluster</span> --<span class="comment">name</span> <span class="comment">xiang</span><span class="string">.</span><span class="comment">k8s</span><span class="string">.</span><span class="comment">local</span> --<span class="comment">yes</span></span><br></pre></td></tr></table></figure>
+<h3 id="发布一个容器化应用到-Kubernetes"><a href="#发布一个容器化应用到-Kubernetes" class="headerlink" title="发布一个容器化应用到 Kubernetes"></a>发布一个容器化应用到 Kubernetes</h3><p>部分参考： <a href="https://developer.ibm.com/recipes/tutorials/deploying-a-containerized-app-in-kubernetes-using-kubernetes-dashboard/" target="_blank" rel="noopener">Kubernetes: How to deploy a containerized app in Kubernetes using Kubernetes dashboard</a> 我们回到 Kubernetes Dashboard，点击右上角的 CREATE：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-ae06ec00e8c4e94d.png?imageMogr2/auto-orient/strip|imageView2/2/w/292/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-ae06ec00e8c4e94d.png?imageMogr2/auto-orient/strip|imageView2/2/w/292/format/webp"></p>
+<p>在上一篇文章 <a href="https://www.jianshu.com/p/b5c800177baf" target="_blank" rel="noopener">AWS EC2 上安装 Docker 的示例</a> 中，我创建了一个 Docker 的镜像： <code>679435956173.dkr.ecr.us-east-2.amazonaws.com/hello-world</code> ，内容很简单，就是启动一个 Apache 服务器，发布一个 <code>index.html</code> 页面。 <strong>现在我们想要将它通过 Kubernetes 部署到容器中并运行。</strong></p>
+<p>选择 CREATE AN APP：</p>
+<ul>
+<li><code>App name</code> 可以自由输入，这里我们填写 <code>xiang-k8s-hello-world</code></li>
+<li>在 <code>Container image</code> 中填入我们之前创建的并推送到 Amazon Elastic Container Registry 的 Docker 镜像： <code>679435956173.dkr.ecr.us-east-2.amazonaws.com/hello-world</code></li>
+<li><code>Number of pods</code> 填入 <code>1</code> ，表示现在只需要一台主机</li>
+<li><code>Service</code> 选择 <code>External</code></li>
+<li>端口填入 <code>9999</code> <code>9999</code> ，将容器上公开的端口 <code>9999</code> 映射到主机系统上的端口 <code>9999</code></li>
+<li>最后点击 <code>DEPLOY</code></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-b1932728596b8261.png?imageMogr2/auto-orient/strip|imageView2/2/w/817/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-b1932728596b8261.png?imageMogr2/auto-orient/strip|imageView2/2/w/817/format/webp"></p>
+<p>发布一个容器化应用到 Kubernetes</p>
+<p>随后，点击 <code>Overview</code> 可以看到 Deployment，Replica Set 和 Pod 被成功创建，并且正在运行：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-e36d26f199d69401.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-e36d26f199d69401.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp"></p>
+<p>Deployment，Replica Set 和 Pod 被成功创建</p>
+<p>具体信息如下：</p>
+<ul>
+<li>创建的 Deployment，即 Service： <code>xiang-k8s-hello-world</code></li>
+<li>创建的 Replica Set： <code>xiang-k8s-hello-world-5bc8b7fc8f</code></li>
+<li>创建的 Pod： <code>xiang-k8s-hello-world-5bc8b7fc8f-xgm67</code> 我们点击进入到 Pod <code>xiang-k8s-hello-world-5bc8b7fc8f-xgm67</code> 的详情页面，可以看到它对应的 Node 是 <code>ip-172-20-59-124.us-east-2.compute.internal</code> （这是一个 私有 DNS）：</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-48c9f26edeec8f66.png?imageMogr2/auto-orient/strip|imageView2/2/w/487/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-48c9f26edeec8f66.png?imageMogr2/auto-orient/strip|imageView2/2/w/487/format/webp"></p>
+<p>Pod 对应的 Node</p>
+<p>我们也可以点击进入到 Node <code>ip-172-20-59-124.us-east-2.compute.internal</code> 的详情页面，可以看到它对应的 IP 和域名：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-0146626218fba7bc.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-0146626218fba7bc.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp"></p>
+<p>Node 对应的 IP 和域名</p>
+<p>可以看出， <strong>这就是我们在上面所创建的三个 EC2 实例中的第三个实例</strong> ，我们的应用 <code>xiang-k8s-hello-world</code> 就是部署在这个实例的 Docker 容器里。</p>
+<ul>
+<li>InternalIP: <code>172.20.59.124</code></li>
+<li>ExternalIP: <code>18.223.182.144</code></li>
+<li>InternalDNS: <code>ip-172-20-59-124.us-east-2.compute.internal</code></li>
+<li>ExternalDNS: <code>ec2-18-223-182-144.us-east-2.compute.amazonaws.com</code></li>
+<li>Hostname: <code>ip-172-20-59-124.us-east-2.compute.internal</code></li>
+</ul>
+<p>回到 Pod 的详情页面，我们也可以看到 Event 的历史，包括容器的创建，获取镜像等等：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-b515a30bd1efceb3.png?imageMogr2/auto-orient/strip|imageView2/2/w/778/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-b515a30bd1efceb3.png?imageMogr2/auto-orient/strip|imageView2/2/w/778/format/webp"></p>
+<p>Event 的历史，包括容器的创建，获取镜像等等</p>
+<p>我们也可以点击进入到 Service <code>xiang-k8s-hello-world</code> 的详情页面，看到对应的 Internal endpoints 和 External endpoints：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-303843f6836e43c8.png?imageMogr2/auto-orient/strip|imageView2/2/w/787/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-303843f6836e43c8.png?imageMogr2/auto-orient/strip|imageView2/2/w/787/format/webp"></p>
+<p>对应的 Internal endpoints 和 External endpoints</p>
+<p>我们也可以通过 <code>kubectl get services xiang-k8s-hello-world</code> 和 <code>kubectl describe svc xiang-k8s-hello-world</code> 命令查看该 Service 的详情：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[ec2-user@ip-172-31-38-187 ~]$ kubectl <span class="builtin-name">get</span> services xiang-k8s-hello-world</span><br><span class="line">NAME                   <span class="built_in"> TYPE </span>          CLUSTER-IP       EXTERNAL-IP        PORT(S)          AGE</span><br><span class="line">xiang-k8s-hello-world   LoadBalancer   100.64.223.195   ad7cddd5fe8b7<span class="built_in">..</span>.   9999:30009/TCP   1d</span><br><span class="line">[ec2-user@ip-172-31-38-187 ~]$ kubectl describe svc xiang-k8s-hello-world</span><br><span class="line">Name:                     xiang-k8s-hello-world</span><br><span class="line">Namespace:                default</span><br><span class="line">Labels:                   <span class="attribute">k8s-app</span>=xiang-k8s-hello-world</span><br><span class="line">Annotations:              &lt;none&gt;</span><br><span class="line">Selector:                 <span class="attribute">k8s-app</span>=xiang-k8s-hello-world</span><br><span class="line">Type:                     LoadBalancer</span><br><span class="line">IP:                       100.64.223.195</span><br><span class="line">LoadBalancer Ingress:     ad7cddd5fe8b711e8a334061f750d5e6-1358820683.us-east-2.elb.amazonaws.com</span><br><span class="line">Port:                     tcp-9999-9999-9tlmx  9999/TCP</span><br><span class="line">TargetPort:               9999/TCP</span><br><span class="line">NodePort:                 tcp-9999-9999-9tlmx  30009/TCP</span><br><span class="line">Endpoints:                100.96.1.3:9999</span><br><span class="line">Session Affinity:         None</span><br><span class="line">External Traffic Policy:  Cluster</span><br><span class="line">Events:</span><br><span class="line"> <span class="built_in"> Type </span>   Reason                Age               <span class="keyword">From</span>                Message</span><br><span class="line">  ----    ------                ----              ----                -------</span><br><span class="line">  Normal  EnsuringLoadBalancer  59m (x2 over 1d)  service-controller  Ensuring load balancer</span><br><span class="line">  Normal <span class="built_in"> Type </span>                 59m               service-controller  NodePort -&gt; LoadBalancer</span><br><span class="line">  Normal  EnsuredLoadBalancer   59m (x2 over 1d)  service-controller  Ensured load balancer</span><br></pre></td></tr></table></figure>
+<p><code>ad7cddd5fe8b711e8a334061f750d5e6-1358820683.us-east-2.elb.amazonaws.com</code> 又是从哪里来的呢？我们打开 AWS 控制台，可以看到自动自动创建了一个 <strong>负载均衡器</strong> <code>ad7cddd5fe8b711e8a334061f750d5e6</code> ，它提供了这个域名：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3415798-a13737d45612e18e.png?imageMogr2/auto-orient/strip|imageView2/2/w/876/format/webp" alt="https://upload-images.jianshu.io/upload_images/3415798-a13737d45612e18e.png?imageMogr2/auto-orient/strip|imageView2/2/w/876/format/webp"></p>
+<p>负载均衡器 ad7cddd5fe8b711e8a334061f750d5e6</p>
+<p><a href="https://www.jianshu.com/p/7d448abae039" target="_blank" rel="noopener">AWS EC2 上安装 Kubernetes 的示例</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/08/16/Handling-Transactions-in-the-Microservice-world/" data-toggle="tooltip" data-placement="top" title="Handling Transactions in the Microservice world">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/08/16/Handling-Distributed-Transactions-in-the-Microservice-world/" data-toggle="tooltip" data-placement="top" title="Handling Distributed Transactions in the Microservice world">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/08/16/AWS-EC2-上安装-Kubernetes-的示例/";
+    var disqus_url = "https://wenyongqd.github.io/2020/08/16/AWS-EC2-上安装-Kubernetes-的示例/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

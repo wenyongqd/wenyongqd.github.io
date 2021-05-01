@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑 - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/08/12/React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-08-12
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑"><a href="#React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑" class="headerlink" title="React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑"></a>React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><!-- TOC -->
+<ul>
+<li><a href="#react学习记录-3-箭头函数定时器动态对象代码执行逻辑">React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑</a><ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#第一个问题怎么理解--thistick">第一个问题：怎么理解() =&gt; this.tick()</a></li>
+<li><a href="#箭头函数的第一种书写格式">箭头函数的第一种书写格式</a></li>
+<li><a href="#箭头函数的第二种书写格式">箭头函数的第二种书写格式</a></li>
+<li><a href="#参数不是一个箭头函数的书写方式">参数不是一个箭头函数的书写方式</a></li>
+<li><a href="#返回值是对象的箭头函数的书写方式">返回值是对象的箭头函数的书写方式</a></li>
+<li><a href="#箭头函数是修正了this使用过程中的错误">箭头函数是修正了this使用过程中的错误</a></li>
+<li><a href="#--thistick的理解">() =&gt; this.tick()的理解</a></li>
+<li><a href="#第二个问题setinterval函数是怎么用的">第二个问题：setInterval()函数是怎么用的？</a></li>
+<li><a href="#第三个问题thistimerid是怎么理解的">第三个问题：this.timerID是怎么理解的？</a></li>
+<li><a href="#动态对象">动态对象</a></li>
+<li><a href="#固定对象">固定对象</a></li>
+<li><a href="#小结">小结</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<p>作为我来说，对自己未知的领域，总是充满好奇。 对于公司那些整体忘我讨论技术问题的同事，我总是持有疑问： 是什么东西，让他们能够这样热烈、投入、废寝忘食讨论。 既然能够让人有这样的热情，那么势必如美食美景一样，是值得探索的。</p>
+<p>我希望自己能够一窥技术世界的究竟。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;<span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.timerID = setInterval(</span><br><span class="line">      () =&gt; <span class="keyword">this</span>.tick(),</span><br><span class="line">      <span class="number">1000</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line">    clearInterval(<span class="keyword">this</span>.timerID);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  tick() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      date: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Hello, world!&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;h2&gt;现在是 &#123;this.state.date.toLocaleTimeString()&#125;.&lt;/</span>h2&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"> </span></span><br><span class="line"><span class="regexp">ReactDOM.render(</span></span><br><span class="line"><span class="regexp">  &lt;Clock /</span>&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="第一个问题：怎么理解-gt-this-tick"><a href="#第一个问题：怎么理解-gt-this-tick" class="headerlink" title="第一个问题：怎么理解() =&gt; this.tick()"></a>第一个问题：怎么理解() =&gt; this.tick()</h2><p>这是ES6中声明函数的一种方式，叫做 <code>箭头函数表达式</code> 。<br>ES6是指 <code>ECMAScript6</code> 。<br>为什么引入 <code>箭头函数(Arrow Function)</code>? 有两个方面的作用： 第一、这是更简短的函数。(这好理解。)</p>
+<p>第二、不用绑定this。( <strong>这不知道什么意思。</strong> )</p>
+<p>箭头函数有两种书写格式。</p>
+<h2 id="箭头函数的第一种书写格式"><a href="#箭头函数的第一种书写格式" class="headerlink" title="箭头函数的第一种书写格式"></a>箭头函数的第一种书写格式</h2><p>以前写函数的方式是：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span><span class="params">(x)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x*x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>换成箭头函数，就写成：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">x</span> =&gt; <span class="keyword">x</span>*<span class="keyword">x</span></span><br></pre></td></tr></table></figure>
+<h2 id="箭头函数的第二种书写格式"><a href="#箭头函数的第二种书写格式" class="headerlink" title="箭头函数的第二种书写格式"></a>箭头函数的第二种书写格式</h2><p>以前写函数的方式是：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function(<span class="keyword">x</span>)&#123;</span><br><span class="line">  if(<span class="keyword">x</span>&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    retun <span class="keyword">x</span>*<span class="keyword">x</span><span class="comment">;</span></span><br><span class="line"><span class="comment">  &#125;</span></span><br><span class="line"><span class="comment">  else&#123;</span></span><br><span class="line"><span class="comment">    retun - x*x;</span></span><br><span class="line"><span class="comment">  &#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>用箭头表达式来写，就是下面的形式：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">x</span> =&gt; &#123;</span><br><span class="line">    if (<span class="keyword">x</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        return <span class="keyword">x</span> * <span class="keyword">x</span><span class="comment">;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    else &#123;</span></span><br><span class="line"><span class="comment">        return - x * x;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参数不是一个箭头函数的书写方式"><a href="#参数不是一个箭头函数的书写方式" class="headerlink" title="参数不是一个箭头函数的书写方式"></a>参数不是一个箭头函数的书写方式</h2><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> 无参数:</span><br><span class="line">() =&gt; <span class="number">3.14</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 两个参数:</span><br><span class="line">(x, y) =&gt; x * x + y * y</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 可变参数:</span><br><span class="line">(x, y, ...rest) =&gt; &#123;</span><br><span class="line">    var i, sum = x + y;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;rest.length; i++) &#123;</span><br><span class="line">        sum += rest[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="返回值是对象的箭头函数的书写方式"><a href="#返回值是对象的箭头函数的书写方式" class="headerlink" title="返回值是对象的箭头函数的书写方式"></a>返回值是对象的箭头函数的书写方式</h2><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这么写是不对的</span></span><br><span class="line">x =&gt; &#123; foo: x &#125;</span><br><span class="line"><span class="comment">//这么写是对的</span></span><br><span class="line">x =&gt; (&#123; foo: x &#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="箭头函数是修正了this使用过程中的错误"><a href="#箭头函数是修正了this使用过程中的错误" class="headerlink" title="箭头函数是修正了this使用过程中的错误"></a>箭头函数是修正了this使用过程中的错误</h2><p>javascript中有一个错误，就是 <code>函数对于this绑定的错误处理</code> 。<br>可以看下面的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    birth: <span class="number">1990</span>,</span><br><span class="line">    getAge: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> b = <span class="keyword">this</span>.birth; <span class="comment">// 1990</span></span><br><span class="line">        <span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - <span class="keyword">this</span>.birth; <span class="comment">// this指向window或undefined</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">return</span> fn();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，使用this，就有问题。 第一个this，是外部函数中this还能够使用对象。 第二个this，内部函数中this已经指向不到对象了。</p>
+<p>下面的例子中，使用箭头函数，就没有问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    birth: <span class="number">1990</span>,</span><br><span class="line">    getAge: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> b = <span class="keyword">this</span>.birth; <span class="comment">// 1990</span></span><br><span class="line">        <span class="keyword">var</span> fn = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - <span class="keyword">this</span>.birth; <span class="comment">// this指向obj对象</span></span><br><span class="line">        <span class="keyword">return</span> fn();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.getAge(); <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+<p>用官方的说法是：箭头函数就是为了确定this的 <code>词法作用域</code> 。<br>这种绑定，让你即便使用 <code>call()</code>、<code>apply()</code> 调用箭头函数的时候，也没有办法改变this的绑定。<br>如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    birth: <span class="number">1990</span>,</span><br><span class="line">    getAge: <span class="function"><span class="keyword">function</span> (<span class="params">year</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> b = <span class="keyword">this</span>.birth; <span class="comment">// 1990</span></span><br><span class="line">        <span class="keyword">var</span> fn = <span class="function">(<span class="params">y</span>) =&gt;</span> y - <span class="keyword">this</span>.birth; <span class="comment">// this.birth仍是1990</span></span><br><span class="line">        <span class="keyword">return</span> fn.call(&#123;<span class="attr">birth</span>:<span class="number">2000</span>&#125;, year);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.getAge(<span class="number">2015</span>); <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+<h2 id="gt-this-tick-的理解"><a href="#gt-this-tick-的理解" class="headerlink" title="() =&gt; this.tick()的理解"></a>() =&gt; this.tick()的理解</h2><p>这是一个没有参数的函数。返回的是 <code>this.tick()</code> 。 这里的this当然指的就是组件对象。 this.tick()就是组件的tick()方法。</p>
+<p>我们能够从【前言】的代码中看到组件中是有这个tick()方法的。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tick() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      <span class="keyword">date</span>: <span class="keyword">new</span> Date()</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>tick()方法当中修改了组件的state状态。 是用一个对象{date:new Date()}修改了state的状态。 tick()方法返回的就是这个对象。</p>
+<p>这个对象有一个date属性，值是new Date()。</p>
+<p>() =&gt; this.tick()<br>如果用常规的方法来写，是这样子的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> that = <span class="keyword">this</span>;</span><br><span class="line"><span class="keyword">this</span>.timerID = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> that.tick(); </span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="第二个问题：setInterval-函数是怎么用的？"><a href="#第二个问题：setInterval-函数是怎么用的？" class="headerlink" title="第二个问题：setInterval()函数是怎么用的？"></a>第二个问题：setInterval()函数是怎么用的？</h2><p>setInterval()的主要作用是：周期地调用并执行一个函数。<br>基本的语法，是这样的：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">setInterval</span><span class="params">(函数名，执行周期)</span></span></span><br></pre></td></tr></table></figure>
+<p>在这里例子当中，</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.timerID = setInterval(</span><br><span class="line">      () =&gt; <span class="keyword">this</span>.tick(),</span><br><span class="line">      <span class="number">1000</span></span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+<p>表示的就是1秒钟就要调用一次 <code>this.tick()</code> 这个函数。<br>详情我是参考的 <a href="https://jingyan.baidu.com/article/ff4116251f25f012e4823799.html" target="_blank" rel="noopener">这篇文章</a></p>
+<h2 id="第三个问题：this-timerID是怎么理解的？"><a href="#第三个问题：this-timerID是怎么理解的？" class="headerlink" title="第三个问题：this.timerID是怎么理解的？"></a>第三个问题：this.timerID是怎么理解的？</h2><p>这个涉及到javascript当中对象属性的添加问题。 这个有两种方法：</p>
+<p>这里，我是参考 <a href="https://www.cnblogs.com/xielong/p/9377447.html" target="_blank" rel="noopener">这篇文章</a> 理解的。</p>
+<h2 id="动态对象"><a href="#动态对象" class="headerlink" title="动态对象"></a>动态对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建obj对象</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="comment">//为对象添加动态属性</span></span><br><span class="line">    obj.userName = <span class="string">"admin"</span>;</span><br><span class="line">    obj.passWord = <span class="string">"123456"</span>;</span><br><span class="line">    <span class="comment">//输出</span></span><br><span class="line">    <span class="built_in">console</span>.log(obj);</span><br></pre></td></tr></table></figure>
+<p>删除对象属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建obj动态对象</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="comment">//为对象添加动态属性</span></span><br><span class="line">    obj.userName = <span class="string">"admin"</span>;</span><br><span class="line">    obj.passWord = <span class="string">"123456"</span>;    </span><br><span class="line">    <span class="comment">//移除属性</span></span><br><span class="line">    <span class="keyword">delete</span> obj.passWord;</span><br><span class="line">    <span class="built_in">console</span>.log(obj);</span><br></pre></td></tr></table></figure>
+<h2 id="固定对象"><a href="#固定对象" class="headerlink" title="固定对象"></a>固定对象</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建固定对象</span></span><br><span class="line">    var dt = &#123;<span class="string">userName:</span><span class="string">"admin"</span>,<span class="string">password:</span><span class="string">"123456"</span>&#125;;</span><br><span class="line">    console.log(dt);</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这段代码，到这里，是基本上可以理解了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明了一个组件类叫做Clock，继承自React.Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//这是组件类的构造函数，里面初始化了组件的状态state。</span></span><br><span class="line">  <span class="comment">//这是挂载时候，执行的生命周期方法的第一个。</span></span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;<span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;;<span class="comment">//初始化了组件的状态state。</span></span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//这是组件挂载的生命周期函数，表示组件执行挂载的方法。</span></span><br><span class="line"> <span class="comment">//代码是重写了这个方法，表示在挂载的时候，设置了一个定时器。</span></span><br><span class="line"> <span class="comment">//组件类是一个动态对象，所以this.timerID表示是一个定时属性。</span></span><br><span class="line"> <span class="comment">//这个属性是一个setInterval函数，每1秒执行一个函数，就是tick()</span></span><br><span class="line"> <span class="comment">//采用()=&gt;this.tick()是因为要限定this的词法作用域</span></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.timerID = setInterval(</span><br><span class="line">      () =&gt; <span class="keyword">this</span>.tick(),</span><br><span class="line">      <span class="number">1000</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//这是组件的卸载方法。</span></span><br><span class="line">  <span class="comment">//代码重写了这个方法，然后在卸载的时候，清除定时器。</span></span><br><span class="line">  <span class="comment">//清除定时器，采用的方法，就是clearInterval()方法。 </span></span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line">    clearInterval(<span class="keyword">this</span>.timerID);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//这是自定义的组件类方法。</span></span><br><span class="line">  <span class="comment">//方法内是更新设置了组件的状态。</span></span><br><span class="line">  <span class="comment">//组件的状态是一个属性。属性的值是一个对象。</span></span><br><span class="line">  <span class="comment">//对象也有一个属性，属性的值也是一个对象。</span></span><br><span class="line">  <span class="comment">//所以这里是this.state这是属性的值。</span></span><br><span class="line">  <span class="comment">//this.state.date这个是属性的值对象的值。</span></span><br><span class="line">  <span class="comment">//通过this.state.date才能够调用到new Date()。</span></span><br><span class="line">  tick() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      date: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//一个组件类是必须要实现一个render()方法的。</span></span><br><span class="line">  <span class="comment">//这个render()方法是要返回一个JSX元素的。</span></span><br><span class="line">  <span class="comment">//这里返回**一个**元素，不是多个元素。</span></span><br><span class="line">  <span class="comment">//返回一个块元素，可以包含多个子元素。</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Hello, world!&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;h2&gt;现在是 &#123;this.state.date.toLocaleTimeString()&#125;.&lt;/</span>h2&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/上面定义了一个组件类Clock</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/类就是模板。</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/我们的目的是把组件类插入到HTML DOM的节点当中。</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/所以，要用ReactDOM.render()方法。 </span></span><br><span class="line"><span class="regexp">ReactDOM.render(</span></span><br><span class="line"><span class="regexp">  &lt;Clock /</span>&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这段代码的执行顺序，是这样的：</p>
+<ol>
+<li><p>当  被传递给 ReactDOM.render() 时，React 调用 Clock 组件的构造函数。 由于 Clock 需要显示当前时间，所以使用包含当前时间的对象来初始化 this.state 。 我们稍后会更新此状态。</p>
+</li>
+<li><p>React 然后调用 Clock 组件的 render() 方法。这是 React 了解屏幕上应该显示什么内容，然后 React 更新 DOM 以匹配 Clock 的渲染输出。</p>
+</li>
+<li><p>当 Clock 的输出插入到 DOM 中时，React 调用 componentDidMount() 生命周期钩子。 在其中，Clock 组件要求浏览器设置一个定时器，每秒钟调用一次 tick()。</p>
+</li>
+<li><p>浏览器每秒钟调用 tick() 方法。 在其中，Clock 组件通过调用 setState() 来调度UI更新。 通过调用 setState() ，React 知道状态已经改变，并再次调用 render() 方法来确定屏幕上应当显示什么。 这一次，render() 方法中的 this.state.date 将不同，所以渲染输出将包含更新的时间，并相应地更新 DOM。</p>
+</li>
+<li><p>一旦 Clock 组件被从 DOM 中移除，React 会调用 componentWillUnmount() 这个钩子函数，定时器也就会被清除。</p>
+</li>
+</ol>
+<p><a href="https://www.cnblogs.com/gnuzsx/p/11924960.html" target="_blank" rel="noopener">React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑 - 逻辑协会 - 博客园</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/08/12/Singleton-Patter/" data-toggle="tooltip" data-placement="top" title="Singleton Patter">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/08/11/React学习记录-2-props和state简析/" data-toggle="tooltip" data-placement="top" title="React学习记录-2-props和state简析">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/08/12/React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑/";
+    var disqus_url = "https://wenyongqd.github.io/2020/08/12/React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

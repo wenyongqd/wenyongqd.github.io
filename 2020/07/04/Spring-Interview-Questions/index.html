@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Spring Interview Questions - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/07/04/Spring-Interview-Questions/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                        
+                    </div>
+                    <h1>Spring Interview Questions</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-07-04
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="Q1-Differences-Between-Spring-and-Spring-Boot"><a href="#Q1-Differences-Between-Spring-and-Spring-Boot" class="headerlink" title="Q1 Differences Between Spring and Spring Boot"></a>Q1 Differences Between Spring and Spring Boot</h2><p><strong>Spring</strong>:<br>The Spring Framework is one of the most popular frameworks which helps application development in Java. It maintained a various way of object or beans relationship. It is actually very much useful for dependency injection (DI) or Inversion of Control (IOC), which wonderfully helped us to develop loosely coupled applications, which automatically helped proper unit testing of any Java application.<br>Aspect-Oriented Program (AOP) mainly used for any aspect like security or logging integration with any Java application, special features of it, and this feature can be called before or after a method call after a method return or exception arises in the application. Spring can be easily integrated with any ORM tool. Spring test for testing purpose and expression language are using for view presentation.</p>
+<p><strong>Spring Boot</strong>:<br>Spring Boot is a module of Spring Framework. Spring boot is actually based on all the default features of spring. Core Spring and MVC can able to handle entire require features of any Java application. As per complexity and configuration, spring boot can help us lot to reduce spring configuration related complexity. It is better to use if we want to develop a simple Spring-based application or RESTful services.</p>
+<p><img src="https://cdn.educba.com/academy/wp-content/uploads/2018/09/Spring-Vs-Spring-Boot.jpg" alt="image"></p>
+<blockquote>
+<p>Key Differences Between Spring vs Spring Boot</p>
+</blockquote>
+<ol>
+<li>Spring is mainly concentrated on its core features and MVC features where a developer needs to configure manually and define which feature needs to be used by the application as per requirement. Whereas Spring Boot is automatically loaded all the features of spring core and MVC automatically. Developer no need to define any specific configuration manually.</li>
+<li>Spring core has multiple modules which can be used for different purpose and resolving some common utilities as per java application requirements. Modules like Spring JDBC, MVC, AOP, ORM etc are very much useful for any aspect as per project requirements. All those utilities can be properly configured and utilized as per system or project requirements. Whereas Spring Boot can utilize all those requirements easily just define the application as @SpringBootConfiguration, that annotation enough to manage for loading entire spring configuration or all the modules features based on the jar files or dependency mentioned for that specific spring boot project.</li>
+<li>Transaction management is one of most critical job in any Spring application, developer has to define proper transactional management key for every hibernate session or DB connection (in case of Spring JDBC), spring specific transactional class needs to be defined in application-specific configuration file for using those in entire application which can manage the transaction properly. Whereas Spring Boot automatically managed entire transactional data without mentioning any specific configuration manually, the entire thing can be handled automatically. A transaction can be defined in every session or connection opening and closing. A transaction can be commit or rollback based on the entire task of that specific session completion status.</li>
+<li>Integration with any ORM tool is very critical for any kind of spring application, needs to define their data source properly in the configuration file manually by the developer, there have changes need to be done for any ORM tool exchange. In case of spring boot again it can be easy to auto-configured, no need of manual intervention, only define one database property file is enough for entire set up.</li>
+<li>Spring core or Spring MVC structure developer can easily maintain on loading only require feature based on project requirement. Whereas the case of spring boot, all the features defined in dependency or jar files will be automatically loaded, a developer has no control of not deploying any specific feature based on project requirement.</li>
+</ol>
+<blockquote>
+<p>Conclusion – Spring vs Spring Boot</p>
+</blockquote>
+<p>Spring vs Spring Boot both are a very much popular framework for Java/J2EE application at any time. Normally developer is going to choose which framework will be better to use based on the application requirement or functionality. Suppose application have some possibility of using verities Spring modules in any circumstances on future integration, in that case, Spring boot will be always a better option to use because just adding require dependency or jar file enough to use that specific module integration with your existing application. But if an application doesn’t have that kind of future prospect, or plan to only make a pure web application, in that case, Spring MVC will be a good approach, as a developer have a lot of control on the features enable or disable.</p>
+<h2 id="Q2-What-Spring-Boot-Starters-Are-Available-out-There"><a href="#Q2-What-Spring-Boot-Starters-Are-Available-out-There" class="headerlink" title="Q2 What Spring Boot Starters Are Available out There?"></a>Q2 What Spring Boot Starters Are Available out There?</h2><p>Dependency management is a crucial facet of any project. When a project is complex enough, managing dependencies may turn into a nightmare, as there will be too many artifacts involved<br>This is where Spring Boot starters come in handy. Each starter plays a role as a one-stop shop for all the Spring technologies we need. Other required dependencies are then transitively pulled in and managed in a consistent way.</p>
+<p>All starters are under the org.springframework.boot group, and their names start with spring-boot-starter-. <strong>This naming pattern makes it easy to find starters, especially when working with IDEs that support searching dependencies by name.</strong></p>
+<ul>
+<li><strong>spring-boot-starter</strong>: core starter, including auto-configuration support, logging, and YAML</li>
+<li><strong>spring-boot-starter-aop</strong>: starter for aspect-oriented programming with Spring AOP and AspectJ</li>
+<li><strong>spring-boot-starter-data-jpa</strong>: starter for using Spring Data JPA with Hibernate</li>
+<li><strong>spring-boot-starter-jdbc</strong>: starter for using JDBC with the HikariCP connection pool</li>
+<li><strong>spring-boot-starter-security</strong>: starter for using Spring Security</li>
+<li><strong>spring-boot-starter-test</strong>: starter for testing Spring Boot applications</li>
+<li><strong>spring-boot-starter-web</strong>: starter for building web, including RESTful, applications using Spring MVC</li>
+</ul>
+<h2 id="What-is-Spring-IOC-Container"><a href="#What-is-Spring-IOC-Container" class="headerlink" title="What is Spring IOC Container?"></a>What is Spring IOC Container?</h2><p><img src="https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2017/05/ioc-2.png" alt="image">At the core of the Spring Framework, lies the Spring container. The container creates the object, wires them together, configures them and manages their complete life cycle. The Spring container makes use of Dependency Injection to manage the components that make up an application. The container receives instructions for which objects to instantiate, configure, and assemble by reading the configuration metadata provided. This metadata can be provided either by XML, Java annotations or Java code.</p>
+<h2 id="Q3-What-do-you-mean-by-Dependency-Injection"><a href="#Q3-What-do-you-mean-by-Dependency-Injection" class="headerlink" title="Q3 What do you mean by Dependency Injection?"></a>Q3 What do you mean by Dependency Injection?</h2><p>In Dependency Injection, you do not have to create your objects but have to describe how they should be created. You don’t connect your components and services together in the code directly, but describe which services are needed by which components in the configuration file. The IoC container will wire them up together.</p>
+<h2 id="Q4-In-how-many-ways-can-Dependency-Injection-be-done"><a href="#Q4-In-how-many-ways-can-Dependency-Injection-be-done" class="headerlink" title="Q4 In how many ways can Dependency Injection be done?"></a>Q4 In how many ways can Dependency Injection be done?</h2><p>In general, dependency injection can be done in three ways, namely :</p>
+<ul>
+<li><strong>Constructor Injection</strong></li>
+<li><strong>Setter Injection</strong></li>
+<li>Interface Injection</li>
+</ul>
+<p>In Spring Framework, only constructor and setter injections are used.</p>
+<h2 id="Q5-How-many-types-of-IOC-containers-are-there-in-spring"><a href="#Q5-How-many-types-of-IOC-containers-are-there-in-spring" class="headerlink" title="Q5 How many types of IOC containers are there in spring?"></a>Q5 How many types of IOC containers are there in spring?</h2><ul>
+<li><strong>BeanFactory</strong>: BeanFactory is like a factory class that contains a collection of beans. It instantiates the bean whenever asked for by clients.</li>
+<li><strong>ApplicationContext</strong>: The ApplicationContext interface is built on top of the BeanFactory interface. It provides some extra functionality on top BeanFactory.</li>
+</ul>
+<h2 id="Q6-Differentiate-between-BeanFactory-and-ApplicationContext"><a href="#Q6-Differentiate-between-BeanFactory-and-ApplicationContext" class="headerlink" title="Q6 Differentiate between BeanFactory and ApplicationContext."></a>Q6 Differentiate between BeanFactory and ApplicationContext.</h2><p>BeanFactory vs ApplicationContext</p>
+<table>
+<thead>
+<tr>
+<th><strong>BeanFactory</strong></th>
+<th><strong>ApplicationContext</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>It is an interface defined in org.springframework.beans.factory.<strong>BeanFactory</strong></td>
+<td>It is an interface defined in org.springframework.context.<strong>ApplicationContext</strong></td>
+</tr>
+<tr>
+<td>It uses Lazy initialization</td>
+<td>It uses Eager/ Aggressive initialization</td>
+</tr>
+<tr>
+<td>It explicitly provides a resource object using the syntax</td>
+<td>It creates and manages resource objects on its own</td>
+</tr>
+<tr>
+<td>It doesn’t supports internationalization</td>
+<td>It supports internationalization</td>
+</tr>
+<tr>
+<td>It doesn’t supports annotation based dependency</td>
+<td>It supports annotation based dependency</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Q7-Explain-Spring-Beans"><a href="#Q7-Explain-Spring-Beans" class="headerlink" title="Q7 Explain Spring Beans?"></a>Q7 Explain Spring Beans?</h2><ul>
+<li>They are the objects that form the backbone of the user’s application.</li>
+<li>Beans are managed by the Spring IoC container.</li>
+<li>They are instantiated, configured, wired and managed by a Spring IoC container</li>
+<li>Beans are created with the configuration metadata that the users supply to the container.<br><img src="https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2017/05/bean.png" alt="image"></li>
+</ul>
+<h2 id="Q8-How-configuration-metadata-is-provided-to-the-Spring-container"><a href="#Q8-How-configuration-metadata-is-provided-to-the-Spring-container" class="headerlink" title="Q8 How configuration metadata is provided to the Spring container?"></a>Q8 How configuration metadata is provided to the Spring container?</h2><p>Configuration metadata can be provided to Spring container in following ways:</p>
+<ul>
+<li><p><strong>XML-Based configuration</strong>: In Spring Framework, the dependencies and the services needed by beans are specified in configuration files which are in XML format. These configuration files usually contain a lot of bean definitions and application specific configuration options. They generally start with a bean tag. For example:</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id="studentbean" class="org.edureka.firstSpring.StudentBean"&gt;</span><br><span class="line"> &lt;property name="name" value="Edureka"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Annotation-Based configuration</strong>: Instead of using XML to describe a bean wiring, you can configure the bean into the component class itself by using annotations on the relevant class, method, or field declaration. By default, annotation wiring is not turned on in the Spring container. So, you need to enable it in your Spring configuration file before using it. For example:</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans&gt;</span><br><span class="line">&lt;context:annotation-config/&gt;</span><br><span class="line">&lt;!-- bean definitions go here --&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Java-based configuration</strong>: The key features in Spring Framework’s new Java-configuration support are @Configuration annotated classes and @Bean annotated methods. </p>
+<blockquote>
+<ol>
+<li>@Bean annotation plays the same role as the <bean> element. </bean></li>
+<li>@Configuration classes allows to define inter-bean dependencies by simply calling other @Bean methods in the same class. </li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentConfig</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StudentBean <span class="title">myStudent</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> StudentBean(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Q9-What-are-Beans-in-Spring"><a href="#Q9-What-are-Beans-in-Spring" class="headerlink" title="Q9 What are Beans in Spring?"></a>Q9 What are Beans in Spring?</h2><p>When a class is annotated or decorated using the @Component, such a class is called a Bean in Spring. Beans are maintained by Application Context.</p>
+<h2 id="Q10-What-Is-Dependency-Injection"><a href="#Q10-What-Is-Dependency-Injection" class="headerlink" title="Q10 What Is Dependency Injection?"></a>Q10 What Is Dependency Injection?</h2><p>Dependency Injection, an aspect of Inversion of Control (IoC), is a general concept stating that you do not create your objects manually but instead describe how they should be created. An IoC container will instantiate required classes if needed.</p>
+<h2 id="Q11-What-Are-the-Benefits-of-Using-Spring？"><a href="#Q11-What-Are-the-Benefits-of-Using-Spring？" class="headerlink" title="Q11 What Are the Benefits of Using Spring？"></a>Q11 What Are the Benefits of Using Spring？</h2><p>Spring targets to make Jakarta EE development easier. Here are the advantages of using it:</p>
+<ul>
+<li><strong>Lightweight:</strong> there is a slight overhead of using the framework in development</li>
+<li><strong>Inversion of Control (IoC):</strong> Spring container takes care of wiring dependencies of various objects, instead of creating or looking for dependent objects</li>
+<li><strong>Aspect Oriented Programming (AOP):</strong> Spring supports AOP to separate business logic from system services</li>
+<li><strong>IoC container:</strong> it manages Spring Bean life cycle and project specific configurations</li>
+<li><strong>MVC framework:</strong> that is used to create web applications or RESTful web services, capable of returning XML/JSON responses</li>
+<li><strong>Transaction management:</strong> reduces the amount of boiler-plate code in JDBC operations, file uploading, etc., either by using Java annotations or by Spring Bean XML configuration file</li>
+<li><strong>Exception Handling:</strong> Spring provides a convenient API for translating technology-specific exceptions into unchecked exceptions</li>
+</ul>
+<h2 id="Q12-What-Spring-Sub-Projects-Do-You-Know-Describe-Them-Briefly"><a href="#Q12-What-Spring-Sub-Projects-Do-You-Know-Describe-Them-Briefly" class="headerlink" title="Q12 What Spring Sub-Projects Do You Know? Describe Them Briefly."></a>Q12 What Spring Sub-Projects Do You Know? Describe Them Briefly.</h2><p>— <strong>Core</strong> – a key module that provides fundamental parts of the framework, like IoC or DI<br>— <strong>JDBC</strong> – this module enables a JDBC-abstraction layer that removes the need to do JDBC coding for specific vendor databases<br>— <strong>ORM integration</strong> – provides integration layers for popular object-relational mapping APIs, such as JPA, JDO, and Hibernate<br>— <strong>Web</strong> – a web-oriented integration module, providing multipart file upload, Servlet listeners, and web-oriented application context functionalities<br>— <strong>MVC framework </strong>– a web module implementing the Model View Controller design pattern</p>
+<ul>
+<li><strong>AOP module</strong> – aspect-oriented programming implementation allowing the definition of clean method-interceptors and pointcuts</li>
+</ul>
+<h2 id="Q13-Inversion-of-Control？"><a href="#Q13-Inversion-of-Control？" class="headerlink" title="Q13 Inversion of Control？"></a>Q13 Inversion of Control？</h2><p>Inversion of Control (IoC) is a design principle， As the name suggests, it is used to invert different kinds of controls in object-oriented design to achieve loose coupling. This include control over the flow of an application, and control over the flow of an object creation or dependent object creation and binding. You don’t have to create an object yourself you can let the IOC container do that.</p>
+<p>Inversion of Control can be achieved through various mechanisms such as: Strategy design pattern, Service Locator pattern, Factory pattern, and Dependency Injection (DI).</p>
+<h2 id="Q14-How-Can-We-Inject-Beans-in-Spring"><a href="#Q14-How-Can-We-Inject-Beans-in-Spring" class="headerlink" title="Q14 How Can We Inject Beans in Spring?"></a>Q14 How Can We Inject Beans in Spring?</h2><p>A few different options exist:</p>
+<ul>
+<li>Setter Injection</li>
+<li>Constructor Injection</li>
+<li>Field Injection<br>The configuration can be done using XML files or annotations.</li>
+</ul>
+<h2 id="Q15-Which-Is-the-Best-Way-of-Injecting-Beans-and-Why"><a href="#Q15-Which-Is-the-Best-Way-of-Injecting-Beans-and-Why" class="headerlink" title="Q15 Which Is the Best Way of Injecting Beans and Why?"></a>Q15 Which Is the Best Way of Injecting Beans and Why?</h2><p>The recommended approach is to use constructor arguments for mandatory dependencies and setters for optional ones. Constructor injection allows injecting values to immutable fields and makes testing easier.</p>
+<h2 id="Q16-What-Is-the-Difference-Between-Beanfactory-and-Applicationcontext"><a href="#Q16-What-Is-the-Difference-Between-Beanfactory-and-Applicationcontext" class="headerlink" title="Q16 What Is the Difference Between Beanfactory and Applicationcontext?"></a>Q16 What Is the Difference Between Beanfactory and Applicationcontext?</h2><p>BeanFactory is an interface representing a container that provides and manages bean instances. The default implementation instantiates beans lazily when getBean() is called.</p>
+<p>ApplicationContext is an interface representing a container holding all information, metadata, and beans in the application. It also extends the BeanFactory interface but the default implementation instantiates beans eagerly when the application starts. This behavior can be overridden for individual beans.</p>
+<h2 id="Q17-What-Is-the-Default-Bean-Scope-in-Spring-Framework"><a href="#Q17-What-Is-the-Default-Bean-Scope-in-Spring-Framework" class="headerlink" title="Q17 What Is the Default Bean Scope in Spring Framework?"></a>Q17 What Is the Default Bean Scope in Spring Framework?</h2><p>By default, a Spring Bean is initialized as a singleton.</p>
+<h2 id="Q18-How-to-Define-the-Scope-of-a-Bean"><a href="#Q18-How-to-Define-the-Scope-of-a-Bean" class="headerlink" title="Q18 How to Define the Scope of a Bean?"></a>Q18 How to Define the Scope of a Bean?</h2><p>To set Spring Bean’s scope, we can use @Scope annotation or “scope” attribute in XML configuration files. There are five supported scopes:</p>
+<p>singleton<br>prototype<br>request<br>session<br>global-session</p>
+<h2 id="Q19-Are-Singleton-Beans-Thread-Safe"><a href="#Q19-Are-Singleton-Beans-Thread-Safe" class="headerlink" title="Q19 Are Singleton Beans Thread-Safe?"></a>Q19 Are Singleton Beans Thread-Safe?</h2><p>No, singleton beans are not thread-safe, as thread safety is about execution, whereas the singleton is a design pattern focusing on creation. Thread safety depends only on the bean implementation itself.</p>
+<h2 id="Q20-What-Is-Spring-Security"><a href="#Q20-What-Is-Spring-Security" class="headerlink" title="Q20 What Is Spring Security?"></a>Q20 What Is Spring Security?</h2><p>Spring Security is a separate module of the Spring framework that focuses on providing authentication and authorization methods in Java applications. It also takes care of most of the common security vulnerabilities such as CSRF attacks.</p>
+<p>To use Spring Security in web applications, you can get started with a simple annotation: @EnableWebSecurity.</p>
+<h2 id="Q22-What-Is-Spring-Boot"><a href="#Q22-What-Is-Spring-Boot" class="headerlink" title="Q22 What Is Spring Boot?"></a>Q22 What Is Spring Boot?</h2><p>Spring Boot is a project that provides a pre-configured set of frameworks to reduce boilerplate configuration so that you can have a Spring application up and running with the smallest amount of code.</p>
+<h2 id="Q23-Name-Some-of-the-Design-Patterns-Used-in-the-Spring-Framework"><a href="#Q23-Name-Some-of-the-Design-Patterns-Used-in-the-Spring-Framework" class="headerlink" title="Q23 Name Some of the Design Patterns Used in the Spring Framework?"></a>Q23 Name Some of the Design Patterns Used in the Spring Framework?</h2><p>Singleton Pattern: Singleton-scoped beans<br>Factory Pattern: Bean Factory classes<br>Prototype Pattern: Prototype-scoped beans<br>Adapter Pattern: Spring Web and Spring MVC<br>Proxy Pattern: Spring Aspect Oriented Programming support<br>Template Method Pattern: JdbcTemplate, HibernateTemplate, etc.<br>Front Controller: Spring MVC DispatcherServlet<br>Data Access Object: Spring DAO support<br>Model View Controller: Spring MVC</p>
+<h2 id="Q24-What-Is-Aspect-Oriented-Programming"><a href="#Q24-What-Is-Aspect-Oriented-Programming" class="headerlink" title="Q24 What Is Aspect-Oriented Programming?"></a>Q24 What Is Aspect-Oriented Programming?</h2><p>Aspects enable the modularization of cross-cutting concerns such as transaction management that span multiple types and objects by adding extra behavior to already existing code without modifying affected classes.</p>
+<h2 id="Q25-What-Are-Aspect-Advice-Pointcut-and-Joinpoint-in-Aop"><a href="#Q25-What-Are-Aspect-Advice-Pointcut-and-Joinpoint-in-Aop" class="headerlink" title="Q25 What Are Aspect, Advice, Pointcut, and Joinpoint in Aop?"></a>Q25 What Are Aspect, Advice, Pointcut, and Joinpoint in Aop?</h2><ul>
+<li><strong>Aspect:</strong> a class that implements cross-cutting concerns, such as transaction management</li>
+<li><strong>Advice:</strong> the methods that get executed when a specific JoinPoint with matching Pointcut is reached in the application</li>
+<li><strong>Pointcut:</strong> a set of regular expressions that are matched with JoinPoint to determine whether Advice needs to be executed or not</li>
+<li><strong>JoinPoint:</strong> a point during the execution of a program, such as the execution of a method or the handling of an exception</li>
+</ul>
+<h2 id="Q29-What-are-the-roles-of-an-IOC-Inversion-of-Control-Container"><a href="#Q29-What-are-the-roles-of-an-IOC-Inversion-of-Control-Container" class="headerlink" title="Q29 What are the roles of an IOC (Inversion of Control) Container?"></a>Q29 What are the roles of an IOC (Inversion of Control) Container?</h2><p>IOC Container does the following things-</p>
+<p><strong>(i)</strong> Find Beans</p>
+<p><strong>(ii)</strong> Identify their dependencies and wire the dependencies</p>
+<p><strong>(iii)</strong> Manage Lifecycle of the Bean (creation, processing, and destruction)</p>
+<h2 id="Q30-What-is-Application-Context"><a href="#Q30-What-is-Application-Context" class="headerlink" title="Q30 What is Application Context?"></a>Q30 What is Application Context?</h2><p>It is an advanced version of IOC Container. It provides all the functionalities of Bean Factory and also provides things like AOP, Internationalization capabilities, web application context (request, session, etc).</p>
+<h2 id="Q31-Differentiate-Component-Repository-and-Service-and-Controller"><a href="#Q31-Differentiate-Component-Repository-and-Service-and-Controller" class="headerlink" title="Q31 Differentiate @Component, @Repository and @Service and @Controller?"></a>Q31 Differentiate @Component, @Repository and @Service and @Controller?</h2><p>Typically a web application is developed in layers like the controller (which is the initial point of client communication), business (where the actual code or logic of the application is written) and DAO (where the database connections and interaction happens). In such an architecture web application, @Component can be used in any of the layers. Whereas, the @Controller is used in the controller/web layer. @Service is used in the business layer and @Repository is used in the DAO layer.</p>
+<h2 id="Q32-List-out-the-different-scopes-of-Bean"><a href="#Q32-List-out-the-different-scopes-of-Bean" class="headerlink" title="Q32 List out the different scopes of Bean."></a>Q32 List out the different scopes of Bean.</h2><p><strong>(i)</strong> Singleton: throughout the spring context only one instance is created.</p>
+<p><strong>(ii)</strong> Prototype: a new bean is created whenever requested.</p>
+<p><strong>(iii)</strong> Request: Every HTTP Request creates a bean.</p>
+<p><strong>(iv)</strong> Session: A bean for every HTTP Session.</p>
+<h2 id="Q33-What-Is-Spring-Webflux"><a href="#Q33-What-Is-Spring-Webflux" class="headerlink" title="Q33 What Is Spring Webflux?"></a>Q33 What Is Spring Webflux?</h2><p>Spring WebFlux is Spring’s reactive-stack web framework, and it’s an alternative to Spring MVC.</p>
+<p>In order to achieve this reactive model and be highly scalable, the entire stack is non-blocking.</p>
+<h2 id="What-Are-the-Benefits-of-Using-Spring"><a href="#What-Are-the-Benefits-of-Using-Spring" class="headerlink" title="What Are the Benefits of Using Spring?"></a>What Are the Benefits of Using Spring?</h2><p>Spring targets to make Jakarta EE development easier. Here are the advantages of using it:</p>
+<ul>
+<li><strong>Lightweight:</strong> there is a slight overhead of using the framework in development</li>
+<li><strong>Inversion of Control (IoC):</strong> Spring container takes care of wiring dependencies of various objects, instead of creating or looking for dependent objects</li>
+<li><strong>Aspect Oriented Programming (AOP):</strong> Spring supports AOP to separate business logic from system services</li>
+<li><strong>IoC container:</strong> it manages Spring Bean life cycle and project specific configurations</li>
+<li><strong>MVC framework:</strong> that is used to create web applications or RESTful web services, capable of returning XML/JSON responses</li>
+<li><strong>Transaction management:</strong> reduces the amount of boiler-plate code in JDBC operations, file uploading, etc., either by using Java annotations or by Spring Bean XML configuration file</li>
+<li><strong>Exception Handling:</strong> Spring provides a convenient API for translating technology-specific exceptions into unchecked exceptions</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/07/05/Binary-Tree-Traversal/" data-toggle="tooltip" data-placement="top" title="Binary Tree Traversal">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/07/04/LeetCode-445/" data-toggle="tooltip" data-placement="top" title="LeetCode 445">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Spring" title="Spring">Spring</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/07/04/Spring-Interview-Questions/";
+    var disqus_url = "https://wenyongqd.github.io/2020/07/04/Spring-Interview-Questions/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

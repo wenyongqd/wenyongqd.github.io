@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          An Introduction to ThreadLocal in Java - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/2020/08/17/An-Introduction-to-ThreadLocal-in-Java/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>An Introduction to ThreadLocal in Java</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Wenyong He on
+                        2020-08-17
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- TOC -->
+<ul>
+<li><a href="#an-introduction-to-threadlocal-in-java">An Introduction to ThreadLocal in Java</a><ul>
+<li><a href="#2-threadlocalapi"><strong>2. <em>ThreadLocal</em>API</strong></a></li>
+<li><a href="#3-storing-user-data-in-a-map"><strong>3. Storing User Data in a Map</strong></a></li>
+<li><a href="#5-threadlocal-s-and-thread-pools"><strong>5. <em>ThreadLocal</em> s and Thread Pools</strong></a><ul>
+<li><a href="#51-extending-the--threadpoolexecutor">5.1. Extending the <em>ThreadPoolExecutor</em></a></li>
+</ul>
+</li>
+<li><a href="#6-conclusion"><strong>6. Conclusion</strong></a><ul>
+<li><a href="#i-just-announced-the-new-learn-springcourse-focused-on-the-fundamentals-of-spring-5-and-spring-boot-2"><strong>I just announced the new <em>Learn Spring</em>course, focused on the fundamentals of Spring 5 and Spring Boot 2:</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="An-Introduction-to-ThreadLocal-in-Java"><a href="#An-Introduction-to-ThreadLocal-in-Java" class="headerlink" title="An Introduction to ThreadLocal in Java"></a>An Introduction to ThreadLocal in Java</h1><p><img src="/2020/08/17/An-Introduction-to-ThreadLocal-in-Java/social-Java-On-Baeldung-2.jpg" alt><br>In this article, we will be looking at the <em><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadLocal.html" target="_blank" rel="noopener">ThreadLocal</a></em> construct from the <em>java.lang</em> package. This gives us the ability to store data individually for the current thread – and simply wrap it within a special type of object.</p>
+<h2 id="2-ThreadLocalAPI"><a href="#2-ThreadLocalAPI" class="headerlink" title="2. ThreadLocalAPI"></a><strong>2. <em>ThreadLocal</em>API</strong></h2><p>The <em>TheadLocal</em> construct allows us to store data that will be <strong>accessible only</strong> by <strong>a specific thread</strong>.</p>
+<p>Let’s say that we want to have an <em>Integer</em> value that will be bundled with the specific thread:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal<span class="tag">&lt;<span class="name">Integer</span>&gt;</span> threadLocalValue = new ThreadLocal<span class="tag">&lt;&gt;</span>();</span><br></pre></td></tr></table></figure>
+<p>Next, when we want to use this value from a thread we only need to call a <em>get()</em> or <em>set()</em> method. Simply put, we can think that <em>ThreadLocal</em> stores data inside of a map – with the thread as the key.</p>
+<p>Due to that fact, when we call a <em>get()</em> method on the <em>threadLocalValue</em>, we will get an <em>Integer</em> value for the requesting thread:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">threadLocalValue.<span class="builtin-name">set</span>(1);</span><br><span class="line">Integer result = threadLocalValue.<span class="builtin-name">get</span>();</span><br></pre></td></tr></table></figure>
+<p>We can construct an instance of the <em>ThreadLocal</em> by using the <em>withInitial()</em> static method and passing a supplier to it:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal&lt;Integer&gt; threadLocal = ThreadLocal.withInitial(<span class="function"><span class="params">()</span> -&gt;</span> <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>To remove the value from the <em>ThreadLocal</em>, we can call the <em>remove()</em> method:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">threadLocal.<span class="builtin-name">remove</span>();</span><br></pre></td></tr></table></figure>
+<p>To see how to use the <em>ThreadLocal</em> properly, firstly, we will look at an example that does not use a <em>ThreadLocal</em>, then we will rewrite our example to leverage that construct.</p>
+<h2 id="3-Storing-User-Data-in-a-Map"><a href="#3-Storing-User-Data-in-a-Map" class="headerlink" title="3. Storing User Data in a Map"></a><strong>3. Storing User Data in a Map</strong></h2><p>Let’s consider a program that needs to store the user-specific <em>Context</em> data per given user id:</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> &#123;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> userName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Context</span><span class="params">(<span class="keyword">String</span> userName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We want to have one thread per user id. We’ll create a <em>SharedMapWithUserContext</em> class that implements the <em>Runnable</em> interface. The implementation in the <em>run()</em> method calls some database through the <em>UserRepository</em> class that returns a <em>Context</em> object for a given <em>userId</em>.</p>
+<p>Next, we store that context in the <em>ConcurentHashMap</em> keyed by <em>userId</em>:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SharedMapWithUserContext</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">Runnable</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Integer, Context&gt; userContextPerUserId</span><br><span class="line">      = <span class="keyword">new</span> <span class="type">ConcurrentHashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> Integer userId;</span><br><span class="line">    <span class="keyword">private</span> UserRepository userRepository = <span class="keyword">new</span> <span class="type">UserRepository</span>();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> void run() &#123;</span><br><span class="line">        <span class="keyword">String</span> userName = userRepository.getUserNameForUserId(userId);</span><br><span class="line">        userContextPerUserId.put(userId, <span class="keyword">new</span> <span class="type">Context</span>(userName));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// standard constructor</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We can easily test our code by creating and starting two threads for two different <em>userIds</em> and asserting that we have two entries in the <em>userContextPerUserId</em> map:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SharedMapWithUserContext firstUser = <span class="keyword">new</span> <span class="type">SharedMapWithUserContext</span>(<span class="number">1</span>);</span><br><span class="line">SharedMapWithUserContext secondUser = <span class="keyword">new</span> <span class="type">SharedMapWithUserContext</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="type">Thread</span>(firstUser).start();</span><br><span class="line"><span class="keyword">new</span> <span class="type">Thread</span>(secondUser).start();</span><br><span class="line"></span><br><span class="line">assertEquals(SharedMapWithUserContext.userContextPerUserId.size(), <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>We can rewrite our example to store the user <em>Context</em> instance using a <em>ThreadLocal</em>. Each thread will have its own <em>ThreadLocal</em> instance.</p>
+<p>When using <em>ThreadLocal</em>, we need to be very careful because every <em>ThreadLocal</em> instance is associated with a particular thread. In our example, we have a dedicated thread for each particular <em>userId</em>, and this thread is created by us, so we have full control over it.</p>
+<p>The <em>run()</em> method will fetch the user context and store it into the <em>ThreadLocal</em> variable using the <em>set()</em> method:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalWithUserContext</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">Runnable</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Context&gt; userContext</span><br><span class="line">      = <span class="keyword">new</span> <span class="type">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> Integer userId;</span><br><span class="line">    <span class="keyword">private</span> UserRepository userRepository = <span class="keyword">new</span> <span class="type">UserRepository</span>();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> void run() &#123;</span><br><span class="line">        <span class="keyword">String</span> userName = userRepository.getUserNameForUserId(userId);</span><br><span class="line">        userContext.<span class="keyword">set</span>(<span class="keyword">new</span> <span class="type">Context</span>(userName));</span><br><span class="line">        System.out.println(<span class="string">"thread context for given userId: "</span></span><br><span class="line">          + userId + <span class="string">" is: "</span> + userContext.<span class="keyword">get</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// standard constructor</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We can test it by starting two threads that will execute the action for a given <em>userId</em>:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocalWithUserContext firstUser</span><br><span class="line">  = <span class="keyword">new</span> <span class="type">ThreadLocalWithUserContext</span>(<span class="number">1</span>);</span><br><span class="line">ThreadLocalWithUserContext secondUser</span><br><span class="line">  = <span class="keyword">new</span> <span class="type">ThreadLocalWithUserContext</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="type">Thread</span>(firstUser).start();</span><br><span class="line"><span class="keyword">new</span> <span class="type">Thread</span>(secondUser).start();</span><br></pre></td></tr></table></figure>
+<p>After running this code we’ll see on the standard output that <em>ThreadLocal</em> was set per given thread:</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">thread context for given userId: 1 is: Context&#123;userNameSecret='18a78f8e<span class="string">-24</span>d2<span class="string">-4</span>abf<span class="string">-91</span>d6<span class="string">-79</span>eaa198123f'&#125;</span><br><span class="line">thread context for given userId: 2 is: Context&#123;userNameSecret='e19f6a0a<span class="string">-253</span>e<span class="string">-423</span>e<span class="string">-8</span>b2b-bca1f471ae5c'&#125;</span><br></pre></td></tr></table></figure>
+<p>We can see that each of the users has its own <em>Context</em>.</p>
+<h2 id="5-ThreadLocal-s-and-Thread-Pools"><a href="#5-ThreadLocal-s-and-Thread-Pools" class="headerlink" title="5. ThreadLocal s and Thread Pools"></a><strong>5. <em>ThreadLocal</em> s and Thread Pools</strong></h2><p><em>ThreadLocal</em> provides an easy-to-use API to confine some values to each thread. This is a reasonable way of achieving <a href="/java-thread-safety">thread-safety</a> in Java. However, <strong>we should be extra careful when we’re using <em>ThreadLocal</em></strong> <strong>s and <a href="/thread-pool-java-and-guava">thread pools</a>together.</strong></p>
+<p>In order to better understand the possible caveat, let’s consider the following scenario:</p>
+<ol>
+<li>First, the application borrows a thread from the pool.</li>
+<li>Then it stores some thread-confined values into the current thread’s <em>ThreadLocal</em>.</li>
+<li>Once the current execution finishes, the application returns the borrowed thread to the pool.</li>
+<li>After a while, the application borrows the same thread to process another request.</li>
+<li><strong>Since the application didn’t perform the necessary cleanups last time, it may re-use the same <em>ThreadLocal</em> data for the new request.</strong><br>This may cause surprising consequences in highly concurrent applications.</li>
+</ol>
+<p>One way to solve this problem is to manually remove each <em>ThreadLocal</em> once we’re done using it. Because this approach needs rigorous code reviews, it can be error-prone.</p>
+<h3 id="5-1-Extending-the-ThreadPoolExecutor"><a href="#5-1-Extending-the-ThreadPoolExecutor" class="headerlink" title="5.1. Extending the ThreadPoolExecutor"></a>5.1. Extending the <em>ThreadPoolExecutor</em></h3><p>As it turns out, <strong>it’s possible to extend the <em>ThreadPoolExecutor</em> class and provide a custom hook implementation for <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html#beforeExecute-java.lang.Thread-java.lang.Runnable-" target="_blank" rel="noopener">beforeExecute()</a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html#afterExecute-java.lang.Runnable-java.lang.Throwable-" target="_blank" rel="noopener">afterExecute()</a>methods.</strong> The thread pool will call the <em>beforeExecute()</em> method before running anything using the borrowed thread. On the other hand, it will call the <em>afterExecute()</em> method after executing our logic.</p>
+<p>Therefore, we can extend the <em>ThreadPoolExecutor</em> class and remove the <em>ThreadLocal</em> data in the <em>afterExecute()</em> method:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalAwareThreadPool</span> <span class="keyword">extends</span> <span class="title">ThreadPoolExecutor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> void afterExecute(<span class="type">Runnable</span> r, <span class="type">Throwable</span> t) &#123;</span><br><span class="line">        <span class="comment">// Call remove on each ThreadLocal</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If we submit our requests to this implementation of <em><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ExecutorService.html" target="_blank" rel="noopener">ExecutorService</a></em>, then we can be sure that using <em>ThreadLocal</em> and thread pools won’t introduce safety hazards for our application.</p>
+<h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6. Conclusion"></a><strong>6. Conclusion</strong></h2><p>In this quick article, we were looking at the <em>ThreadLocal</em> construct. We implemented the logic that uses <em>ConcurrentHashMap</em> that was shared between threads to store the context associated with a particular <em>userId.</em> Next, we rewrote our example to leverage <em>ThreadLocal</em> to store data that is associated with a particular <em>userId</em> and with a particular thread.</p>
+<p>The implementation of all these examples and code snippets can be found <a href="https://github.com/eugenp/tutorials/tree/master/core-java-modules/core-java-concurrency-advanced" target="_blank" rel="noopener">over on GitHub</a>.</p>
+<p>Java bottom</p>
+<h3 id="I-just-announced-the-new-Learn-Springcourse-focused-on-the-fundamentals-of-Spring-5-and-Spring-Boot-2"><a href="#I-just-announced-the-new-Learn-Springcourse-focused-on-the-fundamentals-of-Spring-5-and-Spring-Boot-2" class="headerlink" title="I just announced the new Learn Springcourse, focused on the fundamentals of Spring 5 and Spring Boot 2:"></a><strong>I just announced the new <em>Learn Spring</em>course, focused on the fundamentals of Spring 5 and Spring Boot 2:</strong></h3><p><strong><a href="/ls-course-end">&gt;&gt; CHECK OUT THE COURSE</a></strong></p>
+<p><a href="https://www.baeldung.com/java-threadlocal" target="_blank" rel="noopener">An Introduction to ThreadLocal in Java</a></p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/08/16/Handling-Transactions-in-the-Microservice-world/" data-toggle="tooltip" data-placement="top" title="Handling Transactions in the Microservice world">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://wenyongqd.github.io/2020/08/17/An-Introduction-to-ThreadLocal-in-Java/";
+    var disqus_url = "https://wenyongqd.github.io/2020/08/17/An-Introduction-to-ThreadLocal-in-Java/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

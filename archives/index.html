@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Archives - Wenyong的博客 | Wenyong&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wenyongqd.github.io/archives/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wenyong&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Archives</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">Hey, this is Archives.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 归档列表 -->
+
+            
+
+             <!-- 归档列表 -->
+
+
+
+            
+            <div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2020">
+                    <span class="tag-text">2020</span>
+                </span>
+                <ul>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-17
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/17/An-Introduction-to-ThreadLocal-in-Java/" style="color: #0085a1">
+                        <span>
+                            An Introduction to ThreadLocal in Java
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-16
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/16/Handling-Transactions-in-the-Microservice-world/" style="color: #0085a1">
+                        <span>
+                            Handling Transactions in the Microservice world
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-16
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/16/AWS-EC2-上安装-Kubernetes-的示例/" style="color: #0085a1">
+                        <span>
+                            AWS EC2 上安装 Kubernetes 的示例
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-16
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/16/Handling-Distributed-Transactions-in-the-Microservice-world/" style="color: #0085a1">
+                        <span>
+                            Handling Distributed Transactions in the Microservice world
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-13
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/13/Adapter-Pattern/" style="color: #0085a1">
+                        <span>
+                            Adapter Pattern
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-12
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/12/Singleton-Patter/" style="color: #0085a1">
+                        <span>
+                            Singleton Patter
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-12
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/12/React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑/" style="color: #0085a1">
+                        <span>
+                            React学习记录-3-箭头函数、定时器、动态对象、代码执行逻辑
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-11
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/11/React学习记录-2-props和state简析/" style="color: #0085a1">
+                        <span>
+                            React学习记录-2-props和state简析
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-11
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/11/React学习记录-1-组件生命周期/" style="color: #0085a1">
+                        <span>
+                            React学习记录-1-组件生命周期
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-10
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/10/Java-Optional使用的最佳实践/" style="color: #0085a1">
+                        <span>
+                            Java Optional使用的最佳实践
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-08
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/08/Volatile-VS-Synchronized-in-JAVA/" style="color: #0085a1">
+                        <span>
+                            Volatile VS. Synchronized in JAVA
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-06
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/06/Spring-Transaction-Management/" style="color: #0085a1">
+                        <span>
+                            Spring Transaction Management
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/04/Font-End-Interview-Questions/" style="color: #0085a1">
+                        <span>
+                            Font End Interview Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/04/Factory-Pattern/" style="color: #0085a1">
+                        <span>
+                            Factory Pattern
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    08-02
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/08/02/What-is-Deadlock-and-how-to-avoid-it/" style="color: #0085a1">
+                        <span>
+                            What is Deadlock and how to avoid it?
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/31/LeetCode-Binary-Search-Summary/" style="color: #0085a1">
+                        <span>
+                            LeetCode Binary Search Summary
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/31/Java-ReadWriteLock-and-ReentrantReadWriteLock-Example/" style="color: #0085a1">
+                        <span>
+                            Java ReadWriteLock and ReentrantReadWriteLock Example
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/30/Inner-Join-vs-Outer-Join/" style="color: #0085a1">
+                        <span>
+                            Inner Join vs. Outer Join
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/30/What-is-cache-penetration-cache-breakdown-and-cache-avalanche/" style="color: #0085a1">
+                        <span>
+                            What is cache penetration, cache breakdown and cache avalanche?
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-22
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/22/Tree-Questions/" style="color: #0085a1">
+                        <span>
+                            Tree Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/19/Seckill-Project/" style="color: #0085a1">
+                        <span>
+                            Seckill Project
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-17
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/17/Linked-List-Questions/" style="color: #0085a1">
+                        <span>
+                            Linked List Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-07
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/07/Arrays-and-Strings/" style="color: #0085a1">
+                        <span>
+                            Arrays and Strings
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-07
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/07/A-General-Approach-to-Backtracking-Questions-in-Java/" style="color: #0085a1">
+                        <span>
+                            A General Approach to Backtracking Questions in Java
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-06
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/06/SQL-Tutorial/" style="color: #0085a1">
+                        <span>
+                            SQL Tutorial
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-06
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/06/Collections-of-Binatry-Tree/" style="color: #0085a1">
+                        <span>
+                            Collections of Binatry Tree
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-05
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/05/Binary-Tree-Traversal/" style="color: #0085a1">
+                        <span>
+                            Binary Tree Traversal
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/04/Spring-Interview-Questions/" style="color: #0085a1">
+                        <span>
+                            Spring Interview Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/04/LeetCode-445/" style="color: #0085a1">
+                        <span>
+                            LeetCode 445
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-03
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/03/Message-Queue/" style="color: #0085a1">
+                        <span>
+                            Message Queue
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-02
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/07/02/OOD-Design-Amazon/" style="color: #0085a1">
+                        <span>
+                            OOD-Design Amazon
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    06-08
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/06/08/Secure-Our-App-Spring-Security-JWT/" style="color: #0085a1">
+                        <span>
+                            Secure Our App: Spring Security + JWT
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    05-23
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/05/23/Set-Up-Project-With-Using-MySQL/" style="color: #0085a1">
+                        <span>
+                            Set Up Project With Using MySQL
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    05-22
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/05/22/Spring-MVC-Interview-Questions/" style="color: #0085a1">
+                        <span>
+                            Spring MVC Interview Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    05-20
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/05/20/Personal-Project-Management-Backend-2/" style="color: #0085a1">
+                        <span>
+                            Personal-Project-Management-Backend(2) 
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    05-20
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/05/20/Spring-Date-JPA/" style="color: #0085a1">
+                        <span>
+                            Spring Date JPA
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/30/Daily-English-1/" style="color: #0085a1">
+                        <span>
+                            Daily English 1
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-26
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/26/Redux-Tutorial/" style="color: #0085a1">
+                        <span>
+                            Redux Tutorial
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-25
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/25/恕我直言你可能真的不会Java/" style="color: #0085a1">
+                        <span>
+                            恕我直言你可能真的不会Java
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-24
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/24/Modern-JavaScript/" style="color: #0085a1">
+                        <span>
+                            Modern JavaScript
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-22
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/22/LeetCode-79-word-search/" style="color: #0085a1">
+                        <span>
+                            LeetCode 79. word search
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-20
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/20/LeetCode-22/" style="color: #0085a1">
+                        <span>
+                            LeetCode 22
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-20
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/20/LeetCode-784/" style="color: #0085a1">
+                        <span>
+                            LeetCode 784
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/19/LeetCode-47/" style="color: #0085a1">
+                        <span>
+                            LeetCode 47
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/19/LeetCode-216/" style="color: #0085a1">
+                        <span>
+                            LeetCode 216
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/19/LeetCode-40/" style="color: #0085a1">
+                        <span>
+                            LeetCode 40
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/19/LeetCode-77/" style="color: #0085a1">
+                        <span>
+                            LeetCode 77
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/19/LeetCode-39/" style="color: #0085a1">
+                        <span>
+                            LeetCode 39
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-17
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/17/LeetCode-46/" style="color: #0085a1">
+                        <span>
+                            LeetCode 46
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-16
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/16/LeetCode-78/" style="color: #0085a1">
+                        <span>
+                            LeetCode 78
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-15
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/15/LeetCode-886/" style="color: #0085a1">
+                        <span>
+                            LeetCode 886
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-15
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/15/Bipartite-Gtaph/" style="color: #0085a1">
+                        <span>
+                            Bipartite Gtaph
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-14
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/14/Java-Interview-Questions/" style="color: #0085a1">
+                        <span>
+                            Java Interview Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-13
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/13/LeetCode-399/" style="color: #0085a1">
+                        <span>
+                            LeetCode 399
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-13
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/13/LeetCode-802/" style="color: #0085a1">
+                        <span>
+                            LeetCode 802
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-11
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/11/LeetCode-210/" style="color: #0085a1">
+                        <span>
+                            LeetCode 210
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-10
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/10/LeetCode-207/" style="color: #0085a1">
+                        <span>
+                            LeetCode 207
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-09
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/09/LeetCode-733/" style="color: #0085a1">
+                        <span>
+                            LeetCode 733
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-09
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/09/LeetCode-695/" style="color: #0085a1">
+                        <span>
+                            LeetCode 695
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-08
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/08/LeetCode-547/" style="color: #0085a1">
+                        <span>
+                            LeetCode 547
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-08
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/08/LeetCode-133/" style="color: #0085a1">
+                        <span>
+                            LeetCode 133
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-08
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/08/Graph-s-DFS-BFS/" style="color: #0085a1">
+                        <span>
+                            Graph's DFS && BFS
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-06
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/06/LeetCode-981/" style="color: #0085a1">
+                        <span>
+                            LeetCode 981
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-06
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/06/LeetCode-786/" style="color: #0085a1">
+                        <span>
+                            LeetCode 786
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-06
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/06/LeetCode-668/" style="color: #0085a1">
+                        <span>
+                            LeetCode 668
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-05
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/05/LeetCode-1011/" style="color: #0085a1">
+                        <span>
+                            LeetCode 1011
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-05
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/05/LeetCode-852/" style="color: #0085a1">
+                        <span>
+                            LeetCode 852
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-05
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/05/LeetCode-162/" style="color: #0085a1">
+                        <span>
+                            LeetCode 162
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-05
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/05/LeetCode-154/" style="color: #0085a1">
+                        <span>
+                            LeetCode 154
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-05
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/05/LeetCode-153/" style="color: #0085a1">
+                        <span>
+                            LeetCode 153
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/04/LeetCode-81/" style="color: #0085a1">
+                        <span>
+                            LeetCode 81
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/04/LeetCode-719/" style="color: #0085a1">
+                        <span>
+                            LeetCode 719
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-04
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/04/LeetCode-704/" style="color: #0085a1">
+                        <span>
+                            LeetCode 704
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-03
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/03/LeetCode-34/" style="color: #0085a1">
+                        <span>
+                            LeetCode 34
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-03
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/03/LeetCode-378/" style="color: #0085a1">
+                        <span>
+                            LeetCode 378
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-03
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/03/LeetCode-875/" style="color: #0085a1">
+                        <span>
+                            LeetCode 875
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-02
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/02/LeetCode-74/" style="color: #0085a1">
+                        <span>
+                            LeetCode 74
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-02
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/02/LeetCode-69/" style="color: #0085a1">
+                        <span>
+                            LeetCode 69
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-02
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/02/LeetCode-33/" style="color: #0085a1">
+                        <span>
+                            LeetCode 33
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-02
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/02/LeetCode-35/" style="color: #0085a1">
+                        <span>
+                            LeetCode 35
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-01
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/04/01/LeetCode-84/" style="color: #0085a1">
+                        <span>
+                            LeetCode 84
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/31/LearningGitBranching/" style="color: #0085a1">
+                        <span>
+                            LearningGitBranching
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/31/LeetCode-62/" style="color: #0085a1">
+                        <span>
+                            LeetCode 62
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/31/LeetCode-303/" style="color: #0085a1">
+                        <span>
+                            LeetCode 303
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/31/LeetCode-70/" style="color: #0085a1">
+                        <span>
+                            LeetCode 70
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/31/LeetCode-136/" style="color: #0085a1">
+                        <span>
+                            LeetCode 136
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-31
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/31/LeetCode-15/" style="color: #0085a1">
+                        <span>
+                            LeetCode 15
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/30/LeetCode-11/" style="color: #0085a1">
+                        <span>
+                            LeetCode 11
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/30/LeetCode-125/" style="color: #0085a1">
+                        <span>
+                            LeetCode 125
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/30/LeetCode-122/" style="color: #0085a1">
+                        <span>
+                            LeetCode 122
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-30
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/30/LeetCode-121/" style="color: #0085a1">
+                        <span>
+                            LeetCode 121
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-29
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/29/Personal-Project-Management-Frontend-1/" style="color: #0085a1">
+                        <span>
+                            Personal Project Management-Frontend(1)
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-29
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/29/LeetCode-5/" style="color: #0085a1">
+                        <span>
+                            LeetCode 5
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-28
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/28/LeetCode-53/" style="color: #0085a1">
+                        <span>
+                            LeetCode 53
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-27
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/27/LeetCode-20/" style="color: #0085a1">
+                        <span>
+                            LeetCode 20
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-22
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/22/CrudRepository/" style="color: #0085a1">
+                        <span>
+                            CrudRepository
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-21
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/21/Personal-Project-Management-Backend(1)/" style="color: #0085a1">
+                        <span>
+                            Personal Project Management-Backend(1)
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/19/Servlet/" style="color: #0085a1">
+                        <span>
+                            Servlet
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-19
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/19/Spring-MVC/" style="color: #0085a1">
+                        <span>
+                            Spring MVC
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-17
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/17/LeetCode-146/" style="color: #0085a1">
+                        <span>
+                            LeetCode 146
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-15
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/15/LeetCode-42/" style="color: #0085a1">
+                        <span>
+                            LeetCode 42
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-14
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/14/Refactoring-in-Action/" style="color: #0085a1">
+                        <span>
+                            Refactoring in Action
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-13
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/13/OOP-Java-Interview-Questions/" style="color: #0085a1">
+                        <span>
+                            OOP Java Interview Questions
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    03-12
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2020/03/12/my-first-blog/" style="color: #0085a1">
+                        <span>
+                            LeetCode 841
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+
+                </ul>
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2015">
+                    <span class="tag-text">2015</span>
+                </span>
+                <ul>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    07-09
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2015/07/09/js-module-7day/" style="color: #0085a1">
+                        <span>
+                            Example Post using Keynote Layout
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    04-14
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2015/04/14/unix-linux-note/" style="color: #0085a1">
+                        <span>
+                            Example Post With Default Header Image
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+
+                </ul>
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2014">
+                    <span class="tag-text">2014</span>
+                </span>
+                <ul>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    09-22
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2014/09/22/js-version/" style="color: #0085a1">
+                        <span>
+                            Example Post
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    01-29
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2014/01/29/hello-2015/" style="color: #0085a1">
+                        <span>
+                            Welcome to Hux Blog
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+
+                </ul>
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-calendar-times-o listing-seperator" id="2013">
+                    <span class="tag-text">2013</span>
+                </span>
+                <ul>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <li >
+                    05-25
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <a href="/2013/05/25/js-module-loader/" style="color: #0085a1">
+                        <span>
+                            Example Post with Code Highlight
+                        </span>
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </li>
+                
+
+                </ul>
+            </div>
+            
+
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wenyongqd">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/wenyong-he-408621107">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wenyong&#39;s Blog 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wenyongqd.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'undefined';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://wenyongqd.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
